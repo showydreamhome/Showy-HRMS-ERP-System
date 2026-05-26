@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -25,6 +25,29 @@ color:white;
 overflow-x:hidden;
 }
 
+/* MOBILE TOPBAR */
+
+.mobileTopbar{
+display:none;
+}
+
+/* OVERLAY */
+
+.overlay{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+z-index:1400;
+}
+
+.overlay.show{
+display:block;
+}
+
 /* SIDEBAR */
 
 .sidebar{
@@ -36,6 +59,8 @@ padding:25px 18px;
 overflow-y:auto;
 left:0;
 top:0;
+z-index:1500;
+transition:0.3s;
 }
 
 .logo{
@@ -78,10 +103,8 @@ cursor:pointer;
 
 .menu-btn:hover{
 background:#f5a000;
-transform:translateX(3px);
+color:black;
 }
-
-/* ACTIVE */
 
 .active{
 background:#f5a000 !important;
@@ -109,8 +132,6 @@ transition:0.3s;
 .dropdown-btn:hover{
 background:#22489e;
 }
-
-/* DROPDOWN CONTENT */
 
 .dropdown-content{
 display:none;
@@ -162,15 +183,13 @@ background:#cc0000;
 margin-left:250px;
 padding:40px;
 width:calc(100% - 250px);
-overflow-x:hidden;
 }
 
 /* TITLE */
 
 .title{
-font-size:55px;
+font-size:50px;
 margin-bottom:30px;
-line-height:1.2;
 }
 
 /* CARD */
@@ -204,7 +223,6 @@ flex-wrap:wrap;
 
 .left{
 flex:1;
-min-width:200px;
 }
 
 .left h3{
@@ -235,10 +253,9 @@ cursor:pointer;
 font-weight:bold;
 font-size:15px;
 transition:0.3s;
-min-width:100px;
 }
 
-/* OPEN BUTTON */
+/* BUTTONS */
 
 .openBtn{
 background:#0f2c6b;
@@ -248,8 +265,6 @@ color:white;
 .openBtn:hover{
 background:#173f99;
 }
-
-/* COPY BUTTON */
 
 .copyBtn{
 background:#f5a000;
@@ -270,25 +285,40 @@ color:#666;
 }
 
 /* =========================================
-MOBILE RESPONSIVE
+MOBILE
 ========================================= */
 
-@media(max-width:900px){
+@media screen and (max-width:768px){
 
-body{
-overflow-x:hidden;
+.mobileTopbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+background:#071b46;
+position:sticky;
+top:0;
+z-index:1600;
 }
 
-/* SIDEBAR */
+.mobileLogo{
+font-size:28px;
+font-weight:bold;
+}
+
+.menuIcon{
+font-size:34px;
+cursor:pointer;
+}
 
 .sidebar{
-position:relative;
-width:100%;
-height:auto;
-padding:20px;
+left:-100%;
+width:280px;
 }
 
-/* MAIN */
+.sidebar.show{
+left:0;
+}
 
 .main{
 margin-left:0;
@@ -296,14 +326,9 @@ width:100%;
 padding:20px;
 }
 
-/* TITLE */
-
 .title{
-font-size:36px;
-margin-bottom:20px;
+font-size:34px;
 }
-
-/* CARD */
 
 .card{
 padding:20px;
@@ -311,18 +336,13 @@ border-radius:18px;
 }
 
 .card h2{
-font-size:26px;
+font-size:24px;
 }
-
-/* LINK BOX */
 
 .linkBox{
 flex-direction:column;
 align-items:flex-start;
-padding:18px;
 }
-
-/* TEXT */
 
 .left{
 width:100%;
@@ -332,17 +352,10 @@ width:100%;
 font-size:22px;
 }
 
-.left p{
-font-size:14px;
-}
-
-/* BUTTONS */
-
 .actions{
 width:100%;
 display:flex;
 flex-direction:column;
-gap:10px;
 }
 
 .actions button{
@@ -351,16 +364,12 @@ padding:14px;
 font-size:16px;
 }
 
-/* MENU */
-
 .menu-btn,
 .dropdown-btn,
 .logout-btn{
 font-size:16px;
 padding:16px;
 }
-
-/* LOGO */
 
 .logo img{
 width:75px;
@@ -372,34 +381,29 @@ font-size:24px;
 
 }
 
-/* VERY SMALL DEVICES */
-
-@media(max-width:480px){
-
-.title{
-font-size:30px;
-}
-
-.card h2{
-font-size:22px;
-}
-
-.left h3{
-font-size:20px;
-}
-
-.actions button{
-font-size:15px;
-padding:13px;
-}
-
-}
-
 </style>
 
 </head>
 
 <body>
+
+<!-- MOBILE TOPBAR -->
+
+<div class="mobileTopbar">
+
+<div class="mobileLogo">
+SHOWY
+</div>
+
+<div class="menuIcon" onclick="openSidebar()">
+☰
+</div>
+
+</div>
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
 <!-- SIDEBAR -->
 
@@ -415,8 +419,6 @@ padding:13px;
 
 <div class="menu">
 
-<!-- DASHBOARD -->
-
 <a href="dashboard.html" class="menu-btn">
 Dashboard
 </a>
@@ -424,8 +426,6 @@ Dashboard
 <a href="employee-movement.html" class="menu-btn">
 In & Out
 </a>
-
-<!-- HR -->
 
 <button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
 HR ▼
@@ -451,8 +451,6 @@ Salary
 
 </div>
 
-<!-- SITE OPERATIONS -->
-
 <button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
 Site Operations ▼
 </button>
@@ -473,8 +471,6 @@ Daily Tasks
 
 </div>
 
-<!-- INVENTORY -->
-
 <button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
 Inventory ▼
 </button>
@@ -491,13 +487,9 @@ Material Request
 
 </div>
 
-<!-- COMPANY -->
-
 <a href="company-hub.html" class="menu-btn active">
 Company Hub
 </a>
-
-<!-- LOGOUT -->
 
 <a href="index.html" class="logout-btn">
 Logout
@@ -535,9 +527,29 @@ Loading Company Links...
 
 <script>
 
-/* ======================================
-DROPDOWN
-====================================== */
+/* MOBILE SIDEBAR */
+
+function openSidebar(){
+
+document.querySelector(".sidebar")
+.classList.add("show");
+
+document.getElementById("overlay")
+.classList.add("show");
+
+}
+
+function closeSidebar(){
+
+document.querySelector(".sidebar")
+.classList.remove("show");
+
+document.getElementById("overlay")
+.classList.remove("show");
+
+}
+
+/* DROPDOWN */
 
 function toggleDropdown(id){
 
@@ -556,21 +568,7 @@ menu.style.display = "block";
 
 }
 
-/* ======================================
-LOGOUT
-====================================== */
-
-function logout(){
-
-localStorage.removeItem("employee");
-
-window.location.href = "index.html";
-
-}
-
-/* ======================================
-LOAD COMPANY HUB
-====================================== */
+/* LOAD HUB */
 
 async function loadHub(){
 
@@ -590,14 +588,12 @@ document.getElementById("hubContainer");
 
 container.innerHTML = "";
 
-if(!data || data.length === 0){
+if(data.length === 0){
 
 container.innerHTML = `
 
 <div class="loader">
-
 No Company Links Found
-
 </div>
 
 `;
@@ -628,7 +624,7 @@ ${item.Category || "Company Link"}
 
 <button
 class="openBtn"
-onclick="openLink('${item.URL}')">
+onclick="window.open('${item.URL}','_blank')">
 
 Open
 
@@ -658,9 +654,7 @@ console.log(error);
 document.getElementById("hubContainer").innerHTML = `
 
 <div class="loader">
-
 Failed to Load Company Hub
-
 </div>
 
 `;
@@ -669,27 +663,7 @@ Failed to Load Company Hub
 
 }
 
-/* ======================================
-OPEN LINK
-====================================== */
-
-function openLink(link){
-
-if(!link || link === ""){
-
-alert("Invalid Link");
-
-return;
-
-}
-
-window.open(link,'_blank');
-
-}
-
-/* ======================================
-COPY LINK
-====================================== */
+/* COPY LINK */
 
 function copyLink(link){
 
@@ -699,9 +673,7 @@ alert("Link Copied");
 
 }
 
-/* ======================================
-START
-====================================== */
+/* START */
 
 loadHub();
 

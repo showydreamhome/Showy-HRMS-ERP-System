@@ -25,6 +25,12 @@ color:white;
 overflow-x:hidden;
 }
 
+/* MOBILE TOPBAR */
+
+.mobileTopbar{
+display:none;
+}
+
 /* SIDEBAR */
 
 .sidebar{
@@ -36,6 +42,8 @@ padding:25px 18px;
 overflow-y:auto;
 left:0;
 top:0;
+transition:0.3s;
+z-index:1500;
 }
 
 .logo{
@@ -272,23 +280,62 @@ font-size:18px;
 font-weight:bold;
 }
 
+/* OVERLAY */
+
+.overlay{
+display:none;
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+top:0;
+left:0;
+z-index:1400;
+}
+
+.overlay.show{
+display:block;
+}
+
 /* =========================================
 MOBILE RESPONSIVE
 ========================================= */
 
 @media screen and (max-width:768px){
 
-body{
-overflow-x:hidden;
+/* MOBILE TOPBAR */
+
+.mobileTopbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px 20px;
+background:#071b46;
+position:sticky;
+top:0;
+z-index:1600;
+}
+
+.mobileLogo{
+font-size:28px;
+font-weight:bold;
+color:white;
+}
+
+.menuIcon{
+font-size:32px;
+cursor:pointer;
 }
 
 /* SIDEBAR */
 
 .sidebar{
-position:relative;
-width:100%;
-height:auto;
-padding:20px;
+left:-100%;
+width:280px;
+}
+
+.sidebar.show{
+left:0;
 }
 
 /* MAIN */
@@ -307,14 +354,13 @@ align-items:flex-start;
 }
 
 .top h1{
-font-size:34px;
+font-size:32px;
 }
 
-/* NAV BUTTONS */
+/* NAV */
 
 .nav{
 width:100%;
-display:flex;
 }
 
 .nav button{
@@ -336,26 +382,26 @@ border-radius:18px;
 }
 
 .box h1{
-font-size:50px;
+font-size:45px;
 }
 
 /* CALENDAR */
 
 .calendar{
-display:grid;
-grid-template-columns:repeat(7,minmax(70px,1fr));
-gap:8px;
 overflow-x:auto;
+display:grid;
+grid-template-columns:repeat(7,80px);
+gap:8px;
 padding-bottom:10px;
 }
 
 .weekday{
-font-size:16px;
-min-width:70px;
+font-size:14px;
+min-width:80px;
 }
 
 .day{
-min-width:70px;
+min-width:80px;
 min-height:90px;
 padding:8px;
 border-radius:14px;
@@ -366,7 +412,7 @@ font-size:16px;
 }
 
 .task{
-font-size:12px;
+font-size:11px;
 margin-top:20px;
 }
 
@@ -391,7 +437,7 @@ font-size:24px;
 
 }
 
-/* VERY SMALL PHONES */
+/* VERY SMALL MOBILE */
 
 @media screen and (max-width:480px){
 
@@ -400,24 +446,7 @@ font-size:28px;
 }
 
 .box h1{
-font-size:42px;
-}
-
-.calendar{
-grid-template-columns:repeat(7,minmax(60px,1fr));
-}
-
-.weekday{
-font-size:14px;
-}
-
-.day{
-min-width:60px;
-min-height:80px;
-}
-
-.task{
-font-size:11px;
+font-size:38px;
 }
 
 }
@@ -427,6 +456,24 @@ font-size:11px;
 </head>
 
 <body>
+
+<!-- MOBILE TOPBAR -->
+
+<div class="mobileTopbar">
+
+<div class="mobileLogo">
+SHOWY
+</div>
+
+<div class="menuIcon" onclick="openSidebar()">
+☰
+</div>
+
+</div>
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
 <!-- SIDEBAR -->
 
@@ -576,6 +623,28 @@ Next ➡
 
 <script>
 
+/* MOBILE SIDEBAR */
+
+function openSidebar(){
+
+document.querySelector(".sidebar")
+.classList.add("show");
+
+document.getElementById("overlay")
+.classList.add("show");
+
+}
+
+function closeSidebar(){
+
+document.querySelector(".sidebar")
+.classList.remove("show");
+
+document.getElementById("overlay")
+.classList.remove("show");
+
+}
+
 /* DROPDOWN MENU */
 
 function toggleMenu(id){
@@ -679,6 +748,7 @@ attendance.push({
 day:i,
 status:status
 });
+
 }
 
 generateCalendar();
@@ -746,6 +816,7 @@ new Date(year,month+1,0).getDate();
 for(let i=0; i<firstDay; i++){
 
 cal.innerHTML += `<div></div>`;
+
 }
 
 let present = 0;
@@ -767,44 +838,40 @@ if(rec){
 if(rec.status === "P"){
 
 cls += " present";
-
 text = "Present";
-
 present++;
+
 }
 
 if(rec.status === "A"){
 
 cls += " absent";
-
 text = "Absent";
-
 absent++;
+
 }
 
 if(rec.status === "H"){
 
 cls += " holiday";
-
 text = "Holiday";
-
 holiday++;
+
 }
 
 if(rec.status === "WO"){
 
 cls += " weekoff";
-
 text = "Week Off";
+
 }
 
 if(rec.status === "P-1/2"){
 
 cls += " halfday";
-
 text = "Half Day";
-
 halfday++;
+
 }
 
 }
@@ -824,6 +891,7 @@ ${text}
 </div>
 
 `;
+
 }
 
 document.getElementById("presentCount").innerHTML =
@@ -850,12 +918,14 @@ if(month > 11){
 
 month = 0;
 year++;
+
 }
 
 if(month < 0){
 
 month = 11;
 year--;
+
 }
 
 loadAttendance();
