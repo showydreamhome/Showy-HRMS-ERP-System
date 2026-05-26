@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Admin Announcements
+</title>
+
+<link
+rel="icon"
+href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#041638;
+color:white;
+display:flex;
+overflow:auto;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:240px;
+height:100vh;
+background:#071b46;
+padding:20px 15px;
+overflow-y:auto;
+}
+
+.logo{
+text-align:center;
+margin-bottom:25px;
+}
+
+.logo img{
+width:80px;
+margin-bottom:10px;
+}
+
+.logo h2{
+font-size:32px;
+}
+
+/* MENU */
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.menu-btn{
+display:block;
+width:100%;
+padding:14px;
+border-radius:12px;
+background:#17357a;
+color:white;
+text-decoration:none;
+font-size:15px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+color:black;
+transform:translateX(3px);
+}
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+.logout-btn{
+background:red !important;
+color:white !important;
+margin-top:15px;
+}
+
+.logout-btn:hover{
+background:#cc0000 !important;
+}
+
+/* MAIN */
+
+.main{
+margin-left:240px;
+padding:25px;
+width:calc(100% - 240px);
+min-height:100vh;
+}
+
+/* CARD */
+
+.card{
+background:white;
+color:black;
+padding:25px;
+border-radius:24px;
+}
+
+.card h1{
+font-size:42px;
+margin-bottom:25px;
+}
+
+/* FORM */
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-bottom:15px;
+}
+
+.inputBox{
+margin-bottom:15px;
+}
+
+.inputBox label{
+display:block;
+margin-bottom:7px;
+font-weight:bold;
+font-size:15px;
+}
+
+.inputBox input,
+.inputBox select,
+.inputBox textarea{
+width:100%;
+padding:13px;
+border-radius:12px;
+border:1px solid #ccc;
+font-size:15px;
+outline:none;
+}
+
+.inputBox input:focus,
+.inputBox select:focus,
+.inputBox textarea:focus{
+border-color:#f5a000;
+}
+
+textarea{
+height:130px;
+resize:none;
+}
+
+/* BUTTON */
+
+.submitBtn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#f5a000;
+color:black;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+margin-top:5px;
+}
+
+.submitBtn:hover{
+opacity:0.9;
+transform:translateY(-2px);
+}
+
+/* TABLE */
+
+.tableContainer{
+margin-top:25px;
+overflow:auto;
+border-radius:16px;
+border:1px solid #ddd;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+min-width:1100px;
+}
+
+table th{
+background:#071b46;
+color:white;
+padding:14px;
+font-size:14px;
+text-align:left;
+position:sticky;
+top:0;
+}
+
+table td{
+padding:14px;
+border-bottom:1px solid #ddd;
+font-size:14px;
+vertical-align:top;
+}
+
+/* PRIORITY */
+
+.high{
+color:red;
+font-weight:bold;
+}
+
+.medium{
+color:#f5a000;
+font-weight:bold;
+}
+
+.low{
+color:green;
+font-weight:bold;
+}
+
+/* ACTION BUTTONS */
+
+.action-buttons{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.delete-btn{
+background:red;
+color:white;
+border:none;
+padding:9px 14px;
+border-radius:9px;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+}
+
+.delete-btn:hover{
+background:#cc0000;
+}
+
+.view-btn{
+background:#005eff;
+color:white;
+padding:9px 14px;
+border-radius:9px;
+text-decoration:none;
+font-weight:bold;
+display:inline-block;
+transition:0.3s;
+}
+
+.view-btn:hover{
+background:#0040c7;
+}
+
+/* MESSAGE PREVIEW */
+
+.message-box{
+max-width:300px;
+line-height:1.5;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+width:100%;
+padding:15px;
+}
+
+.row{
+grid-template-columns:1fr;
+}
+
+.card h1{
+font-size:32px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>
+SHOWY
+</h2>
+
+</div>
+
+<div class="menu">
+
+<a href="admin-dashboard.html"
+class="menu-btn">
+
+Dashboard
+
+</a>
+
+<a href="admin-employees.html"
+class="menu-btn">
+
+Employees
+
+</a>
+
+<a href="admin-attendance.html"
+class="menu-btn">
+
+Attendance
+
+</a>
+
+<a href="admin-task-assign.html"
+class="menu-btn">
+
+Tasks
+
+</a>
+
+<a href="admin-announcements.html"
+class="menu-btn active">
+
+Announcements
+
+</a>
+
+<a href="admin-vehicle-site-keys.html"
+class="menu-btn">
+
+Vehicle & Keys
+
+</a>
+
+<a href="admin-materials.html"
+class="menu-btn">
+
+Material Requests
+
+</a>
+
+<a href="admin-inventory.html"
+class="menu-btn">
+
+Inventory
+
+</a>
+
+<a href="admin-reports.html"
+class="menu-btn">
+
+Reports
+
+</a>
+
+<a href="index.html"
+class="menu-btn logout-btn">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="card">
+
+<h1>
+📢 Admin Announcements
+</h1>
+
+<!-- FORM -->
+
+<div class="row">
+
+<div class="inputBox">
+
+<label>
+Announcement Title
+</label>
+
+<input
+type="text"
+id="title"
+placeholder="Enter Title">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Department
+</label>
+
+<select id="department">
+
+<option value="All">
+All
+</option>
+
+<option value="Civil">
+Civil
+</option>
+
+<option value="Electrical">
+Electrical
+</option>
+
+<option value="Accounts">
+Accounts
+</option>
+
+<option value="Marketing">
+Marketing
+</option>
+
+<option value="Execution">
+Execution
+</option>
+
+<option value="Sales">
+Sales
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="inputBox">
+
+<label>
+Priority
+</label>
+
+<select id="priority">
+
+<option value="High">
+🔴 High
+</option>
+
+<option value="Medium">
+🟡 Medium
+</option>
+
+<option value="Low">
+🟢 Low
+</option>
+
+</select>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Attachment URL
+</label>
+
+<input
+type="text"
+id="attachment"
+placeholder="Paste File / Image URL">
+
+</div>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Message
+</label>
+
+<textarea
+id="message"
+placeholder="Enter Announcement Message"></textarea>
+
+</div>
+
+<button
+class="submitBtn"
+onclick="postAnnouncement()">
+
+Post Announcement
+
+</button>
+
+<!-- TABLE -->
+
+<div class="tableContainer">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Title</th>
+<th>Department</th>
+<th>Priority</th>
+<th>Date</th>
+<th>Message</th>
+<th>Attachment</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="announcementTable">
+
+<tr>
+
+<td colspan="8">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ======================================
+   URLS
+====================================== */
+
+const SHEET_URL =
+"https://opensheet.vercel.app/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU";
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+
+/* ======================================
+   GLOBAL
+====================================== */
+
+let allAnnouncements = [];
+
+/* ======================================
+   LOAD ANNOUNCEMENTS
+====================================== */
+
+async function loadAnnouncements(){
+
+try{
+
+const response =
+await fetch(`${SHEET_URL}/Announcements`);
+
+const data =
+await response.json();
+
+allAnnouncements =
+data.reverse();
+
+renderAnnouncements();
+
+}
+catch(error){
+
+console.log(error);
+
+document.getElementById(
+"announcementTable"
+).innerHTML = `
+
+<tr>
+
+<td colspan="8">
+Failed to Load Data
+</td>
+
+</tr>
+
+`;
+
+}
+
+}
+
+/* ======================================
+   RENDER TABLE
+====================================== */
+
+function renderAnnouncements(){
+
+const table =
+document.getElementById("announcementTable");
+
+table.innerHTML = "";
+
+if(allAnnouncements.length === 0){
+
+table.innerHTML = `
+
+<tr>
+
+<td colspan="8">
+
+No Announcements Found
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+allAnnouncements.forEach(item=>{
+
+let priorityClass = "low";
+
+if(item.Priority === "High"){
+priorityClass = "high";
+}
+
+if(item.Priority === "Medium"){
+priorityClass = "medium";
+}
+
+table.innerHTML += `
+
+<tr>
+
+<td>
+${item.ID || "-"}
+</td>
+
+<td>
+${item.Title || "-"}
+</td>
+
+<td>
+${item.Department || "-"}
+</td>
+
+<td class="${priorityClass}">
+${item.Priority || "-"}
+</td>
+
+<td>
+${item.Date || "-"}
+</td>
+
+<td>
+
+<div class="message-box">
+
+${item.Message || "-"}
+
+</div>
+
+</td>
+
+<td>
+
+${
+item.Attachment
+
+?
+
+`<a
+href="${item.Attachment}"
+target="_blank"
+class="view-btn">
+
+View
+
+</a>`
+
+:
+
+"-"
+
+}
+
+</td>
+
+<td>
+
+<div class="action-buttons">
+
+<button
+class="delete-btn"
+onclick="deleteAnnouncement('${item.ID}')">
+
+Delete
+
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* ======================================
+   POST ANNOUNCEMENT
+====================================== */
+
+async function postAnnouncement(){
+
+const title =
+document.getElementById("title")
+.value.trim();
+
+const message =
+document.getElementById("message")
+.value.trim();
+
+const department =
+document.getElementById("department")
+.value;
+
+const priority =
+document.getElementById("priority")
+.value;
+
+const attachment =
+document.getElementById("attachment")
+.value.trim();
+
+/* VALIDATION */
+
+if(!title || !message){
+
+alert("Please Fill All Fields");
+return;
+
+}
+
+/* DATA */
+
+const data = {
+
+type:"announcement",
+
+id:"ANN" + Date.now(),
+
+title:title,
+
+message:message,
+
+department:department,
+
+priority:priority,
+
+date:new Date().toLocaleDateString(),
+
+attachment:attachment
+
+};
+
+try{
+
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify(data)
+
+});
+
+alert("✅ Announcement Posted");
+
+/* RESET */
+
+document.getElementById("title").value = "";
+document.getElementById("message").value = "";
+document.getElementById("attachment").value = "";
+document.getElementById("department").value = "All";
+document.getElementById("priority").value = "High";
+
+/* RELOAD */
+
+loadAnnouncements();
+
+}
+catch(error){
+
+console.log(error);
+
+alert("❌ Failed to Post");
+
+}
+
+}
+
+/* ======================================
+   DELETE ANNOUNCEMENT
+====================================== */
+
+async function deleteAnnouncement(id){
+
+if(!confirm("Delete Announcement?")){
+return;
+}
+
+try{
+
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+type:"deleteAnnouncement",
+id:id
+
+})
+
+});
+
+alert("✅ Deleted");
+
+loadAnnouncements();
+
+}
+catch(error){
+
+console.log(error);
+
+alert("❌ Delete Failed");
+
+}
+
+}
+
+/* ======================================
+   START
+====================================== */
+
+loadAnnouncements();
+
+</script>
+
+</body>
+
+</html>

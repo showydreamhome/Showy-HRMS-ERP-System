@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Admin Employees
+</title>
+
+<link
+rel="icon"
+href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+display:flex;
+color:white;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:260px;
+height:100vh;
+background:#071b46;
+padding:25px 18px;
+position:fixed;
+left:0;
+top:0;
+overflow-y:auto;
+}
+
+/* LOGO */
+
+.logo{
+text-align:center;
+margin-bottom:35px;
+}
+
+.logo img{
+width:90px;
+margin-bottom:10px;
+}
+
+.logo h2{
+font-size:32px;
+}
+
+/* MENU */
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.menu button{
+padding:15px;
+border:none;
+border-radius:14px;
+background:#17357a;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+text-align:left;
+}
+
+.menu button:hover{
+background:#f5a000;
+color:black;
+transform:translateX(3px);
+}
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+.logoutBtn{
+background:red !important;
+color:white !important;
+margin-top:20px;
+}
+
+.logoutBtn:hover{
+background:#cc0000 !important;
+}
+
+/* MAIN */
+
+.main{
+margin-left:260px;
+padding:35px;
+width:100%;
+}
+
+/* TOP */
+
+.topBar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.topBar h1{
+font-size:48px;
+}
+
+/* SEARCH */
+
+.searchBar{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+margin-bottom:25px;
+}
+
+.searchBar input,
+.searchBar select{
+padding:14px;
+border:none;
+border-radius:12px;
+font-size:15px;
+outline:none;
+min-width:220px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+color:black;
+padding:25px;
+border-radius:24px;
+overflow-x:auto;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+table th{
+background:#071b46;
+color:white;
+padding:16px;
+text-align:left;
+font-size:15px;
+}
+
+table td{
+padding:16px;
+border-bottom:1px solid #ddd;
+font-size:15px;
+}
+
+/* STATUS */
+
+.activeStatus{
+color:green;
+font-weight:bold;
+}
+
+.inactiveStatus{
+color:red;
+font-weight:bold;
+}
+
+/* BUTTONS */
+
+.editBtn{
+background:#071b46;
+color:white;
+border:none;
+padding:10px 14px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+margin-right:8px;
+}
+
+.deleteBtn{
+background:red;
+color:white;
+border:none;
+padding:10px 14px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* ADD BUTTON */
+
+.addEmployeeBtn{
+background:#f5a000;
+color:black;
+border:none;
+padding:14px 20px;
+border-radius:14px;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.topBar h1{
+font-size:34px;
+}
+
+.searchBar{
+flex-direction:column;
+}
+
+.searchBar input,
+.searchBar select{
+width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>
+SHOWY
+</h2>
+
+</div>
+
+<div class="menu">
+
+<button onclick="window.location.href='admin-dashboard.html'">
+Dashboard
+</button>
+
+<button
+class="active">
+Employees
+</button>
+
+<button onclick="window.location.href='admin-attendance.html'">
+Attendance
+</button>
+
+<button onclick="window.location.href='admin-task-assign.html'">
+Tasks
+</button>
+
+<button onclick="window.location.href='admin-announcements.html'">
+Announcements
+</button>
+
+<button onclick="window.location.href='admin-vehicle-site-keys.html'">
+Vehicle & Keys
+</button>
+
+<button onclick="window.location.href='admin-materials.html'">
+Material Requests
+</button>
+
+<button onclick="window.location.href='admin-inventory.html'">
+Inventory
+</button>
+
+<button onclick="window.location.href='admin-reports.html'">
+Reports
+</button>
+
+<button
+class="logoutBtn"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="topBar">
+
+<h1>
+Employee Management
+</h1>
+
+<button
+class="addEmployeeBtn"
+onclick="addEmployee()">
+
++ Add Employee
+
+</button>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchBar">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search Employee"
+onkeyup="filterEmployees()">
+
+<select
+id="departmentFilter"
+onchange="filterEmployees()">
+
+<option value="">
+All Departments
+</option>
+
+<option value="HR">
+HR
+</option>
+
+<option value="Operations">
+Operations
+</option>
+
+<option value="Marketing">
+Marketing
+</option>
+
+<option value="Accounts">
+Accounts
+</option>
+
+</select>
+
+<select
+id="roleFilter"
+onchange="filterEmployees()">
+
+<option value="">
+All Roles
+</option>
+
+<option value="Admin">
+Admin
+</option>
+
+<option value="Employee">
+Employee
+</option>
+
+</select>
+
+</div>
+
+<!-- CARD -->
+
+<div class="card">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Department</th>
+<th>Role</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="employeeTable">
+
+<tr>
+
+<td colspan="7">
+Loading...
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================================
+   AUTH CHECK
+========================================= */
+
+const employee =
+JSON.parse(
+localStorage.getItem("employee")
+);
+
+if(!employee){
+
+window.location.href =
+"index.html";
+
+}
+
+const role =
+(employee.role || "")
+.toLowerCase();
+
+if(
+role !== "admin" &&
+role !== "super admin"
+){
+
+alert("Access Denied");
+
+window.location.href =
+"dashboard.html";
+
+}
+
+/* =========================================
+   SHEET URL
+========================================= */
+
+const SHEET_URL =
+
+"https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Employee_Data";
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+let employeeData = [];
+
+/* =========================================
+   LOAD EMPLOYEES
+========================================= */
+
+async function loadEmployees(){
+
+const response =
+await fetch(SHEET_URL);
+
+employeeData =
+await response.json();
+
+renderEmployees(employeeData);
+
+}
+
+/* =========================================
+   RENDER EMPLOYEES
+========================================= */
+
+function renderEmployees(data){
+
+const table =
+document.getElementById(
+"employeeTable"
+);
+
+if(data.length === 0){
+
+table.innerHTML = `
+
+<tr>
+<td colspan="7">
+No Employees Found
+</td>
+</tr>
+
+`;
+
+return;
+
+}
+
+table.innerHTML = "";
+
+data.forEach(emp=>{
+
+const statusClass =
+
+(emp.Status || "Active")
+.toLowerCase() === "active"
+
+? "activeStatus"
+
+: "inactiveStatus";
+
+table.innerHTML += `
+
+<tr>
+
+<td>
+${emp.ID || "-"}
+</td>
+
+<td>
+${emp.Name || "-"}
+</td>
+
+<td>
+${emp.Email || "-"}
+</td>
+
+<td>
+${emp.Department || "-"}
+</td>
+
+<td>
+${emp.Role || "Employee"}
+</td>
+
+<td class="${statusClass}">
+${emp.Status || "Active"}
+</td>
+
+<td>
+
+<button
+class="editBtn"
+onclick="editEmployee('${emp.ID}')">
+
+Edit
+
+</button>
+
+<button
+class="deleteBtn"
+onclick="deleteEmployee('${emp.ID}')">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* =========================================
+   FILTER
+========================================= */
+
+function filterEmployees(){
+
+const search =
+document
+.getElementById("searchInput")
+.value
+.toLowerCase();
+
+const department =
+document
+.getElementById("departmentFilter")
+.value;
+
+const role =
+document
+.getElementById("roleFilter")
+.value;
+
+const filtered =
+employeeData.filter(emp=>{
+
+const nameMatch =
+
+(emp.Name || "")
+.toLowerCase()
+.includes(search);
+
+const deptMatch =
+
+department === "" ||
+
+emp.Department === department;
+
+const roleMatch =
+
+role === "" ||
+
+emp.Role === role;
+
+return (
+nameMatch &&
+deptMatch &&
+roleMatch
+);
+
+});
+
+renderEmployees(filtered);
+
+}
+
+/* =========================================
+   ADD EMPLOYEE
+========================================= */
+
+function addEmployee(){
+
+alert(
+"Next Step:\nConnect Add Employee Form"
+);
+
+}
+
+/* =========================================
+   EDIT EMPLOYEE
+========================================= */
+
+function editEmployee(id){
+
+alert(
+"Edit Employee ID : " + id
+);
+
+}
+
+/* =========================================
+   DELETE EMPLOYEE
+========================================= */
+
+function deleteEmployee(id){
+
+const confirmDelete =
+confirm(
+"Delete Employee?"
+);
+
+if(!confirmDelete) return;
+
+alert(
+"Connect Delete App Script for Employee ID : " + id
+);
+
+}
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+function logout(){
+
+localStorage.clear();
+
+window.location.href =
+"index.html";
+
+}
+
+/* =========================================
+   START
+========================================= */
+
+loadEmployees();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Employee Announcements</title>
+
+<link rel="icon" href="assets/logo.png">
+
+<style>
+
+/* ======================================
+   GLOBAL
+====================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#041638;
+color:white;
+display:flex;
+overflow:hidden;
+}
+
+/* ======================================
+   SIDEBAR
+====================================== */
+
+.sidebar{
+
+position:fixed;
+left:0;
+top:0;
+width:250px;
+height:100vh;
+background:#071b46;
+padding:20px 15px;
+overflow-y:auto;
+
+display:flex;
+flex-direction:column;
+
+}
+
+.logo{
+text-align:center;
+margin-bottom:20px;
+}
+
+.logo img{
+width:80px;
+margin-bottom:8px;
+}
+
+.logo h2{
+font-size:22px;
+}
+
+/* ======================================
+   MENU BUTTON
+====================================== */
+
+.menu-btn{
+
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:10px;
+
+background:#14357d;
+color:white;
+
+text-decoration:none;
+
+border-radius:14px;
+
+font-size:15px;
+font-weight:bold;
+
+transition:0.3s;
+
+}
+
+.menu-btn:hover{
+background:#2950ad;
+}
+
+.menu-btn.active{
+background:#f5a000;
+color:black;
+}
+
+/* ======================================
+   DROPDOWN BUTTON
+====================================== */
+
+.dropdown-btn{
+
+width:100%;
+padding:15px;
+
+border:none;
+outline:none;
+
+cursor:pointer;
+
+text-align:left;
+
+border-radius:14px;
+
+background:#14357d;
+color:white;
+
+font-size:15px;
+font-weight:bold;
+
+margin-bottom:10px;
+
+transition:0.3s;
+
+}
+
+.dropdown-btn:hover{
+background:#2950ad;
+}
+
+/* ======================================
+   DROPDOWN CONTENT
+====================================== */
+
+.dropdown-content{
+
+display:none;
+padding-left:12px;
+margin-bottom:10px;
+
+}
+
+.dropdown-content.show{
+display:block;
+}
+
+.dropdown-content a{
+
+display:block;
+
+padding:12px;
+margin-bottom:8px;
+
+background:#1b377f;
+
+border-radius:12px;
+
+color:white;
+text-decoration:none;
+
+font-size:14px;
+font-weight:bold;
+
+transition:0.3s;
+
+}
+
+.dropdown-content a:hover{
+
+background:#f5a000;
+color:black;
+
+}
+
+/* ======================================
+   LOGOUT
+====================================== */
+
+.logout-btn{
+
+display:block;
+width:100%;
+
+padding:15px;
+
+border-radius:14px;
+
+background:red;
+color:white;
+
+text-decoration:none;
+
+font-size:15px;
+font-weight:bold;
+
+margin-top:auto;
+
+text-align:center;
+
+transition:0.3s;
+
+}
+
+.logout-btn:hover{
+background:#c40000;
+}
+
+/* ======================================
+   MAIN
+====================================== */
+
+.main{
+
+margin-left:250px;
+
+padding:25px;
+
+width:calc(100% - 250px);
+
+height:100vh;
+
+overflow-y:auto;
+
+}
+
+/* ======================================
+   TITLE
+====================================== */
+
+.page-title{
+
+font-size:34px;
+margin-bottom:25px;
+
+}
+
+/* ======================================
+   FILTER BAR
+====================================== */
+
+.filterBar{
+
+display:grid;
+grid-template-columns:2fr 1fr;
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.filterBar input,
+.filterBar select{
+
+padding:15px;
+
+border:none;
+outline:none;
+
+border-radius:14px;
+
+font-size:15px;
+
+}
+
+/* ======================================
+   ANNOUNCEMENT CARD
+====================================== */
+
+.announcementCard{
+
+background:white;
+color:black;
+
+padding:25px;
+
+border-radius:24px;
+
+margin-bottom:20px;
+
+position:relative;
+
+}
+
+.announcementHeader{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:15px;
+
+}
+
+.announcementTitle{
+
+font-size:24px;
+font-weight:bold;
+
+}
+
+.priority{
+
+padding:8px 18px;
+
+border-radius:20px;
+
+font-size:13px;
+font-weight:bold;
+
+color:white;
+
+}
+
+/* PRIORITY COLORS */
+
+.high{
+background:red;
+}
+
+.medium{
+background:#f5a000;
+color:black;
+}
+
+.low{
+background:green;
+}
+
+/* MESSAGE */
+
+.announcementMessage{
+
+font-size:17px;
+line-height:1.6;
+
+margin-bottom:14px;
+
+}
+
+/* ATTACHMENT */
+
+.attachmentBtn{
+
+display:inline-block;
+
+margin-top:10px;
+
+padding:12px 16px;
+
+background:#005eff;
+color:white;
+
+text-decoration:none;
+
+border-radius:12px;
+
+font-size:14px;
+font-weight:bold;
+
+transition:0.3s;
+
+}
+
+.attachmentBtn:hover{
+background:#0047c7;
+}
+
+/* FOOTER */
+
+.announcementFooter{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-top:16px;
+
+font-size:14px;
+
+color:#555;
+
+flex-wrap:wrap;
+
+gap:10px;
+
+}
+
+/* EMPTY */
+
+.empty{
+
+background:white;
+color:black;
+
+padding:40px;
+
+border-radius:20px;
+
+text-align:center;
+
+font-size:18px;
+
+}
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media(max-width:900px){
+
+body{
+display:block;
+overflow:auto;
+}
+
+.sidebar{
+
+position:relative;
+
+width:100%;
+height:auto;
+
+}
+
+.main{
+
+margin-left:0;
+
+width:100%;
+height:auto;
+
+}
+
+.filterBar{
+grid-template-columns:1fr;
+}
+
+.page-title{
+font-size:28px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ======================================
+     SIDEBAR
+====================================== -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>SHOWY</h2>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<a href="dashboard.html"
+class="menu-btn">
+
+Dashboard
+
+</a>
+
+<!-- IN & OUT -->
+
+<a href="employee-movement.html"
+class="menu-btn">
+
+In & Out
+
+</a>
+
+<!-- HR -->
+
+<button class="dropdown-btn"
+onclick="toggleDropdown('hrMenu')">
+
+HR ▼
+
+</button>
+
+<div class="dropdown-content"
+id="hrMenu">
+
+<a href="attendance.html">
+
+Attendance
+
+</a>
+
+<a href="leave.html">
+
+Leave Request
+
+</a>
+
+<a href="leave-status.html">
+
+Leave Status
+
+</a>
+
+<a href="salary.html">
+
+Salary
+
+</a>
+
+</div>
+
+<!-- SITE OPERATIONS -->
+
+<button class="dropdown-btn"
+onclick="toggleDropdown('siteMenu')">
+
+Site Operations ▼
+
+</button>
+
+<div class="dropdown-content"
+id="siteMenu">
+
+<a href="vehicle-site-keys.html">
+
+Vehicle / Site Keys
+
+</a>
+
+<a href="daily-task.html">
+
+Daily Tasks
+
+</a>
+
+<a href="my-tasks.html">
+
+📌 My Tasks
+
+</a>
+
+</div>
+
+<!-- INVENTORY -->
+
+<button class="dropdown-btn"
+onclick="toggleDropdown('inventoryMenu')">
+
+Inventory ▼
+
+</button>
+
+<div class="dropdown-content"
+id="inventoryMenu">
+
+<a href="inventory.html">
+
+Inventory
+
+</a>
+
+<a href="material-request.html">
+
+Material Request
+
+</a>
+
+</div>
+
+<!-- ANNOUNCEMENTS -->
+
+<a href="employee-announcements.html"
+class="menu-btn active">
+
+Announcements
+
+</a>
+
+<!-- COMPANY HUB -->
+
+<a href="company-hub.html"
+class="menu-btn">
+
+Company Hub
+
+</a>
+
+
+<!-- LOGOUT -->
+
+<a href="index.html"
+class="logout-btn">
+
+Logout
+
+</a>
+
+</div>
+
+<!-- ======================================
+     MAIN
+====================================== -->
+
+<div class="main">
+
+<h1 class="page-title">
+
+📢 Company Announcements
+
+</h1>
+
+<!-- FILTER -->
+
+<div class="filterBar">
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search Announcement..."
+onkeyup="filterAnnouncements()">
+
+<select
+id="priorityFilter"
+onchange="filterAnnouncements()">
+
+<option value="">
+All Priority
+</option>
+
+<option value="High">
+High
+</option>
+
+<option value="Medium">
+Medium
+</option>
+
+<option value="Low">
+Low
+</option>
+
+</select>
+
+</div>
+
+<!-- ANNOUNCEMENT LIST -->
+
+<div id="announcementContainer">
+
+<div class="empty">
+
+Loading Announcements...
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ======================================
+   SHEET URL
+====================================== */
+
+const SHEET_URL =
+"https://opensheet.vercel.app/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU";
+
+/* ======================================
+   GLOBAL
+====================================== */
+
+let allAnnouncements = [];
+
+/* ======================================
+   LOAD ANNOUNCEMENTS
+====================================== */
+
+async function loadAnnouncements(){
+
+try{
+
+const response =
+await fetch(`${SHEET_URL}/Announcements`);
+
+const data =
+await response.json();
+
+allAnnouncements = data.reverse();
+
+renderAnnouncements(allAnnouncements);
+
+}
+
+catch(error){
+
+document
+.getElementById("announcementContainer")
+.innerHTML = `
+
+<div class="empty">
+
+Failed to Load Announcements
+
+</div>
+
+`;
+
+}
+
+}
+
+/* ======================================
+   RENDER ANNOUNCEMENTS
+====================================== */
+
+function renderAnnouncements(data){
+
+const container =
+document.getElementById(
+"announcementContainer"
+);
+
+container.innerHTML = "";
+
+if(data.length == 0){
+
+container.innerHTML = `
+
+<div class="empty">
+
+No Announcements Found
+
+</div>
+
+`;
+
+return;
+
+}
+
+data.forEach(item=>{
+
+let priorityClass = "low";
+
+if(item.Priority == "High"){
+priorityClass = "high";
+}
+
+if(item.Priority == "Medium"){
+priorityClass = "medium";
+}
+
+container.innerHTML += `
+
+<div class="announcementCard">
+
+<div class="announcementHeader">
+
+<div class="announcementTitle">
+
+${item.Title}
+
+</div>
+
+<div class="priority ${priorityClass}">
+
+${item.Priority}
+
+</div>
+
+</div>
+
+<div class="announcementMessage">
+
+${item.Message}
+
+</div>
+
+${
+item.Attachment
+
+?
+
+`<a href="${item.Attachment}"
+target="_blank"
+class="attachmentBtn">
+
+View Attachment
+
+</a>`
+
+:
+
+""
+
+}
+
+<div class="announcementFooter">
+
+<div>
+
+📅 ${item.Date}
+
+</div>
+
+<div>
+
+🏢 ${item.Department}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* ======================================
+   FILTER
+====================================== */
+
+function filterAnnouncements(){
+
+const search =
+document.getElementById("searchBox")
+.value
+.toLowerCase();
+
+const priority =
+document.getElementById("priorityFilter")
+.value;
+
+const filtered =
+allAnnouncements.filter(item=>{
+
+const matchSearch =
+
+item.Title.toLowerCase().includes(search)
+
+||
+
+item.Message.toLowerCase().includes(search);
+
+const matchPriority =
+
+priority == ""
+
+||
+
+item.Priority == priority;
+
+return (
+
+matchSearch &&
+matchPriority
+
+);
+
+});
+
+renderAnnouncements(filtered);
+
+}
+
+/* ======================================
+   DROPDOWN
+====================================== */
+
+function toggleDropdown(id){
+
+const menu =
+document.getElementById(id);
+
+menu.classList.toggle("show");
+
+}
+
+/* ======================================
+   START
+====================================== */
+
+loadAnnouncements();
+
+</script>
+
+</body>
+
+</html>

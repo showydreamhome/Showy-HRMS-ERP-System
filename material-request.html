@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Material Request</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+display:flex;
+color:white;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+width:250px;
+height:100vh;
+background:#071b46;
+padding:25px 18px;
+overflow-y:auto;
+left:0;
+top:0;
+}
+
+.logo{
+text-align:center;
+margin-bottom:35px;
+}
+
+.logo img{
+width:90px;
+}
+
+.logo h2{
+margin-top:10px;
+font-size:30px;
+color:white;
+}
+
+.menu{
+margin-top:20px;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+border:none;
+cursor:pointer;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+transform:translateX(3px);
+}
+
+/* ACTIVE */
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+/* DROPDOWN */
+
+.dropdown-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#17357a;
+color:#ffb400;
+font-size:16px;
+font-weight:bold;
+border:none;
+cursor:pointer;
+text-align:left;
+}
+
+.dropdown-content{
+display:none;
+padding-left:10px;
+margin-bottom:10px;
+}
+
+.dropdown-content.show{
+display:block;
+}
+
+.dropdown-content a{
+display:block;
+padding:14px;
+margin-bottom:10px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.dropdown-content a:hover{
+background:#f5a000;
+color:black;
+}
+
+/* LOGOUT */
+
+.logout-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:25px;
+border-radius:12px;
+background:red;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+text-align:center;
+transition:0.3s;
+}
+
+.logout-btn:hover{
+background:#cc0000;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+padding:40px;
+width:100%;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:35px;
+border-radius:25px;
+max-width:1200px;
+color:black;
+}
+
+.card h1{
+font-size:55px;
+margin-bottom:30px;
+}
+
+/* INPUT */
+
+.inputBox{
+margin-bottom:25px;
+}
+
+.inputBox label{
+display:block;
+margin-bottom:10px;
+font-size:18px;
+font-weight:bold;
+}
+
+.inputBox input,
+.inputBox select,
+textarea{
+width:100%;
+padding:16px;
+border:1px solid #ccc;
+border-radius:14px;
+font-size:16px;
+outline:none;
+}
+
+textarea{
+height:100px;
+resize:none;
+}
+
+/* FLEX */
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+/* STOCK */
+
+.stock{
+background:#e8fff0;
+color:green;
+font-weight:bold;
+}
+
+/* BUTTONS */
+
+.btn{
+padding:15px 25px;
+border:none;
+border-radius:12px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.addBtn{
+background:#071b46;
+color:white;
+}
+
+.submitBtn{
+background:#f5a000;
+color:black;
+margin-top:20px;
+}
+
+.btn:hover{
+opacity:0.9;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:30px;
+}
+
+table th{
+background:#071b46;
+color:white;
+padding:14px;
+text-align:left;
+}
+
+table td{
+padding:14px;
+border-bottom:1px solid #ddd;
+}
+
+.removeBtn{
+background:red;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.empty{
+text-align:center;
+padding:30px;
+color:#777;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.card{
+max-width:100%;
+padding:25px;
+}
+
+.card h1{
+font-size:32px;
+}
+
+.row{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>SHOWY</h2>
+
+</div>
+
+<div class="menu">
+
+<!-- DASHBOARD -->
+
+<a href="dashboard.html" class="menu-btn">
+Dashboard
+</a>
+
+<a href="employee-movement.html" class="menu-btn">
+In & Out
+</a>
+
+<!-- HR -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
+HR ▼
+</button>
+
+<div class="dropdown-content" id="hrMenu">
+
+<a href="attendance.html">
+Attendance
+</a>
+
+<a href="leave.html">
+Leave Request
+</a>
+
+<a href="leave-status.html">
+Leave Status
+</a>
+
+<a href="salary.html">
+Salary
+</a>
+
+</div>
+
+<!-- SITE OPERATIONS -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
+Site Operations ▼
+</button>
+
+<div class="dropdown-content show" id="siteMenu">
+
+
+<a href="vehicle-site-keys.html">
+Vehicle / Site Keys
+</a>
+
+<a href="daily-task.html">
+Daily Tasks
+</a>
+
+<a href="material-request.html" class="active">
+Material Request
+</a>
+
+</div>
+
+<!-- INVENTORY -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
+Inventory ▼
+</button>
+
+<div class="dropdown-content" id="inventoryMenu">
+
+<a href="inventory.html">
+Inventory
+</a>
+
+
+</div>
+
+<!-- COMPANY -->
+
+<a href="company-hub.html" class="menu-btn">
+Company Hub
+</a>
+
+<!-- LOGOUT -->
+
+<a href="index.html" class="logout-btn">
+Logout
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="card">
+
+<h1>
+Material Request
+</h1>
+
+<!-- EMPLOYEE -->
+
+<div class="inputBox">
+
+<label>
+Employee Name
+</label>
+
+<input type="text" id="employeeName" readonly>
+
+</div>
+
+<!-- DATE -->
+
+<div class="inputBox">
+
+<label>
+Date
+</label>
+
+<input type="date" id="date">
+
+</div>
+
+<!-- PROJECT -->
+
+<div class="inputBox">
+
+<label>
+Select Project
+</label>
+
+<select id="project">
+
+<option value="">
+Select Project
+</option>
+
+</select>
+
+</div>
+
+<!-- MATERIAL -->
+
+<div class="row">
+
+<div class="inputBox">
+
+<label>
+Search Material / Code
+</label>
+
+<input
+type="text"
+id="materialSearch"
+list="materialsList"
+placeholder="Search by Material Name or Code"
+oninput="fillMaterialDetails()"
+>
+
+<datalist id="materialsList"></datalist>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Material Code
+</label>
+
+<input type="text" id="materialCode" readonly>
+
+</div>
+
+</div>
+
+<!-- STOCK + QTY -->
+
+<div class="row">
+
+<div class="inputBox">
+
+<label>
+Available Stock
+</label>
+
+<input type="text" id="stock" class="stock" readonly>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Required Quantity
+</label>
+
+<input
+type="number"
+id="qty"
+placeholder="Enter Quantity"
+>
+
+</div>
+
+</div>
+
+<!-- NOTES -->
+
+<div class="inputBox">
+
+<label>
+Requirement Notes
+</label>
+
+<textarea
+id="notes"
+placeholder="Enter Notes"
+></textarea>
+
+</div>
+
+<button class="btn addBtn" onclick="addToCart()">
++ Add Item
+</button>
+
+<!-- CART -->
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Project</th>
+<th>Material</th>
+<th>Code</th>
+<th>Qty</th>
+<th>Stock</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="cartTable">
+
+<tr>
+
+<td colspan="6" class="empty">
+No Materials Added
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<button class="btn submitBtn" onclick="submitRequest()">
+Submit Full Request
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* DROPDOWN */
+
+function toggleDropdown(id){
+
+document
+.getElementById(id)
+.classList.toggle("show");
+
+}
+
+/* SCRIPT URL */
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+
+/* EMPLOYEE */
+
+const employee =
+JSON.parse(localStorage.getItem("employee"));
+
+if(!employee){
+
+window.location.href =
+"index.html";
+
+}
+
+/* SET DATA */
+
+document.getElementById("employeeName").value =
+employee.name || "";
+
+document.getElementById("date").value =
+new Date().toISOString().split("T")[0];
+
+/* GLOBAL */
+
+let inventoryData = [];
+let projectData = [];
+let cart = [];
+
+/* LOAD DATA */
+
+async function loadData(){
+
+/* INVENTORY */
+
+const inventoryURL =
+"https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Inventory";
+
+const inventoryRes =
+await fetch(inventoryURL);
+
+inventoryData =
+await inventoryRes.json();
+
+/* PROJECTS */
+
+const projectURL =
+"https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Projects";
+
+const projectRes =
+await fetch(projectURL);
+
+projectData =
+await projectRes.json();
+
+/* LOAD PROJECTS */
+
+const projectSelect =
+document.getElementById("project");
+
+projectData.forEach(project=>{
+
+projectSelect.innerHTML += `
+
+<option value="${project.ProjectCode}">
+${project.ProjectCode} - ${project.ProjectName}
+</option>
+
+`;
+
+});
+
+/* LOAD MATERIALS */
+
+const materialsList =
+document.getElementById("materialsList");
+
+inventoryData.forEach(item=>{
+
+materialsList.innerHTML += `
+
+<option value="${item["Material Name"]}"></option>
+
+<option value="${item["Material Code"]}"></option>
+
+`;
+
+});
+
+}
+
+loadData();
+
+/* FILL DETAILS */
+
+function fillMaterialDetails(){
+
+const search =
+document.getElementById("materialSearch")
+.value
+.toLowerCase();
+
+const selected =
+inventoryData.find(item =>
+
+item["Material Name"]
+.toLowerCase() === search ||
+
+item["Material Code"]
+.toLowerCase() === search
+
+);
+
+if(selected){
+
+document.getElementById("materialSearch").value =
+selected["Material Name"];
+
+document.getElementById("materialCode").value =
+selected["Material Code"];
+
+document.getElementById("stock").value =
+selected["Available Stock"];
+
+}
+else{
+
+document.getElementById("materialCode").value = "";
+
+document.getElementById("stock").value = "";
+
+}
+
+}
+
+/* ADD TO CART */
+
+function addToCart(){
+
+const project =
+document.getElementById("project").value;
+
+const material =
+document.getElementById("materialSearch").value;
+
+const code =
+document.getElementById("materialCode").value;
+
+const stock =
+document.getElementById("stock").value;
+
+const qty =
+document.getElementById("qty").value;
+
+const notes =
+document.getElementById("notes").value;
+
+if(!project || !material || !qty){
+
+alert("Please fill all fields");
+
+return;
+
+}
+
+cart.push({
+
+project,
+material,
+code,
+stock,
+qty,
+notes
+
+});
+
+renderCart();
+
+/* CLEAR */
+
+document.getElementById("materialSearch").value = "";
+
+document.getElementById("materialCode").value = "";
+
+document.getElementById("stock").value = "";
+
+document.getElementById("qty").value = "";
+
+document.getElementById("notes").value = "";
+
+}
+
+/* RENDER CART */
+
+function renderCart(){
+
+const table =
+document.getElementById("cartTable");
+
+if(cart.length === 0){
+
+table.innerHTML = `
+
+<tr>
+
+<td colspan="6" class="empty">
+No Materials Added
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+table.innerHTML = "";
+
+cart.forEach((item,index)=>{
+
+table.innerHTML += `
+
+<tr>
+
+<td>${item.project}</td>
+
+<td>${item.material}</td>
+
+<td>${item.code}</td>
+
+<td>${item.qty}</td>
+
+<td>${item.stock}</td>
+
+<td>
+
+<button
+class="removeBtn"
+onclick="removeItem(${index})"
+>
+
+Remove
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* REMOVE */
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+renderCart();
+
+}
+
+/* SUBMIT */
+
+async function submitRequest(){
+
+if(cart.length === 0){
+
+alert("Please add materials");
+
+return;
+
+}
+
+const requestID =
+"REQ" + Date.now();
+
+for(let item of cart){
+
+const data = {
+
+type:"materialRequest",
+
+requestID:requestID,
+
+date:
+document.getElementById("date").value,
+
+employee:
+document.getElementById("employeeName").value,
+
+project:item.project,
+
+materialCode:item.code,
+
+materialName:item.material,
+
+quantity:item.qty,
+
+notes:item.notes
+
+};
+
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify(data)
+
+});
+
+}
+
+alert("Material Request Submitted");
+
+cart = [];
+
+renderCart();
+
+}
+
+/* LOGOUT */
+
+function logout(){
+
+localStorage.removeItem("employee");
+
+window.location.href =
+"index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

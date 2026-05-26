@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Vehicle & Site Keys</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+display:flex;
+color:white;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+width:250px;
+height:100vh;
+background:#071b46;
+padding:25px 18px;
+overflow-y:auto;
+left:0;
+top:0;
+}
+
+.logo{
+text-align:center;
+margin-bottom:35px;
+}
+
+.logo img{
+width:90px;
+}
+
+.logo h2{
+margin-top:10px;
+font-size:30px;
+color:white;
+}
+
+.menu{
+margin-top:20px;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+border:none;
+cursor:pointer;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+transform:translateX(3px);
+}
+
+/* ACTIVE */
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+/* DROPDOWN */
+
+.dropdown-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#17357a;
+color:#ffb400;
+font-size:16px;
+font-weight:bold;
+border:none;
+cursor:pointer;
+text-align:left;
+}
+
+.dropdown-content{
+display:none;
+padding-left:10px;
+margin-bottom:10px;
+}
+
+.dropdown-content.show{
+display:block;
+}
+
+.dropdown-content a{
+display:block;
+padding:14px;
+margin-bottom:10px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.dropdown-content a:hover{
+background:#f5a000;
+color:black;
+}
+
+/* LOGOUT */
+
+.logout-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:25px;
+border-radius:12px;
+background:red;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+text-align:center;
+transition:0.3s;
+}
+
+.logout-btn:hover{
+background:#cc0000;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+padding:40px;
+width:100%;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:35px;
+border-radius:25px;
+max-width:1300px;
+color:black;
+}
+
+.card h1{
+font-size:50px;
+margin-bottom:30px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+}
+
+/* BOX */
+
+.box{
+border:1px solid #ddd;
+border-radius:20px;
+padding:25px;
+}
+
+.box h2{
+margin-bottom:20px;
+font-size:28px;
+}
+
+/* KEY LIST */
+
+.keyItem{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+border-bottom:1px solid #eee;
+}
+
+.available{
+color:green;
+font-weight:bold;
+}
+
+.inuse{
+color:red;
+font-weight:bold;
+}
+
+/* INPUTS */
+
+.inputBox{
+margin-bottom:20px;
+}
+
+.inputBox label{
+display:block;
+margin-bottom:10px;
+font-size:17px;
+font-weight:bold;
+}
+
+.inputBox select,
+.inputBox input{
+width:100%;
+padding:15px;
+border:1px solid #ccc;
+border-radius:12px;
+font-size:16px;
+outline:none;
+}
+
+/* BUTTONS */
+
+.btn{
+padding:15px 25px;
+border:none;
+border-radius:12px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.takeBtn{
+background:#071b46;
+color:white;
+margin-right:10px;
+}
+
+.returnBtn{
+background:#f5a000;
+color:black;
+}
+
+.btn:hover{
+opacity:0.9;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:25px;
+}
+
+table th{
+background:#071b46;
+color:white;
+padding:14px;
+text-align:left;
+}
+
+table td{
+padding:14px;
+border-bottom:1px solid #ddd;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.card h1{
+font-size:35px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>SHOWY</h2>
+
+</div>
+
+<div class="menu">
+
+<a href="dashboard.html" class="menu-btn">
+Dashboard
+</a>
+
+<a href="employee-movement.html" class="menu-btn">
+In & Out
+</a>
+
+<button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
+HR ▼
+</button>
+
+<div class="dropdown-content" id="hrMenu">
+
+<a href="attendance.html">
+Attendance
+</a>
+
+<a href="leave.html">
+Leave Request
+</a>
+
+<a href="leave-status.html">
+Leave Status
+</a>
+
+<a href="salary.html">
+Salary
+</a>
+
+</div>
+
+<button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
+Site Operations ▼
+</button>
+
+<div class="dropdown-content show" id="siteMenu">
+
+<a href="vehicle-site-keys.html" class="active">
+Vehicle / Site Keys
+</a>
+
+<a href="daily-task.html">
+Daily Tasks
+</a>
+
+<a href="material-request.html">
+Material Request
+</a>
+
+</div>
+
+<button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
+Inventory ▼
+</button>
+
+<div class="dropdown-content" id="inventoryMenu">
+
+<a href="inventory.html">
+Inventory
+</a>
+
+</div>
+
+<a href="company-hub.html" class="menu-btn">
+Company Hub
+</a>
+
+<a href="index.html" class="logout-btn">
+Logout
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="card">
+
+<h1>
+Vehicle & Site Keys
+</h1>
+
+<div class="grid">
+
+<!-- LEFT -->
+
+<div class="box">
+
+<h2>
+Available Keys
+</h2>
+
+<div id="keyList">
+
+Loading...
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="box">
+
+<h2>
+Take / Return Key
+</h2>
+
+<div class="inputBox">
+
+<label>
+Employee
+</label>
+
+<input type="text" id="employee" readonly>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Select Project
+</label>
+
+<select id="project">
+
+<option value="">
+Select Project
+</option>
+
+</select>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Select Key
+</label>
+
+<select id="selectedKey">
+
+<option value="">
+Select Key
+</option>
+
+</select>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Purpose
+</label>
+
+<input
+type="text"
+id="purpose"
+placeholder="Site Visit / Material Delivery">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Start KM
+</label>
+
+<input
+type="number"
+id="startKM"
+placeholder="Vehicle Start KM">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+End KM
+</label>
+
+<input
+type="number"
+id="endKM"
+placeholder="Vehicle Return KM">
+
+</div>
+
+<button
+class="btn takeBtn"
+onclick="takeKey()">
+
+Take Key
+
+</button>
+
+<button
+class="btn returnBtn"
+onclick="returnKey()">
+
+Return Key
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MOVEMENT -->
+
+<h2 style="margin-top:40px;">
+Today's Movement
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Vehicle</th>
+<th>Employee</th>
+<th>Start KM</th>
+<th>End KM</th>
+<th>Total KM</th>
+<th>Take Time</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="movementTable">
+
+<tr>
+
+<td colspan="7">
+Loading...
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+/* ======================================
+   DROPDOWN
+====================================== */
+
+function toggleDropdown(id){
+
+document
+.getElementById(id)
+.classList.toggle("show");
+
+}
+
+/* ======================================
+   SCRIPT URL
+====================================== */
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+
+/* ======================================
+   EMPLOYEE
+====================================== */
+
+const employee =
+JSON.parse(localStorage.getItem("employee"));
+
+if(!employee){
+
+window.location.href = "index.html";
+
+}
+
+document.getElementById("employee").value =
+employee.name || "";
+
+/* ======================================
+   GLOBAL
+====================================== */
+
+let keysData = [];
+let projectsData = [];
+let movementData = [];
+let vehicleMaster = [];
+
+/* ======================================
+   LOAD DATA
+====================================== */
+
+async function loadData(){
+
+try{
+
+/* KEYS */
+
+const keysRes =
+await fetch(
+"https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Keys_Master"
+);
+
+keysData =
+await keysRes.json();
+
+/* PROJECTS */
+
+const projectRes =
+await fetch(
+"https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Projects"
+);
+
+projectsData =
+await projectRes.json();
+
+/* VEHICLE MASTER */
+
+const vehicleRes =
+await fetch(
+"https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Vehicle_Master"
+);
+
+vehicleMaster =
+await vehicleRes.json();
+
+/* MOVEMENT */
+
+const movementRes =
+await fetch(
+"https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Movement_Log"
+);
+
+movementData =
+await movementRes.json();
+
+loadProjects();
+loadKeys();
+loadMovement();
+
+}catch(error){
+
+console.log(error);
+
+alert("Data Loading Failed");
+
+}
+
+}
+
+/* ======================================
+   LOAD PROJECTS
+====================================== */
+
+function loadProjects(){
+
+const projectSelect =
+document.getElementById("project");
+
+projectSelect.innerHTML =
+`<option value="">Select Project</option>`;
+
+projectsData.forEach(project=>{
+
+projectSelect.innerHTML += `
+
+<option value="${project.ProjectCode}">
+${project.ProjectCode} - ${project.ProjectName}
+</option>
+
+`;
+
+});
+
+}
+
+/* ======================================
+   LOAD KEYS
+====================================== */
+
+function loadKeys(){
+
+const keyList =
+document.getElementById("keyList");
+
+const keySelect =
+document.getElementById("selectedKey");
+
+keyList.innerHTML = "";
+
+keySelect.innerHTML =
+`<option value="">Select Key</option>`;
+
+keysData.forEach(key=>{
+
+const status =
+(key.Status || "").trim();
+
+const holder =
+key["Current Holder"] || "";
+
+const statusClass =
+status === "Available"
+? "available"
+: "inuse";
+
+let currentKM = "";
+
+const vehicle =
+vehicleMaster.find(
+v => v.Vehicle === key.Name
+);
+
+if(vehicle){
+
+currentKM =
+`<br><small>KM : ${vehicle["Current KM"]}</small>`;
+
+}
+
+keyList.innerHTML += `
+
+<div class="keyItem">
+
+<div>
+
+<b>${key.Name}</b><br>
+
+${key.Type}
+
+${currentKM}
+
+</div>
+
+<div class="${statusClass}">
+
+${status}
+
+${holder ? `(${holder})` : ""}
+
+</div>
+
+</div>
+
+`;
+
+/* AVAILABLE */
+
+if(status === "Available"){
+
+keySelect.innerHTML += `
+
+<option value="${key.Name}">
+🟢 ${key.Name}
+</option>
+
+`;
+
+}
+
+/* RETURN OPTION */
+
+if(
+status === "In Use" &&
+holder === employee.name
+){
+
+keySelect.innerHTML += `
+
+<option value="${key.Name}">
+🔴 ${key.Name} (Return)
+</option>
+
+`;
+
+}
+
+});
+
+}
+
+/* ======================================
+   LOAD MOVEMENT
+====================================== */
+
+function loadMovement(){
+
+const table =
+document.getElementById("movementTable");
+
+if(movementData.length === 0){
+
+table.innerHTML = `
+
+<tr>
+<td colspan="7">
+No Data
+</td>
+</tr>
+
+`;
+
+return;
+
+}
+
+table.innerHTML = "";
+
+movementData
+.reverse()
+.slice(0,20)
+.forEach(item=>{
+
+table.innerHTML += `
+
+<tr>
+
+<td>${item["Key Name"] || item.Vehicle || "-"}</td>
+
+<td>${item.Employee || "-"}</td>
+
+<td>${item["Start KM"] || "-"}</td>
+
+<td>${item["End KM"] || "-"}</td>
+
+<td>${item["Total KM"] || "-"}</td>
+
+<td>${item["Take Time"] || "-"}</td>
+
+<td>${item.Status || "-"}</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* ======================================
+   TAKE KEY
+====================================== */
+
+async function takeKey(){
+
+const selectedKey =
+document.getElementById("selectedKey").value;
+
+const project =
+document.getElementById("project").value;
+
+const purpose =
+document.getElementById("purpose").value;
+
+const startKM =
+document.getElementById("startKM").value;
+
+if(
+!selectedKey ||
+!project ||
+!purpose ||
+!startKM
+){
+
+alert("Please fill all fields");
+return;
+
+}
+
+const cleanKey =
+selectedKey
+.replace("🟢 ","")
+.trim();
+
+const data = {
+
+type:"takeKey",
+
+employee:employee.name,
+
+project:project,
+
+key:cleanKey,
+
+purpose:purpose,
+
+startKM:startKM
+
+};
+
+try{
+
+const response =
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify(data)
+
+});
+
+const result =
+await response.json();
+
+if(result.success){
+
+alert("Vehicle Taken Successfully");
+
+location.reload();
+
+}else{
+
+alert(result.message || "Error");
+
+}
+
+}catch(error){
+
+console.log(error);
+
+alert("Server Error");
+
+}
+
+}
+
+/* ======================================
+   RETURN KEY
+====================================== */
+
+async function returnKey(){
+
+const selectedKey =
+document.getElementById("selectedKey").value;
+
+const endKM =
+document.getElementById("endKM").value;
+
+if(!selectedKey || !endKM){
+
+alert("Enter End KM");
+return;
+
+}
+
+const cleanKey =
+selectedKey
+.replace("🔴 ","")
+.replace("🟢 ","")
+.replace("(Return)","")
+.trim();
+
+const data = {
+
+type:"returnKey",
+
+employee:employee.name,
+
+key:cleanKey,
+
+endKM:endKM
+
+};
+
+try{
+
+const response =
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify(data)
+
+});
+
+const result =
+await response.json();
+
+if(result.success){
+
+alert("Vehicle Returned Successfully");
+
+location.reload();
+
+}else{
+
+alert(result.message || "Return Failed");
+
+}
+
+}catch(error){
+
+console.log(error);
+
+alert("Server Error");
+
+}
+
+}
+
+/* ======================================
+   START
+====================================== */
+
+loadData();
+
+</script>
+
+</body>
+</html>

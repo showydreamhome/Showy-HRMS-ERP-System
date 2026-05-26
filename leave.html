@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Leave Request</title>
+
+<link rel="icon" href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+color:white;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+width:250px;
+height:100vh;
+background:#071b46;
+padding:25px 18px;
+overflow-y:auto;
+left:0;
+top:0;
+}
+
+.logo{
+text-align:center;
+margin-bottom:35px;
+}
+
+.logo img{
+width:90px;
+}
+
+.logo h2{
+margin-top:10px;
+font-size:30px;
+color:white;
+}
+
+.menu{
+margin-top:20px;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+border:none;
+cursor:pointer;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+transform:translateX(3px);
+}
+
+/* ACTIVE */
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+/* DROPDOWN */
+
+.dropdown-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#17357a;
+color:#ffb400;
+font-size:16px;
+font-weight:bold;
+border:none;
+cursor:pointer;
+text-align:left;
+}
+
+.dropdown-content{
+display:none;
+padding-left:10px;
+margin-bottom:10px;
+}
+
+.dropdown-content.show{
+display:block;
+}
+
+.dropdown-content a{
+display:block;
+padding:14px;
+margin-bottom:10px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.dropdown-content a:hover{
+background:#f5a000;
+color:black;
+}
+
+/* LOGOUT */
+
+.logout-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:25px;
+border-radius:12px;
+background:red;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+text-align:center;
+transition:0.3s;
+}
+
+.logout-btn:hover{
+background:#cc0000;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+padding:40px;
+width:100%;
+}
+
+/* CARD */
+
+.card{
+background:white;
+color:black;
+padding:35px;
+border-radius:20px;
+max-width:700px;
+}
+
+.card h1{
+margin-bottom:25px;
+font-size:40px;
+}
+
+/* FORM */
+
+.inputBox{
+margin-bottom:20px;
+}
+
+.inputBox label{
+display:block;
+margin-bottom:8px;
+font-weight:bold;
+font-size:16px;
+}
+
+.inputBox input,
+.inputBox select,
+.inputBox textarea{
+width:100%;
+padding:14px;
+border:1px solid #ccc;
+border-radius:10px;
+font-size:15px;
+outline:none;
+}
+
+textarea{
+height:120px;
+resize:none;
+}
+
+/* SUBMIT BUTTON */
+
+.submitBtn{
+background:#f5a000;
+border:none;
+padding:15px 25px;
+font-size:16px;
+font-weight:bold;
+border-radius:12px;
+cursor:pointer;
+transition:0.3s;
+width:100%;
+}
+
+.submitBtn:hover{
+opacity:0.9;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.card{
+max-width:100%;
+}
+
+.card h1{
+font-size:30px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>SHOWY</h2>
+
+</div>
+
+<div class="menu">
+
+<!-- DASHBOARD -->
+
+<a href="dashboard.html" class="menu-btn">
+Dashboard
+</a>
+
+<a href="employee-movement.html" class="menu-btn">
+In & Out
+</a>
+
+            
+<!-- HR -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
+HR ▼
+</button>
+
+<div class="dropdown-content show" id="hrMenu">
+
+<a href="attendance.html">
+Attendance
+</a>
+
+<a href="leave.html" class="active">
+Leave Request
+</a>
+
+<a href="leave-status.html">
+Leave Status
+</a>
+
+<a href="salary.html">
+Salary
+</a>
+
+</div>
+
+<!-- SITE OPERATIONS -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
+Site Operations ▼
+</button>
+
+<div class="dropdown-content" id="siteMenu">
+
+<a href="employee-movement.html">
+Employee Movement
+</a>
+
+<a href="vehicle-site-keys.html">
+Vehicle / Site Keys
+</a>
+
+<a href="daily-task.html">
+Daily Tasks
+</a>
+
+
+
+</div>
+
+<!-- INVENTORY -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
+Inventory ▼
+</button>
+
+<div class="dropdown-content" id="inventoryMenu">
+
+<a href="inventory.html">
+Inventory
+</a>
+
+<a href="material-request.html">
+Material Request
+</a>
+
+</div>
+
+<!-- COMPANY -->
+
+<a href="company-hub.html" class="menu-btn">
+Company Hub
+</a>
+
+<!-- LOGOUT -->
+
+<a href="index.html" class="logout-btn">
+Logout
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="card">
+
+<h1>
+Leave Request Form
+</h1>
+
+<div class="inputBox">
+
+<label>
+Employee Name
+</label>
+
+<input type="text" id="name" readonly>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Leave Type
+</label>
+
+<select id="leaveType">
+
+<option value="">
+Select Leave Type
+</option>
+
+<option>
+Casual Leave
+</option>
+
+<option>
+Sick Leave
+</option>
+
+<option>
+Emergency Leave
+</option>
+
+<option>
+Half Day Leave
+</option>
+
+</select>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+From Date
+</label>
+
+<input type="date" id="fromDate">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+To Date
+</label>
+
+<input type="date" id="toDate">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Reason
+</label>
+
+<textarea id="reason"></textarea>
+
+</div>
+
+<button class="submitBtn" onclick="submitLeave()">
+Submit Leave Request
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* DROPDOWN TOGGLE */
+
+function toggleDropdown(id){
+
+document
+.getElementById(id)
+.classList.toggle("show");
+
+}
+
+/* EMPLOYEE */
+
+const employee =
+JSON.parse(localStorage.getItem("employee"));
+
+if(!employee){
+
+window.location.href = "index.html";
+
+}
+
+/* SET NAME */
+
+document.getElementById("name").value =
+employee.name || employee.Name || "";
+
+/* SUBMIT LEAVE */
+
+async function submitLeave(){
+
+const leaveData = {
+
+type:"leave",
+
+name:
+document.getElementById("name").value,
+
+leaveType:
+document.getElementById("leaveType").value,
+
+fromDate:
+document.getElementById("fromDate").value,
+
+toDate:
+document.getElementById("toDate").value,
+
+reason:
+document.getElementById("reason").value
+
+};
+
+/* VALIDATION */
+
+if(
+
+leaveData.leaveType == "" ||
+leaveData.fromDate == "" ||
+leaveData.toDate == "" ||
+leaveData.reason == ""
+
+){
+
+alert("Please fill all fields");
+
+return;
+
+}
+
+try{
+
+const response =
+await fetch(
+"https://script.google.com/macros/s/AKfycbyePIScE4o33A_i__X-lVp0F19pt8UOxjdo_gpHQxncxlxKk4hkoBE6xmVhVcSYGCp3/exec",
+{
+method:"POST",
+body:JSON.stringify(leaveData)
+}
+);
+
+const result =
+await response.json();
+
+if(result.success){
+
+alert("Leave Request Submitted Successfully");
+
+document.getElementById("leaveType").value = "";
+
+document.getElementById("fromDate").value = "";
+
+document.getElementById("toDate").value = "";
+
+document.getElementById("reason").value = "";
+
+}
+else{
+
+alert("Submission Failed");
+
+}
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Error submitting leave request");
+
+}
+
+}
+
+/* LOGOUT */
+
+function logout(){
+
+localStorage.removeItem("employee");
+
+window.location.href =
+"index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

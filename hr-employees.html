@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+HR Employees
+</title>
+
+<link
+rel="icon"
+href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+display:flex;
+color:white;
+overflow:hidden;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:240px;
+height:100vh;
+background:#071b46;
+padding:20px 15px;
+position:fixed;
+left:0;
+top:0;
+overflow-y:auto;
+}
+
+.logo{
+text-align:center;
+margin-bottom:30px;
+}
+
+.logo img{
+width:80px;
+margin-bottom:10px;
+}
+
+.logo h2{
+font-size:32px;
+}
+
+/* MENU */
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.menu-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#17357a;
+color:white;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+text-align:left;
+text-decoration:none;
+display:block;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+color:black;
+transform:translateX(3px);
+}
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+.logout-btn{
+background:red !important;
+color:white !important;
+margin-top:10px;
+}
+
+.logout-btn:hover{
+background:#cc0000 !important;
+}
+
+/* MAIN */
+
+.main{
+margin-left:240px;
+padding:25px;
+width:calc(100% - 240px);
+height:100vh;
+overflow-y:auto;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:30px;
+border-radius:24px;
+color:black;
+}
+
+.card h1{
+font-size:54px;
+margin-bottom:25px;
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.statBox{
+background:#f5f5f5;
+padding:25px;
+border-radius:18px;
+}
+
+.statBox h3{
+font-size:18px;
+color:#666;
+margin-bottom:10px;
+}
+
+.statBox h2{
+font-size:40px;
+color:#071b46;
+}
+
+/* SEARCH */
+
+.searchBox{
+margin-bottom:20px;
+}
+
+.searchBox input{
+width:100%;
+padding:16px;
+border:1px solid #ccc;
+border-radius:14px;
+font-size:16px;
+outline:none;
+}
+
+/* TABLE */
+
+.tableWrapper{
+overflow-x:auto;
+border-radius:18px;
+border:1px solid #ddd;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:1500px;
+}
+
+table th{
+background:#071b46;
+color:white;
+padding:18px;
+font-size:15px;
+text-align:left;
+white-space:nowrap;
+}
+
+table td{
+padding:18px;
+border-bottom:1px solid #ddd;
+font-size:15px;
+white-space:nowrap;
+}
+
+/* STATUS */
+
+.activeStatus{
+color:green;
+font-weight:bold;
+}
+
+.inactiveStatus{
+color:red;
+font-weight:bold;
+}
+
+/* BUTTONS */
+
+.actionButtons{
+display:flex;
+gap:10px;
+}
+
+.actionBtn{
+padding:10px 16px;
+border:none;
+border-radius:10px;
+font-size:14px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.editBtn{
+background:#071b46;
+color:white;
+}
+
+.editBtn:hover{
+background:#0f2c6b;
+}
+
+.deleteBtn{
+background:red;
+color:white;
+}
+
+.deleteBtn:hover{
+background:#c40000;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+body{
+display:block;
+overflow:auto;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+width:100%;
+height:auto;
+padding:15px;
+}
+
+.card{
+padding:20px;
+}
+
+.card h1{
+font-size:36px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>
+SHOWY
+</h2>
+
+</div>
+
+<div class="menu">
+
+<a
+href="hr-dashboard.html"
+class="menu-btn">
+
+Dashboard
+
+</a>
+
+<a
+href="hr-employees.html"
+class="menu-btn active">
+
+Employees
+
+</a>
+
+<a
+href="hr-attendance.html"
+class="menu-btn">
+
+Attendance
+
+</a>
+
+<a
+href="hr-leaves.html"
+class="menu-btn">
+
+Leave Requests
+
+</a>
+
+<a
+href="hr-salary.html"
+class="menu-btn">
+
+Salary
+
+</a>
+
+<a
+href="hr-reports.html"
+class="menu-btn">
+
+Reports
+
+</a>
+
+<a
+href="index.html"
+class="menu-btn logout-btn">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="card">
+
+<h1>
+HR Employees
+</h1>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="statBox">
+
+<h3>
+Total Employees
+</h3>
+
+<h2 id="totalEmployees">
+0
+</h2>
+
+</div>
+
+<div class="statBox">
+
+<h3>
+Departments
+</h3>
+
+<h2 id="totalDepartments">
+0
+</h2>
+
+</div>
+
+<div class="statBox">
+
+<h3>
+Admins
+</h3>
+
+<h2 id="totalAdmins">
+0
+</h2>
+
+</div>
+
+<div class="statBox">
+
+<h3>
+HR Staff
+</h3>
+
+<h2 id="totalHR">
+0
+</h2>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="searchBox">
+
+<input
+type="text"
+id="search"
+placeholder="Search Employee / Department / Role"
+onkeyup="renderTable()">
+
+</div>
+
+<!-- TABLE -->
+
+<div class="tableWrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Emp ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>Department</th>
+<th>Joining Date</th>
+<th>Salary</th>
+<th>Phone</th>
+<th>Status</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="employeeTable">
+
+<tr>
+
+<td colspan="10"
+style="text-align:center;padding:30px;">
+
+Loading Employees...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ======================================
+   AUTH
+====================================== */
+
+const employee =
+JSON.parse(
+localStorage.getItem("employee")
+);
+
+if(!employee){
+
+window.location.href =
+"index.html";
+
+}
+
+const role =
+(employee.role || "")
+.trim()
+.toLowerCase();
+
+if(role !== "hr"){
+
+alert("Access Denied");
+
+window.location.href =
+"index.html";
+
+}
+
+/* ======================================
+   SHEET URL
+====================================== */
+
+const SHEET_ID =
+"1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU";
+
+const EMPLOYEE_URL =
+`https://opensheet.elk.sh/${SHEET_ID}/Employee_Data`;
+
+/* ======================================
+   GLOBAL
+====================================== */
+
+let employeeData = [];
+
+/* ======================================
+   LOAD DATA
+====================================== */
+
+async function loadEmployees(){
+
+try{
+
+const response =
+await fetch(EMPLOYEE_URL);
+
+employeeData =
+await response.json();
+
+updateStats();
+
+renderTable();
+
+}
+catch(error){
+
+console.log(error);
+
+alert(
+"Failed To Load Employees"
+);
+
+}
+
+}
+
+/* ======================================
+   UPDATE STATS
+====================================== */
+
+function updateStats(){
+
+document.getElementById(
+"totalEmployees"
+).innerText =
+employeeData.length;
+
+const departments =
+[
+...new Set(
+employeeData.map(item =>
+item.Department
+)
+)
+];
+
+document.getElementById(
+"totalDepartments"
+).innerText =
+departments.length;
+
+document.getElementById(
+"totalAdmins"
+).innerText =
+employeeData.filter(item =>
+
+(item.Role || "")
+.toLowerCase() === "admin"
+
+).length;
+
+document.getElementById(
+"totalHR"
+).innerText =
+employeeData.filter(item =>
+
+(item.Role || "")
+.toLowerCase() === "hr"
+
+).length;
+
+}
+
+/* ======================================
+   RENDER TABLE
+====================================== */
+
+function renderTable(){
+
+const table =
+document.getElementById(
+"employeeTable"
+);
+
+const search =
+document.getElementById(
+"search"
+).value.toLowerCase();
+
+const filtered =
+employeeData.filter(item =>
+
+(item.Name || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(item.Department || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(item.Role || "")
+.toLowerCase()
+.includes(search)
+
+);
+
+if(filtered.length === 0){
+
+table.innerHTML = `
+
+<tr>
+
+<td colspan="10"
+style="text-align:center;padding:30px;">
+
+No Employees Found
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+table.innerHTML = "";
+
+filtered.forEach(item=>{
+
+const statusClass =
+"activeStatus";
+
+table.innerHTML += `
+
+<tr>
+
+<td>
+${item.EmpID || "-"}
+</td>
+
+<td>
+${item.Name || "-"}
+</td>
+
+<td>
+${item.Email || "-"}
+</td>
+
+<td>
+${item.Role || "-"}
+</td>
+
+<td>
+${item.Department || "-"}
+</td>
+
+<td>
+${item.JoiningDate || "-"}
+</td>
+
+<td>
+₹ ${item.MonthlySalary || "0"}
+</td>
+
+<td>
+${item.Phone || "-"}
+</td>
+
+<td class="${statusClass}">
+Active
+</td>
+
+<td>
+
+<div class="actionButtons">
+
+<button
+class="actionBtn editBtn"
+onclick="editEmployee(
+'${item.Name || ""}'
+)">
+
+Edit
+
+</button>
+
+<button
+class="actionBtn deleteBtn"
+onclick="deleteEmployee(
+'${item.Name || ""}'
+)">
+
+Delete
+
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* ======================================
+   EDIT EMPLOYEE
+====================================== */
+
+function editEmployee(name){
+
+alert(
+`Edit Employee : ${name}`
+);
+
+}
+
+/* ======================================
+   DELETE EMPLOYEE
+====================================== */
+
+function deleteEmployee(name){
+
+const confirmDelete =
+confirm(
+`Delete ${name}?`
+);
+
+if(confirmDelete){
+
+alert(
+`${name} Deleted`
+);
+
+}
+
+}
+
+/* ======================================
+   START
+====================================== */
+
+loadEmployees();
+
+</script>
+
+</body>
+
+</html>

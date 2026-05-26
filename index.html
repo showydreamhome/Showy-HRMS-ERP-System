@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+SHOWY HRMS
+</title>
+
+<link
+rel="icon"
+href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:
+linear-gradient(
+135deg,
+#041638,
+#071b46,
+#0f2c6b
+);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+/* CONTAINER */
+
+.container{
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+/* LOGIN BOX */
+
+.login-box{
+width:100%;
+max-width:420px;
+background:white;
+padding:45px 35px;
+border-radius:28px;
+text-align:center;
+box-shadow:
+0 20px 60px rgba(0,0,0,0.35);
+animation:fadeIn 0.8s ease;
+}
+
+/* LOGO */
+
+.logo{
+width:110px;
+margin-bottom:15px;
+}
+
+/* TITLE */
+
+.login-box h1{
+font-size:38px;
+color:#071b46;
+margin-bottom:10px;
+font-weight:800;
+}
+
+.subtitle{
+font-size:16px;
+color:#666;
+margin-bottom:35px;
+}
+
+/* INPUT */
+
+.login-box input{
+width:100%;
+padding:16px;
+margin-bottom:18px;
+border:1px solid #dcdcdc;
+border-radius:14px;
+font-size:16px;
+outline:none;
+transition:0.3s;
+background:#f8f8f8;
+}
+
+.login-box input:focus{
+border-color:#f5a000;
+background:white;
+box-shadow:
+0 0 0 4px rgba(245,160,0,0.15);
+}
+
+/* BUTTON */
+
+.login-box button{
+width:100%;
+padding:16px;
+border:none;
+border-radius:14px;
+background:#f5a000;
+color:black;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.login-box button:hover{
+background:#ffb400;
+transform:translateY(-2px);
+}
+
+/* MESSAGE */
+
+#message{
+margin-top:18px;
+font-size:15px;
+font-weight:bold;
+}
+
+/* VERSION */
+
+.version{
+margin-top:20px;
+font-size:13px;
+color:#888;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+.login-box{
+padding:35px 25px;
+}
+
+.login-box h1{
+font-size:30px;
+}
+
+.logo{
+width:90px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="login-box">
+
+<img
+src="assets/logo.png"
+class="logo">
+
+<h1>
+SHOWY HRMS
+</h1>
+
+<p class="subtitle">
+Employee & Admin Login Portal
+</p>
+
+<input
+type="email"
+id="email"
+placeholder="Enter Email">
+
+<input
+type="password"
+id="password"
+placeholder="Enter Password">
+
+<button onclick="loginUser()">
+Login
+</button>
+
+<div id="message"></div>
+
+<div class="version">
+Version 2.0
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================================
+   SHEET ID
+========================================= */
+
+const SHEET_ID =
+"1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU";
+
+/* =========================================
+   LOGIN FUNCTION
+========================================= */
+
+async function loginUser(){
+
+const email =
+document
+.getElementById("email")
+.value
+.trim();
+
+const password =
+document
+.getElementById("password")
+.value
+.trim();
+
+const message =
+document
+.getElementById("message");
+
+/* VALIDATION */
+
+if(email === "" || password === ""){
+
+message.style.color = "red";
+
+message.innerHTML =
+"Please enter email and password";
+
+return;
+
+}
+
+/* LOADING */
+
+message.style.color =
+"#f5a000";
+
+message.innerHTML =
+"Checking Login...";
+
+try{
+
+/* =========================================
+   FETCH EMPLOYEE DATA
+========================================= */
+
+const SHEET_URL =
+
+`https://opensheet.elk.sh/${SHEET_ID}/Employee_Data`;
+
+const response =
+await fetch(SHEET_URL);
+
+const data =
+await response.json();
+
+/* =========================================
+   FIND USER
+========================================= */
+
+const employee =
+data.find(row =>
+
+row.Email &&
+row.Password &&
+
+row.Email
+.trim()
+.toLowerCase() ===
+
+email.toLowerCase()
+
+&&
+
+row.Password
+.trim() ===
+password
+
+);
+
+/* =========================================
+   LOGIN SUCCESS
+========================================= */
+
+if(employee){
+
+/* ROLE */
+
+const role =
+(employee.Role || "employee")
+.toLowerCase();
+
+/* STORE USER */
+
+const userData = {
+
+name:
+employee.Name || "",
+
+email:
+employee.Email || "",
+
+department:
+employee.Department || "",
+
+role:
+role
+
+};
+
+/* LOCAL STORAGE */
+
+localStorage.setItem(
+"employee",
+JSON.stringify(userData)
+);
+
+localStorage.setItem(
+"employeeName",
+employee.Name || ""
+);
+
+localStorage.setItem(
+"employeeEmail",
+employee.Email || ""
+);
+
+localStorage.setItem(
+"employeeDepartment",
+employee.Department || ""
+);
+
+localStorage.setItem(
+"employeeRole",
+role
+);
+
+/* SUCCESS */
+
+message.style.color =
+"green";
+
+message.innerHTML =
+"Login Successful";
+
+/* =========================================
+   ADMIN LOGIN
+========================================= */
+
+if(
+
+role === "admin" ||
+
+role === "super admin"
+
+){
+
+setTimeout(()=>{
+
+window.location.href =
+"admin-dashboard.html";
+
+},1000);
+
+}
+
+/* =========================================
+   HR LOGIN
+========================================= */
+
+else if(role === "hr"){
+
+setTimeout(()=>{
+
+window.location.href =
+"hr-dashboard.html";
+
+},1000);
+
+}
+
+/* =========================================
+   EMPLOYEE LOGIN
+========================================= */
+
+else{
+
+setTimeout(()=>{
+
+window.location.href =
+"dashboard.html";
+
+},1000);
+
+}
+
+}
+
+/* =========================================
+   LOGIN FAILED
+========================================= */
+
+else{
+
+message.style.color =
+"red";
+
+message.innerHTML =
+"Invalid Email or Password";
+
+}
+
+}
+
+/* =========================================
+   ERROR
+========================================= */
+
+catch(error){
+
+console.log(error);
+
+message.style.color =
+"red";
+
+message.innerHTML =
+"Connection Error";
+
+}
+
+}
+
+/* =========================================
+   AUTO LOGIN
+========================================= */
+
+window.onload = function(){
+
+const employee =
+JSON.parse(
+localStorage.getItem("employee")
+);
+
+/* NOT LOGGED */
+
+if(!employee){
+return;
+}
+
+/* ROLE */
+
+const role =
+(employee.role || "")
+.toLowerCase();
+
+/* =========================================
+   ADMIN AUTO LOGIN
+========================================= */
+
+if(
+role === "admin" ||
+role === "super admin"
+){
+
+window.location.href =
+"admin-dashboard.html";
+
+}
+
+/* =========================================
+   HR AUTO LOGIN
+========================================= */
+
+else if(role === "hr"){
+
+window.location.href =
+"hr-dashboard.html";
+
+}
+
+/* =========================================
+   EMPLOYEE AUTO LOGIN
+========================================= */
+
+else{
+
+window.location.href =
+"dashboard.html";
+
+}
+
+};
+
+</script>
+
+</body>
+
+</html>

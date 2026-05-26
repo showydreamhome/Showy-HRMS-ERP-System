@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>
+Admin Dashboard
+</title>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<link
+rel="icon"
+href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+display:flex;
+background:#041638;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:260px;
+height:100vh;
+background:#071b46;
+padding:25px 18px;
+position:fixed;
+left:0;
+top:0;
+overflow-y:auto;
+}
+
+/* LOGO */
+
+.logo{
+text-align:center;
+margin-bottom:35px;
+}
+
+.logo img{
+width:90px;
+}
+
+.logo h2{
+margin-top:10px;
+font-size:32px;
+color:white;
+}
+
+/* MENU */
+
+.menu-btn{
+display:block;
+width:100%;
+padding:16px;
+margin-bottom:14px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+color:black;
+transform:translateX(3px);
+}
+
+.active{
+background:#f5a000;
+color:black;
+}
+
+/* MAIN */
+
+.main{
+margin-left:260px;
+padding:35px;
+width:100%;
+}
+
+/* TOP */
+
+.topBar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.topBar h1{
+font-size:45px;
+color:white;
+}
+
+.adminName{
+background:white;
+padding:12px 18px;
+border-radius:12px;
+font-weight:bold;
+}
+
+/* CARDS */
+
+.cardGrid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:28px;
+border-radius:20px;
+color:black;
+box-shadow:
+0 10px 30px rgba(0,0,0,0.2);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h2{
+font-size:20px;
+margin-bottom:15px;
+color:#666;
+}
+
+.card h1{
+font-size:42px;
+color:#071b46;
+}
+
+/* ALERTS */
+
+.alertBox{
+margin-top:35px;
+background:white;
+padding:25px;
+border-radius:20px;
+color:black;
+}
+
+.alertBox h2{
+margin-bottom:20px;
+font-size:30px;
+}
+
+.alert{
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+.warning{
+background:#fff3cd;
+color:#ff9800;
+}
+
+.danger{
+background:#ffdede;
+color:#d50000;
+}
+
+.success{
+background:#e8f5e9;
+color:green;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.topBar{
+flex-direction:column;
+align-items:flex-start;
+gap:15px;
+}
+
+.topBar h1{
+font-size:34px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>
+SHOWY
+</h2>
+
+</div>
+
+<a
+href="admin-dashboard.html"
+class="menu-btn active">
+
+Dashboard
+
+</a>
+
+<a
+href="admin-employees.html"
+class="menu-btn">
+
+Employees
+
+</a>
+
+<a
+href="admin-attendance.html"
+class="menu-btn">
+
+Attendance
+
+</a>
+
+<a
+href="admin-tasks.html"
+class="menu-btn">
+
+Tasks
+
+</a>
+
+<a
+href="admin-announcements.html"
+class="menu-btn">
+
+Announcements
+
+</a>
+
+<a
+href="admin-vehicle-site-keys.html"
+class="menu-btn">
+
+Vehicle & Keys
+
+</a>
+
+<a
+href="admin-materials.html"
+class="menu-btn">
+
+Material Requests
+
+</a>
+
+<a
+href="admin-inventory.html"
+class="menu-btn">
+
+Inventory
+
+</a>
+
+<a
+href="admin-reports.html"
+class="menu-btn">
+
+Reports
+
+</a>
+
+<a
+href="index.html"
+class="menu-btn"
+style="background:red;">
+
+Logout
+
+</a>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="topBar">
+
+<h1>
+Admin Dashboard
+</h1>
+
+<div class="adminName">
+
+Admin :
+<span id="adminName"></span>
+
+</div>
+
+</div>
+
+<!-- CARDS -->
+
+<div class="cardGrid">
+
+<div class="card">
+
+<h2>
+Employees
+</h2>
+
+<h1 id="employeeCount">
+0
+</h1>
+
+</div>
+
+<div class="card">
+
+<h2>
+Active Vehicles
+</h2>
+
+<h1 id="vehicleCount">
+0
+</h1>
+
+</div>
+
+<div class="card">
+
+<h2>
+Pending Tasks
+</h2>
+
+<h1 id="taskCount">
+0
+</h1>
+
+</div>
+
+<div class="card">
+
+<h2>
+Material Requests
+</h2>
+
+<h1 id="materialCount">
+0
+</h1>
+
+</div>
+
+</div>
+
+<!-- ALERTS -->
+
+<div class="alertBox">
+
+<h2>
+Admin Alerts
+</h2>
+
+<div class="alert warning">
+
+⚠ 2 Vehicles Insurance Expiring Soon
+
+</div>
+
+<div class="alert danger">
+
+🚨 1 Vehicle Pollution Expired
+
+</div>
+
+<div class="alert success">
+
+✅ 14 Employees Present Today
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* EMPLOYEE */
+
+const employee =
+JSON.parse(
+localStorage.getItem("employee")
+);
+
+/* SECURITY */
+
+if(!employee){
+
+window.location.href =
+"index.html";
+
+}
+
+/* SHOW NAME */
+
+document.getElementById(
+"adminName"
+).innerHTML =
+employee.name;
+
+/* SHEET ID */
+
+const SHEET_ID =
+"1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU";
+
+/* LOAD COUNTS */
+
+async function loadDashboard(){
+
+/* EMPLOYEES */
+
+const employeeRes =
+await fetch(
+`https://opensheet.elk.sh/${SHEET_ID}/Employee_Data`
+);
+
+const employeeData =
+await employeeRes.json();
+
+document.getElementById(
+"employeeCount"
+).innerHTML =
+employeeData.length;
+
+/* VEHICLES */
+
+const vehicleRes =
+await fetch(
+`https://opensheet.elk.sh/${SHEET_ID}/Keys_Master`
+);
+
+const vehicleData =
+await vehicleRes.json();
+
+document.getElementById(
+"vehicleCount"
+).innerHTML =
+
+vehicleData.filter(
+v => v.Type == "Vehicle"
+).length;
+
+/* TASKS */
+
+const taskRes =
+await fetch(
+`https://opensheet.elk.sh/${SHEET_ID}/Assigned_Tasks`
+);
+
+const taskData =
+await taskRes.json();
+
+document.getElementById(
+"taskCount"
+).innerHTML =
+
+taskData.filter(
+t => t.Status != "Completed"
+).length;
+
+/* MATERIAL */
+
+document.getElementById(
+"materialCount"
+).innerHTML =
+0;
+
+}
+
+/* START */
+
+loadDashboard();
+
+</script>
+
+</body>
+
+</html>

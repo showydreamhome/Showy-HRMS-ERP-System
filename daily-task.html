@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Daily Tasks</title>
+
+<link rel="icon" href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#041638;
+color:white;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+width:250px;
+height:100vh;
+background:#071b46;
+padding:25px 18px;
+overflow-y:auto;
+left:0;
+top:0;
+z-index:999;
+}
+
+.logo{
+text-align:center;
+margin-bottom:35px;
+}
+
+.logo img{
+width:90px;
+}
+
+.logo h2{
+margin-top:10px;
+font-size:30px;
+color:white;
+}
+
+.menu{
+margin-top:20px;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+border:none;
+cursor:pointer;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+color:black;
+transform:translateX(3px);
+}
+
+/* ACTIVE */
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+/* DROPDOWN */
+
+.dropdown-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#17357a;
+color:#ffb400;
+font-size:16px;
+font-weight:bold;
+border:none;
+cursor:pointer;
+text-align:left;
+transition:0.3s;
+}
+
+.dropdown-btn:hover{
+background:#f5a000;
+color:black;
+}
+
+.dropdown-content{
+display:none;
+padding-left:10px;
+margin-bottom:10px;
+animation:fadeIn 0.3s ease;
+}
+
+.dropdown-content.show{
+display:block;
+}
+
+.dropdown-content a{
+display:block;
+padding:14px;
+margin-bottom:10px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.dropdown-content a:hover{
+background:#f5a000;
+color:black;
+transform:translateX(3px);
+}
+
+/* LOGOUT */
+
+.logout-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:25px;
+border-radius:12px;
+background:red;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+text-align:center;
+transition:0.3s;
+}
+
+.logout-btn:hover{
+background:#cc0000;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+padding:40px;
+width:100%;
+}
+
+/* CARD */
+
+.card{
+background:white;
+color:black;
+padding:35px;
+border-radius:25px;
+max-width:1200px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.card h1{
+margin-bottom:30px;
+font-size:50px;
+}
+
+/* INPUT BOX */
+
+.inputBox{
+margin-bottom:22px;
+}
+
+.inputBox label{
+display:block;
+margin-bottom:10px;
+font-weight:bold;
+font-size:17px;
+}
+
+.inputBox input,
+.inputBox textarea,
+.inputBox select{
+width:100%;
+padding:15px;
+border:1px solid #ccc;
+border-radius:12px;
+font-size:15px;
+outline:none;
+transition:0.3s;
+background:white;
+}
+
+.inputBox input:focus,
+.inputBox textarea:focus,
+.inputBox select:focus{
+border-color:#f5a000;
+box-shadow:0 0 5px rgba(245,160,0,0.4);
+}
+
+/* TASK BOX */
+
+.taskCard{
+border:1px solid #e5e5e5;
+padding:22px;
+border-radius:18px;
+margin-bottom:25px;
+background:#fafafa;
+}
+
+.taskCard h2{
+margin-bottom:18px;
+font-size:30px;
+}
+
+/* GRID */
+
+.taskTop{
+display:grid;
+grid-template-columns:2fr 1fr 1fr;
+gap:15px;
+margin-bottom:15px;
+}
+
+/* TASK TEXTAREA */
+
+.taskCard textarea{
+width:100%;
+height:90px;
+resize:none;
+padding:14px;
+border:1px solid #ccc;
+border-radius:12px;
+font-size:15px;
+}
+
+/* EXTRA */
+
+#extraNotes,
+#tomorrowPlan{
+height:120px;
+resize:none;
+}
+
+/* STATUS */
+
+.completed{
+background:#d8ffe0 !important;
+color:green;
+font-weight:bold;
+}
+
+.pending{
+background:#fff5cf !important;
+color:#b88600;
+font-weight:bold;
+}
+
+.start{
+background:#ffd9d9 !important;
+color:red;
+font-weight:bold;
+}
+
+/* BUTTON */
+
+.submitBtn{
+background:#f5a000;
+border:none;
+padding:18px;
+font-size:18px;
+font-weight:bold;
+border-radius:14px;
+cursor:pointer;
+transition:0.3s;
+width:100%;
+margin-top:10px;
+}
+
+.submitBtn:hover{
+opacity:0.9;
+transform:translateY(-2px);
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(-5px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.card{
+max-width:100%;
+padding:25px;
+}
+
+.card h1{
+font-size:35px;
+}
+
+.taskTop{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>SHOWY</h2>
+
+</div>
+
+<div class="menu">
+
+<!-- DASHBOARD -->
+
+<a href="dashboard.html" class="menu-btn">
+Dashboard
+</a>
+
+<a href="employee-movement.html" class="menu-btn">
+In & Out
+</a>
+
+<!-- HR -->
+
+<button class="dropdown-btn" type="button" onclick="toggleDropdown('hrMenu')">
+HR ▼
+</button>
+
+<div class="dropdown-content" id="hrMenu">
+
+<a href="attendance.html">
+Attendance
+</a>
+
+<a href="leave.html">
+Leave Request
+</a>
+
+<a href="leave-status.html">
+Leave Status
+</a>
+
+<a href="salary.html">
+Salary
+</a>
+
+</div>
+
+<!-- SITE OPERATIONS -->
+
+<button class="dropdown-btn" type="button" onclick="toggleDropdown('siteMenu')">
+Site Operations ▼
+</button>
+
+<div class="dropdown-content show" id="siteMenu">
+
+
+<a href="vehicle-site-keys.html">
+Vehicle / Site Keys
+</a>
+
+<a href="daily-task.html" class="active">
+Daily Tasks
+</a>
+
+<a href="material-request.html">
+Material Request
+</a>
+
+</div>
+
+<!-- INVENTORY -->
+
+<button class="dropdown-btn" type="button" onclick="toggleDropdown('inventoryMenu')">
+Inventory ▼
+</button>
+
+<div class="dropdown-content" id="inventoryMenu">
+
+<a href="inventory.html">
+Inventory
+</a>
+
+
+</div>
+
+<!-- COMPANY -->
+
+<a href="company-hub.html" class="menu-btn">
+Company Hub
+</a>
+
+<!-- LOGOUT -->
+
+<a href="#" class="logout-btn" onclick="logout()">
+Logout
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="card">
+
+<h1>
+Daily Task Update
+</h1>
+
+<!-- EMPLOYEE -->
+
+<div class="inputBox">
+
+<label>
+Employee Name
+</label>
+
+<input type="text" id="name" readonly>
+
+</div>
+
+<!-- DATE -->
+
+<div class="inputBox">
+
+<label>
+Date
+</label>
+
+<input type="date" id="date">
+
+</div>
+
+<!-- TASKS -->
+
+<div id="tasksContainer"></div>
+
+<!-- NOTES -->
+
+<div class="inputBox">
+
+<label>
+Additional Notes
+</label>
+
+<textarea id="extraNotes"></textarea>
+
+</div>
+
+<!-- TOMORROW -->
+
+<div class="inputBox">
+
+<label>
+Tomorrow Planning
+</label>
+
+<textarea id="tomorrowPlan"></textarea>
+
+</div>
+
+<button class="submitBtn" onclick="submitTask()">
+Submit Task
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* DROPDOWN FIX */
+
+function toggleDropdown(id){
+
+const menu =
+document.getElementById(id);
+
+menu.classList.toggle("show");
+
+}
+
+/* SCRIPT URL */
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+
+/* EMPLOYEE */
+
+const employee =
+JSON.parse(localStorage.getItem("employee"));
+
+if(!employee){
+
+window.location.href =
+"index.html";
+
+}
+
+/* SET NAME */
+
+document.getElementById("name").value =
+employee.name || employee.Name || "";
+
+/* DATE */
+
+document.getElementById("date").value =
+new Date().toISOString().split("T")[0];
+
+/* PROJECTS */
+
+let allProjects = [];
+
+/* LOAD PROJECTS */
+
+async function loadProjects(){
+
+try{
+
+const url =
+"https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Projects";
+
+const response =
+await fetch(url);
+
+allProjects =
+await response.json();
+
+createTaskBoxes();
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Failed to load projects");
+
+}
+
+}
+
+/* CREATE TASKS */
+
+function createTaskBoxes(){
+
+const container =
+document.getElementById("tasksContainer");
+
+container.innerHTML = "";
+
+for(let i=1;i<=5;i++){
+
+let options =
+`<option value="">Select Project</option>`;
+
+allProjects.forEach(project => {
+
+options += `
+
+<option value="${project.ProjectCode}">
+${project.ProjectCode} - ${project.ProjectName}
+</option>
+
+`;
+
+});
+
+container.innerHTML += `
+
+<div class="taskCard">
+
+<h2>
+Task ${i}
+</h2>
+
+<div class="taskTop">
+
+<select id="project${i}">
+
+${options}
+
+</select>
+
+<select
+id="status${i}"
+onchange="changeStatusColor(${i})"
+>
+
+<option value="Need to Start">
+🔴 Need to Start
+</option>
+
+<option value="Completed">
+🟢 Completed
+</option>
+
+<option value="In Process">
+🟡 In Process
+</option>
+
+
+
+</select>
+
+<input
+type="number"
+id="progress${i}"
+placeholder="% Completed"
+min="0"
+max="100"
+>
+
+</div>
+
+<textarea
+id="task${i}"
+placeholder="Enter Task ${i} Update"
+></textarea>
+
+</div>
+
+`;
+
+}
+
+/* APPLY COLORS */
+
+for(let i=1;i<=5;i++){
+
+changeStatusColor(i);
+
+}
+
+}
+
+/* STATUS COLORS */
+
+function changeStatusColor(i){
+
+const select =
+document.getElementById(`status${i}`);
+
+if(!select) return;
+
+select.classList.remove(
+"completed",
+"pending",
+"start"
+);
+
+if(select.value === "Completed"){
+
+select.classList.add("completed");
+
+}
+else if(select.value === "In Process"){
+
+select.classList.add("pending");
+
+}
+else{
+
+select.classList.add("start");
+
+}
+
+}
+
+/* LOAD */
+
+loadProjects();
+
+/* SUBMIT */
+
+async function submitTask(){
+
+const data = {
+
+type:"task",
+
+name:
+document.getElementById("name").value,
+
+date:
+document.getElementById("date").value,
+
+extraNotes:
+document.getElementById("extraNotes").value,
+
+tomorrowPlan:
+document.getElementById("tomorrowPlan").value
+
+};
+
+for(let i=1;i<=5;i++){
+
+data[`project${i}`] =
+document.getElementById(`project${i}`).value;
+
+data[`task${i}`] =
+document.getElementById(`task${i}`).value;
+
+data[`status${i}`] =
+document.getElementById(`status${i}`).value;
+
+data[`progress${i}`] =
+document.getElementById(`progress${i}`).value;
+
+}
+
+try{
+
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify(data)
+
+});
+
+alert("Task Submitted Successfully");
+
+/* CLEAR */
+
+for(let i=1;i<=5;i++){
+
+document.getElementById(`task${i}`).value = "";
+
+document.getElementById(`progress${i}`).value = "";
+
+}
+
+document.getElementById("extraNotes").value = "";
+
+document.getElementById("tomorrowPlan").value = "";
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Submission Failed");
+
+}
+
+}
+
+/* LOGOUT */
+
+function logout(){
+
+localStorage.removeItem("employee");
+
+window.location.href =
+"index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Admin Task Assignment
+</title>
+
+<link
+rel="icon"
+href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#041638;
+color:white;
+display:flex;
+overflow:auto;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+width:240px;
+height:100vh;
+background:#071b46;
+padding:20px 15px;
+overflow-y:auto;
+left:0;
+top:0;
+}
+
+.logo{
+text-align:center;
+margin-bottom:25px;
+}
+
+.logo img{
+width:80px;
+margin-bottom:10px;
+}
+
+.logo h2{
+font-size:30px;
+}
+
+/* MENU */
+
+.menu{
+margin-top:10px;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.menu-btn{
+display:block;
+width:100%;
+padding:14px;
+border-radius:12px;
+background:#17357a;
+color:white;
+text-decoration:none;
+font-size:15px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+color:black;
+transform:translateX(3px);
+}
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+.logout-btn{
+display:block;
+width:100%;
+padding:14px;
+border-radius:12px;
+background:red;
+color:white;
+text-decoration:none;
+font-size:15px;
+font-weight:bold;
+text-align:center;
+margin-top:15px;
+}
+
+.logout-btn:hover{
+background:#cc0000;
+}
+
+/* MAIN */
+
+.main{
+margin-left:240px;
+padding:25px;
+width:calc(100% - 240px);
+min-height:100vh;
+}
+
+/* CARD */
+
+.card{
+background:white;
+color:black;
+padding:25px;
+border-radius:22px;
+}
+
+.card h1{
+font-size:42px;
+margin-bottom:25px;
+}
+
+/* FORM */
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-bottom:15px;
+}
+
+.inputBox label{
+display:block;
+margin-bottom:6px;
+font-weight:bold;
+font-size:15px;
+}
+
+.inputBox input,
+.inputBox select,
+.inputBox textarea{
+width:100%;
+padding:13px;
+border:1px solid #ccc;
+border-radius:12px;
+font-size:15px;
+outline:none;
+}
+
+textarea{
+height:90px;
+resize:none;
+}
+
+/* BUTTON */
+
+.submitBtn{
+background:#f5a000;
+color:black;
+border:none;
+padding:15px;
+font-size:16px;
+font-weight:bold;
+border-radius:12px;
+cursor:pointer;
+width:100%;
+transition:0.3s;
+margin-top:5px;
+}
+
+.submitBtn:hover{
+opacity:0.9;
+}
+
+/* STATS */
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:15px;
+margin:25px 0;
+}
+
+.stat-card{
+padding:20px;
+border-radius:16px;
+text-align:center;
+color:white;
+}
+
+.stat-card h2{
+font-size:34px;
+margin-bottom:6px;
+}
+
+.stat-card p{
+font-size:14px;
+}
+
+.total-card{
+background:#071b46;
+}
+
+.pending-card{
+background:#d98b00;
+}
+
+.progress-card{
+background:#005eff;
+}
+
+.completed-card{
+background:#00893a;
+}
+
+.overdue-card{
+background:#d10000;
+}
+
+/* FILTER */
+
+.filter-bar{
+display:grid;
+grid-template-columns:2fr 1fr 1fr;
+gap:12px;
+margin-bottom:20px;
+}
+
+.filter-bar input,
+.filter-bar select{
+padding:13px;
+border-radius:12px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+/* TABLE */
+
+.tableContainer{
+overflow:auto;
+border-radius:16px;
+border:1px solid #ddd;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:1200px;
+background:white;
+}
+
+table th{
+background:#071b46;
+color:white;
+padding:14px;
+text-align:left;
+font-size:14px;
+position:sticky;
+top:0;
+z-index:2;
+}
+
+table td{
+padding:13px;
+border-bottom:1px solid #ddd;
+font-size:14px;
+}
+
+/* PRIORITY */
+
+.high{
+color:red;
+font-weight:bold;
+}
+
+.medium{
+color:#f5a000;
+font-weight:bold;
+}
+
+.low{
+color:green;
+font-weight:bold;
+}
+
+/* OVERDUE */
+
+.overdue-row{
+background:#ffe3e3;
+border-left:5px solid red;
+}
+
+/* ACTIONS */
+
+.action-btn{
+padding:7px 12px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+margin-right:5px;
+font-size:12px;
+}
+
+.edit-btn{
+background:#005eff;
+color:white;
+}
+
+.delete-btn{
+background:red;
+color:white;
+}
+
+.proof-btn{
+background:#00893a;
+color:white;
+padding:7px 12px;
+border-radius:8px;
+text-decoration:none;
+font-size:12px;
+display:inline-block;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+width:100%;
+padding:15px;
+}
+
+.row{
+grid-template-columns:1fr;
+}
+
+.filter-bar{
+grid-template-columns:1fr;
+}
+
+.stats-grid{
+grid-template-columns:1fr 1fr;
+}
+
+.card h1{
+font-size:32px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>
+SHOWY
+</h2>
+
+</div>
+
+<div class="menu">
+
+<a href="admin-dashboard.html"
+class="menu-btn">
+
+Dashboard
+
+</a>
+
+<a href="admin-employees.html"
+class="menu-btn">
+
+Employees
+
+</a>
+
+<a href="admin-attendance.html"
+class="menu-btn">
+
+Attendance
+
+</a>
+
+<a href="admin-task-assign.html"
+class="menu-btn active">
+
+Tasks
+
+</a>
+
+<a href="admin-announcements.html"
+class="menu-btn">
+
+Announcements
+
+</a>
+
+<a href="admin-vehicle-site-keys.html"
+class="menu-btn">
+
+Vehicle & Keys
+
+</a>
+
+<a href="admin-materials.html"
+class="menu-btn">
+
+Material Requests
+
+</a>
+
+<a href="admin-inventory.html"
+class="menu-btn">
+
+Inventory
+
+</a>
+
+<a href="admin-reports.html"
+class="menu-btn">
+
+Reports
+
+</a>
+
+<a href="index.html"
+class="logout-btn">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="card">
+
+<h1>
+Assign Tasks
+</h1>
+
+<!-- FORM -->
+
+<div class="row">
+
+<div class="inputBox">
+
+<label>
+Task Title
+</label>
+
+<input
+type="text"
+id="taskTitle"
+placeholder="Enter Task Title">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Assign To
+</label>
+
+<select id="assignedTo">
+
+<option value="">
+Select Employee
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="inputBox">
+
+<label>
+Employee Phone
+</label>
+
+<input
+type="text"
+id="employeePhone"
+placeholder="Enter WhatsApp Number">
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Project
+</label>
+
+<select id="project">
+
+<option value="">
+Select Project
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="inputBox">
+
+<label>
+Priority
+</label>
+
+<select id="priority">
+
+<option value="High">
+🔴 High
+</option>
+
+<option value="Medium">
+🟡 Medium
+</option>
+
+<option value="Low">
+🟢 Low
+</option>
+
+</select>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Deadline
+</label>
+
+<input
+type="date"
+id="deadline">
+
+</div>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Description
+</label>
+
+<textarea
+id="description"
+placeholder="Enter Task Description"></textarea>
+
+</div>
+
+<button
+class="submitBtn"
+onclick="assignTask()">
+
+Assign Task
+
+</button>
+
+<!-- STATS -->
+
+<div class="stats-grid">
+
+<div class="stat-card total-card">
+
+<h2 id="totalTasks">
+0
+</h2>
+
+<p>Total Tasks</p>
+
+</div>
+
+<div class="stat-card pending-card">
+
+<h2 id="pendingTasks">
+0
+</h2>
+
+<p>Pending</p>
+
+</div>
+
+<div class="stat-card progress-card">
+
+<h2 id="progressTasks">
+0
+</h2>
+
+<p>In Progress</p>
+
+</div>
+
+<div class="stat-card completed-card">
+
+<h2 id="completedTasks">
+0
+</h2>
+
+<p>Completed</p>
+
+</div>
+
+<div class="stat-card overdue-card">
+
+<h2 id="overdueTasks">
+0
+</h2>
+
+<p>Overdue</p>
+
+</div>
+
+</div>
+
+<!-- FILTER -->
+
+<div class="filter-bar">
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search Task / Employee / Project"
+onkeyup="filterTasks()">
+
+<select
+id="statusFilter"
+onchange="filterTasks()">
+
+<option value="">
+All Status
+</option>
+
+<option value="Pending">
+Pending
+</option>
+
+<option value="Started">
+Started
+</option>
+
+<option value="In Progress">
+In Progress
+</option>
+
+<option value="Completed">
+Completed
+</option>
+
+</select>
+
+<select
+id="priorityFilter"
+onchange="filterTasks()">
+
+<option value="">
+All Priority
+</option>
+
+<option value="High">
+High
+</option>
+
+<option value="Medium">
+Medium
+</option>
+
+<option value="Low">
+Low
+</option>
+
+</select>
+
+</div>
+
+<!-- TABLE -->
+
+<div class="tableContainer">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Task</th>
+<th>Employee</th>
+<th>Project</th>
+<th>Priority</th>
+<th>Deadline</th>
+<th>Status</th>
+<th>Description</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="taskTable">
+
+<tr>
+
+<td colspan="8">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ======================================
+   URLS
+====================================== */
+
+const SHEET_URL =
+"https://opensheet.vercel.app/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU";
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+
+/* ======================================
+   GLOBALS
+====================================== */
+
+let allTasks = [];
+let employeesData = [];
+
+/* ======================================
+   LOAD DATA
+====================================== */
+
+async function loadData(){
+
+/* EMPLOYEES */
+
+const empRes =
+await fetch(`${SHEET_URL}/Employee_Data`);
+
+employeesData =
+await empRes.json();
+
+const empSelect =
+document.getElementById("assignedTo");
+
+employeesData.forEach(emp=>{
+
+empSelect.innerHTML += `
+
+<option value="${emp.Name}">
+${emp.Name}
+</option>
+
+`;
+
+});
+
+/* AUTO PHONE */
+
+empSelect.addEventListener("change",()=>{
+
+const selected =
+employeesData.find(
+x => x.Name === empSelect.value
+);
+
+document.getElementById(
+"employeePhone"
+).value =
+selected?.Phone || "";
+
+});
+
+/* PROJECTS */
+
+const projectRes =
+await fetch(`${SHEET_URL}/Projects`);
+
+const projects =
+await projectRes.json();
+
+const projectSelect =
+document.getElementById("project");
+
+projects.forEach(project=>{
+
+projectSelect.innerHTML += `
+
+<option value="${project.ProjectCode}">
+${project.ProjectCode}
+</option>
+
+`;
+
+});
+
+/* TASKS */
+
+loadTasks();
+
+}
+
+/* ======================================
+   ASSIGN TASK
+====================================== */
+
+async function assignTask(){
+
+const taskTitle =
+document.getElementById("taskTitle").value;
+
+const assignedTo =
+document.getElementById("assignedTo").value;
+
+const project =
+document.getElementById("project").value;
+
+const priority =
+document.getElementById("priority").value;
+
+const deadline =
+document.getElementById("deadline").value;
+
+const description =
+document.getElementById("description").value;
+
+if(
+!taskTitle ||
+!assignedTo ||
+!project ||
+!deadline
+){
+
+alert("Fill all fields");
+return;
+
+}
+
+const data = {
+
+type:"assignTask",
+
+taskID:"TSK" + Date.now(),
+
+taskTitle:taskTitle,
+
+assignedTo:assignedTo,
+
+project:project,
+
+priority:priority,
+
+deadline:deadline,
+
+description:description,
+
+status:"Pending",
+
+assignedBy:"Admin",
+
+assignedDate:
+new Date().toLocaleDateString()
+
+};
+
+try{
+
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify(data)
+
+});
+
+alert("✅ Task Assigned");
+
+loadTasks();
+
+}
+catch(error){
+
+console.log(error);
+
+alert("❌ Failed");
+
+}
+
+}
+
+/* ======================================
+   LOAD TASKS
+====================================== */
+
+async function loadTasks(){
+
+const response =
+await fetch(`${SHEET_URL}/Assigned_Tasks`);
+
+const tasks =
+await response.json();
+
+allTasks = tasks.reverse();
+
+renderTasks(allTasks);
+
+}
+
+/* ======================================
+   RENDER
+====================================== */
+
+function renderTasks(tasks){
+
+const table =
+document.getElementById("taskTable");
+
+table.innerHTML = "";
+
+let total = tasks.length;
+let pending = 0;
+let progress = 0;
+let completed = 0;
+let overdue = 0;
+
+tasks.forEach(task=>{
+
+const today =
+new Date();
+
+const deadline =
+new Date(task.Deadline);
+
+const overdueTask =
+
+deadline < today &&
+task.Status !== "Completed";
+
+if(task.Status === "Pending"){
+pending++;
+}
+
+if(
+task.Status === "Started" ||
+task.Status === "In Progress"
+){
+progress++;
+}
+
+if(task.Status === "Completed"){
+completed++;
+}
+
+if(overdueTask){
+overdue++;
+}
+
+let priorityClass = "low";
+
+if(task.Priority === "High"){
+priorityClass = "high";
+}
+
+if(task.Priority === "Medium"){
+priorityClass = "medium";
+}
+
+table.innerHTML += `
+
+<tr class="${overdueTask ? "overdue-row" : ""}">
+
+<td>${task.TaskTitle || "-"}</td>
+
+<td>${task.AssignedTo || "-"}</td>
+
+<td>${task.Project || "-"}</td>
+
+<td class="${priorityClass}">
+${task.Priority || "-"}
+</td>
+
+<td>${task.Deadline || "-"}</td>
+
+<td>${task.Status || "-"}</td>
+
+<td>${task.Description || "-"}</td>
+
+<td>
+
+<button
+class="action-btn edit-btn">
+
+Edit
+
+</button>
+
+<button
+class="action-btn delete-btn"
+onclick="deleteTask('${task.TaskID}')">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+/* STATS */
+
+document.getElementById(
+"totalTasks"
+).innerText = total;
+
+document.getElementById(
+"pendingTasks"
+).innerText = pending;
+
+document.getElementById(
+"progressTasks"
+).innerText = progress;
+
+document.getElementById(
+"completedTasks"
+).innerText = completed;
+
+document.getElementById(
+"overdueTasks"
+).innerText = overdue;
+
+}
+
+/* ======================================
+   FILTER
+====================================== */
+
+function filterTasks(){
+
+const search =
+document.getElementById("searchBox")
+.value
+.toLowerCase();
+
+const status =
+document.getElementById("statusFilter")
+.value;
+
+const priority =
+document.getElementById("priorityFilter")
+.value;
+
+const filtered =
+allTasks.filter(task=>{
+
+const matchSearch =
+
+(task.TaskTitle || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(task.AssignedTo || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(task.Project || "")
+.toLowerCase()
+.includes(search);
+
+const matchStatus =
+
+status === "" ||
+task.Status === status;
+
+const matchPriority =
+
+priority === "" ||
+task.Priority === priority;
+
+return(
+matchSearch &&
+matchStatus &&
+matchPriority
+);
+
+});
+
+renderTasks(filtered);
+
+}
+
+/* ======================================
+   DELETE
+====================================== */
+
+async function deleteTask(taskID){
+
+if(!confirm("Delete this task?")){
+return;
+}
+
+try{
+
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+type:"deleteTask",
+taskID:taskID
+
+})
+
+});
+
+alert("✅ Task Deleted");
+
+loadTasks();
+
+}
+catch(error){
+
+console.log(error);
+
+alert("❌ Delete Failed");
+
+}
+
+}
+
+/* ======================================
+   START
+====================================== */
+
+loadData();
+
+</script>
+
+</body>
+
+</html>

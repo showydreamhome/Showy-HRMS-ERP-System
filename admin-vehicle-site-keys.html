@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin - Vehicle & Site Keys</title>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<link
+rel="icon"
+href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+color:white;
+display:flex;
+overflow:auto;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:240px;
+height:100vh;
+background:#071b46;
+padding:20px 15px;
+overflow-y:auto;
+}
+
+.logo{
+text-align:center;
+margin-bottom:25px;
+}
+
+.logo img{
+width:80px;
+margin-bottom:10px;
+}
+
+.logo h2{
+font-size:32px;
+}
+
+/* MENU */
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.menu-btn{
+display:block;
+width:100%;
+padding:14px;
+border-radius:12px;
+background:#17357a;
+color:white;
+text-decoration:none;
+font-size:15px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+border:none;
+cursor:pointer;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+color:black;
+transform:translateX(3px);
+}
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+.logout-btn{
+background:red !important;
+color:white !important;
+margin-top:15px;
+}
+
+.logout-btn:hover{
+background:#cc0000 !important;
+}
+
+/* MAIN */
+
+.main{
+margin-left:240px;
+padding:25px;
+width:calc(100% - 240px);
+min-height:100vh;
+}
+
+/* CONTAINER */
+
+.container{
+background:white;
+color:black;
+padding:30px;
+border-radius:24px;
+overflow:auto;
+}
+
+/* TITLE */
+
+h1{
+font-size:48px;
+margin-bottom:25px;
+}
+
+/* TOP BAR */
+
+.topBar{
+display:flex;
+gap:15px;
+margin-bottom:25px;
+flex-wrap:wrap;
+}
+
+/* TOP BUTTONS */
+
+.topBtn{
+padding:14px 24px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+font-size:15px;
+transition:0.3s;
+}
+
+.tabBtn{
+background:#071b46;
+color:white;
+}
+
+.tabBtn:hover{
+background:#17357a;
+}
+
+.activeTab{
+background:#f5a000 !important;
+color:black !important;
+}
+
+.refreshBtn{
+background:#f5a000;
+color:black;
+}
+
+.refreshBtn:hover{
+opacity:0.9;
+}
+
+/* CARD */
+
+.card{
+border:1px solid #ddd;
+padding:20px;
+border-radius:18px;
+overflow:auto;
+}
+
+.card h2{
+font-size:36px;
+margin-bottom:20px;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:1300px;
+}
+
+table th{
+background:#071b46;
+color:white;
+padding:16px;
+text-align:left;
+font-size:15px;
+position:sticky;
+top:0;
+}
+
+table td{
+padding:16px;
+border-bottom:1px solid #ddd;
+font-size:15px;
+vertical-align:middle;
+}
+
+/* STATUS */
+
+.available{
+color:green;
+font-weight:bold;
+}
+
+.inuse{
+color:red;
+font-weight:bold;
+}
+
+/* ALERT */
+
+.expired{
+background:#ffdede;
+color:#d50000;
+font-weight:bold;
+border-radius:10px;
+text-align:center;
+animation:blink 1s infinite;
+}
+
+.warning{
+background:#fff3cd;
+color:#ff9800;
+font-weight:bold;
+border-radius:10px;
+text-align:center;
+}
+
+.ok{
+background:#e8f5e9;
+color:green;
+font-weight:bold;
+border-radius:10px;
+text-align:center;
+}
+
+/* DELETE */
+
+.deleteBtn{
+background:red;
+color:white;
+padding:10px 16px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+}
+
+.deleteBtn:hover{
+background:#cc0000;
+}
+
+/* BLINK */
+
+@keyframes blink{
+
+0%{
+opacity:1;
+}
+
+50%{
+opacity:0.5;
+}
+
+100%{
+opacity:1;
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+width:100%;
+padding:15px;
+}
+
+.container{
+padding:20px;
+}
+
+h1{
+font-size:34px;
+}
+
+.card h2{
+font-size:28px;
+}
+
+.topBar{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.topBtn{
+width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>
+SHOWY
+</h2>
+
+</div>
+
+<div class="menu">
+
+<a href="admin-dashboard.html"
+class="menu-btn">
+
+Dashboard
+
+</a>
+
+<a href="admin-employees.html"
+class="menu-btn">
+
+Employees
+
+</a>
+
+<a href="admin-attendance.html"
+class="menu-btn">
+
+Attendance
+
+</a>
+
+<a href="admin-task-assign.html"
+class="menu-btn">
+
+Tasks
+
+</a>
+
+<a href="admin-announcements.html"
+class="menu-btn">
+
+Announcements
+
+</a>
+
+<a href="admin-vehicle-site-keys.html"
+class="menu-btn active">
+
+Vehicle & Keys
+
+</a>
+
+<a href="admin-materials.html"
+class="menu-btn">
+
+Material Requests
+
+</a>
+
+<a href="admin-inventory.html"
+class="menu-btn">
+
+Inventory
+
+</a>
+
+<a href="admin-reports.html"
+class="menu-btn">
+
+Reports
+
+</a>
+
+<a href="index.html"
+class="menu-btn logout-btn">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="container">
+
+<h1>
+Admin - Vehicle & Site Keys
+</h1>
+
+<!-- TOP BAR -->
+
+<div class="topBar">
+
+<button
+class="topBtn tabBtn activeTab"
+id="keysBtn"
+onclick="showSection('keysSection')">
+
+Keys Master
+
+</button>
+
+<button
+class="topBtn tabBtn"
+id="movementBtn"
+onclick="showSection('movementSection')">
+
+Movement Log
+
+</button>
+
+<button
+class="topBtn refreshBtn"
+onclick="loadData()">
+
+Refresh
+
+</button>
+
+</div>
+
+<!-- KEYS SECTION -->
+
+<div id="keysSection">
+
+<div class="card">
+
+<h2>
+Keys Master
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Type</th>
+<th>Name</th>
+<th>Current KM</th>
+<th>Service KM</th>
+<th>Service Due Date</th>
+<th>Insurance Due</th>
+<th>Pollution Due</th>
+<th>Status</th>
+<th>Holder</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="keysTable">
+
+<tr>
+
+<td colspan="11">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- MOVEMENT SECTION -->
+
+<div
+id="movementSection"
+style="display:none;">
+
+<div class="card">
+
+<h2>
+Movement Log
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Vehicle</th>
+<th>Employee</th>
+<th>Start KM</th>
+<th>End KM</th>
+<th>Total KM</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="movementTable">
+
+<tr>
+
+<td colspan="6">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ======================================
+   SHEET ID
+====================================== */
+
+const SHEET_ID =
+"1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU";
+
+/* ======================================
+   GLOBALS
+====================================== */
+
+let keysData = [];
+let movementData = [];
+let vehicleData = [];
+
+/* ======================================
+   SECTION SWITCH
+====================================== */
+
+function showSection(section){
+
+document.getElementById(
+"keysSection"
+).style.display = "none";
+
+document.getElementById(
+"movementSection"
+).style.display = "none";
+
+/* SHOW SELECTED */
+
+document.getElementById(
+section
+).style.display = "block";
+
+/* REMOVE ACTIVE */
+
+document.getElementById(
+"keysBtn"
+).classList.remove("activeTab");
+
+document.getElementById(
+"movementBtn"
+).classList.remove("activeTab");
+
+/* ACTIVE BUTTON */
+
+if(section === "keysSection"){
+
+document.getElementById(
+"keysBtn"
+).classList.add("activeTab");
+
+}
+
+else{
+
+document.getElementById(
+"movementBtn"
+).classList.add("activeTab");
+
+}
+
+}
+
+/* ======================================
+   LOAD DATA
+====================================== */
+
+async function loadData(){
+
+try{
+
+/* KEYS */
+
+const keysRes =
+await fetch(
+`https://opensheet.elk.sh/${SHEET_ID}/Keys_Master`
+);
+
+keysData =
+await keysRes.json();
+
+/* VEHICLE */
+
+const vehicleRes =
+await fetch(
+`https://opensheet.elk.sh/${SHEET_ID}/Vehicle_Master`
+);
+
+vehicleData =
+await vehicleRes.json();
+
+/* MOVEMENT */
+
+const movementRes =
+await fetch(
+`https://opensheet.elk.sh/${SHEET_ID}/Movement_Log`
+);
+
+movementData =
+await movementRes.json();
+
+/* LOAD */
+
+loadKeys();
+loadMovement();
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Failed To Load Data");
+
+}
+
+}
+
+/* ======================================
+   DATE STATUS
+====================================== */
+
+function getDateStatus(dateStr){
+
+if(!dateStr || dateStr === "-"){
+
+return {
+className:"ok",
+text:"-"
+};
+
+}
+
+const parts =
+dateStr.split("-");
+
+if(parts.length !== 3){
+
+return {
+className:"ok",
+text:dateStr
+};
+
+}
+
+const target =
+new Date(
+parts[2],
+parts[1]-1,
+parts[0]
+);
+
+const today =
+new Date();
+
+const diffDays =
+Math.ceil(
+(target - today) /
+(1000 * 60 * 60 * 24)
+);
+
+/* EXPIRED */
+
+if(diffDays < 0){
+
+return {
+className:"expired",
+text:"🚨 Expired"
+};
+
+}
+
+/* WARNING */
+
+if(diffDays <= 30){
+
+return {
+className:"warning",
+text:`⚠ Due in ${diffDays} Days`
+};
+
+}
+
+/* SAFE */
+
+return {
+className:"ok",
+text:dateStr
+};
+
+}
+
+/* ======================================
+   KM STATUS
+====================================== */
+
+function getKMStatus(currentKM,serviceKM){
+
+if(
+!currentKM ||
+!serviceKM ||
+currentKM === "-" ||
+serviceKM === "-"
+){
+
+return {
+className:"ok",
+text:serviceKM || "-"
+};
+
+}
+
+currentKM =
+Number(currentKM);
+
+serviceKM =
+Number(serviceKM);
+
+const remaining =
+serviceKM - currentKM;
+
+/* OVERDUE */
+
+if(remaining <= 0){
+
+return {
+className:"expired",
+text:"🚨 Overdue"
+};
+
+}
+
+/* WARNING */
+
+if(remaining <= 1000){
+
+return {
+className:"warning",
+text:`⚠ ${remaining} KM Left`
+};
+
+}
+
+/* SAFE */
+
+return {
+className:"ok",
+text:serviceKM
+};
+
+}
+
+/* ======================================
+   LOAD KEYS
+====================================== */
+
+function loadKeys(){
+
+const table =
+document.getElementById("keysTable");
+
+table.innerHTML = "";
+
+if(keysData.length === 0){
+
+table.innerHTML = `
+
+<tr>
+
+<td colspan="11">
+
+No Keys Found
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+keysData.forEach((key,index)=>{
+
+const vehicle =
+vehicleData.find(
+v => v.Vehicle === key.Name
+);
+
+/* VEHICLE DATA */
+
+const currentKM =
+vehicle
+? vehicle["Current KM"]
+: "-";
+
+const serviceKM =
+vehicle
+? vehicle["Service Due KM"]
+: "-";
+
+const serviceDate =
+vehicle
+? vehicle["Service Due Date"]
+: "-";
+
+const insurance =
+vehicle
+? vehicle["Insurance Due"]
+: "-";
+
+const pollution =
+vehicle
+? vehicle["Pollution Due"]
+: "-";
+
+/* STATUS */
+
+const kmStatus =
+getKMStatus(
+currentKM,
+serviceKM
+);
+
+const serviceDateStatus =
+getDateStatus(
+serviceDate
+);
+
+const insuranceStatus =
+getDateStatus(
+insurance
+);
+
+const pollutionStatus =
+getDateStatus(
+pollution
+);
+
+const statusClass =
+key.Status === "Available"
+? "available"
+: "inuse";
+
+/* ROW */
+
+table.innerHTML += `
+
+<tr>
+
+<td>${key.ID || "-"}</td>
+
+<td>${key.Type || "-"}</td>
+
+<td>${key.Name || "-"}</td>
+
+<td>${currentKM}</td>
+
+<td class="${kmStatus.className}">
+${kmStatus.text}
+</td>
+
+<td class="${serviceDateStatus.className}">
+${serviceDateStatus.text}
+</td>
+
+<td class="${insuranceStatus.className}">
+${insuranceStatus.text}
+</td>
+
+<td class="${pollutionStatus.className}">
+${pollutionStatus.text}
+</td>
+
+<td class="${statusClass}">
+${key.Status || "-"}
+</td>
+
+<td>
+${key["Current Holder"] || "-"}
+</td>
+
+<td>
+
+<button
+class="deleteBtn"
+onclick="deleteKey('${key.ID}')">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* ======================================
+   LOAD MOVEMENT
+====================================== */
+
+function loadMovement(){
+
+const table =
+document.getElementById("movementTable");
+
+table.innerHTML = "";
+
+if(movementData.length === 0){
+
+table.innerHTML = `
+
+<tr>
+
+<td colspan="6">
+
+No Movement Data
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+movementData
+.reverse()
+.slice(0,50)
+.forEach(item=>{
+
+const statusClass =
+item.Status === "Returned"
+? "available"
+: "inuse";
+
+table.innerHTML += `
+
+<tr>
+
+<td>
+${item["Key Name"] || "-"}
+</td>
+
+<td>
+${item.Employee || "-"}
+</td>
+
+<td>
+${item["Start KM"] || "-"}
+</td>
+
+<td>
+${item["End KM"] || "-"}
+</td>
+
+<td>
+${item["Total KM"] || "-"}
+</td>
+
+<td class="${statusClass}">
+${item.Status || "-"}
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* ======================================
+   DELETE
+====================================== */
+
+function deleteKey(id){
+
+const confirmDelete =
+confirm(
+"Delete This Key?"
+);
+
+if(!confirmDelete){
+return;
+}
+
+alert(
+"Connect Delete App Script For ID: " + id
+);
+
+}
+
+/* ======================================
+   START
+====================================== */
+
+loadData();
+
+</script>
+
+</body>
+
+</html>

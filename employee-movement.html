@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Employee Movement</title>
+
+<link rel="icon" href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+color:white;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+width:250px;
+height:100vh;
+background:#071b46;
+padding:25px 18px;
+overflow-y:auto;
+left:0;
+top:0;
+}
+
+.logo{
+text-align:center;
+margin-bottom:35px;
+}
+
+.logo img{
+width:90px;
+}
+
+.logo h2{
+margin-top:10px;
+font-size:30px;
+color:white;
+}
+
+.menu{
+margin-top:20px;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+border:none;
+cursor:pointer;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+transform:translateX(3px);
+}
+
+/* ACTIVE */
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+/* DROPDOWN */
+
+.dropdown-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#17357a;
+color:#ffb400;
+font-size:16px;
+font-weight:bold;
+border:none;
+cursor:pointer;
+text-align:left;
+}
+
+.dropdown-content{
+display:none;
+padding-left:10px;
+margin-bottom:10px;
+}
+
+.dropdown-content.show{
+display:block;
+}
+
+.dropdown-content a{
+display:block;
+padding:14px;
+margin-bottom:10px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.dropdown-content a:hover{
+background:#f5a000;
+color:black;
+}
+
+/* LOGOUT */
+
+.logout-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:25px;
+border-radius:12px;
+background:red;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+text-align:center;
+transition:0.3s;
+}
+
+.logout-btn:hover{
+background:#cc0000;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+padding:40px;
+width:100%;
+}
+
+/* CARD */
+
+.container{
+max-width:700px;
+background:white;
+color:black;
+padding:35px;
+border-radius:25px;
+}
+
+.container h1{
+font-size:45px;
+margin-bottom:30px;
+}
+
+/* INPUTS */
+
+.inputBox{
+margin-bottom:22px;
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-bottom:10px;
+font-size:17px;
+}
+
+select,
+input{
+width:100%;
+padding:15px;
+border-radius:12px;
+border:1px solid #ccc;
+font-size:16px;
+outline:none;
+}
+
+/* BUTTONS */
+
+.actionBtn{
+width:100%;
+padding:16px;
+margin-top:15px;
+border:none;
+border-radius:14px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+color:white;
+}
+
+.actionBtn:hover{
+opacity:0.9;
+transform:translateY(-2px);
+}
+
+.leave{
+background:#ff9800;
+}
+
+.reached{
+background:#2196f3;
+}
+
+.siteleave{
+background:#f44336;
+}
+
+.return{
+background:#4caf50;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.container{
+max-width:100%;
+padding:25px;
+}
+
+.container h1{
+font-size:32px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>SHOWY</h2>
+
+</div>
+
+<div class="menu">
+
+<!-- DASHBOARD -->
+
+<a href="dashboard.html" class="menu-btn">
+Dashboard
+</a>
+
+<a href="employee-movement.html" class="menu-btn">
+In & Out
+</a>
+
+<!-- HR -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
+HR ▼
+</button>
+
+<div class="dropdown-content" id="hrMenu">
+
+<a href="attendance.html">
+Attendance
+</a>
+
+<a href="leave.html">
+Leave Request
+</a>
+
+<a href="leave-status.html">
+Leave Status
+</a>
+
+<a href="salary.html">
+Salary
+</a>
+
+</div>
+
+<!-- SITE OPERATIONS -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
+Site Operations ▼
+</button>
+
+<div class="dropdown-content show" id="siteMenu">
+
+
+<a href="vehicle-site-keys.html">
+Vehicle / Site Keys
+</a>
+
+<a href="daily-task.html">
+Daily Tasks
+</a>
+
+<a href="material-request.html">
+Material Request
+</a>
+
+</div>
+
+<!-- INVENTORY -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
+Inventory ▼
+</button>
+
+<div class="dropdown-content" id="inventoryMenu">
+
+<a href="inventory.html">
+Inventory
+</a>
+
+
+</div>
+
+<!-- COMPANY -->
+
+<a href="company-hub.html" class="menu-btn">
+Company Hub
+</a>
+
+<!-- LOGOUT -->
+
+<a href="index.html" class="logout-btn">
+Logout
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="container">
+
+<h1>
+Employee Movement
+</h1>
+
+<div class="inputBox">
+
+<label>
+Employee
+</label>
+
+<input
+type="text"
+id="employee"
+readonly
+>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Select Project
+</label>
+
+<select id="project">
+
+<option value="">
+Loading Projects...
+</option>
+
+</select>
+
+</div>
+
+<div class="inputBox">
+
+<label>
+Purpose
+</label>
+
+<input
+type="text"
+id="purpose"
+placeholder="Site Visit / Material Delivery"
+/>
+
+</div>
+
+<button
+class="actionBtn leave"
+onclick="sendMovement('Leaving Office')">
+
+Leaving Office
+
+</button>
+
+<button
+class="actionBtn reached"
+onclick="sendMovement('Reached Site')">
+
+Reached Site
+
+</button>
+
+<button
+class="actionBtn siteleave"
+onclick="sendMovement('Leaving Site')">
+
+Leaving Site
+
+</button>
+
+<button
+class="actionBtn return"
+onclick="sendMovement('Returned Office')">
+
+Returned Office
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* DROPDOWN */
+
+function toggleDropdown(id){
+
+document
+.getElementById(id)
+.classList.toggle("show");
+
+}
+
+/* SCRIPT URL */
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+
+/* EMPLOYEE */
+
+const employee =
+JSON.parse(localStorage.getItem("employee"));
+
+if(!employee){
+
+window.location.href =
+"index.html";
+
+}
+
+document.getElementById("employee").value =
+employee.name || employee.Name || "";
+
+/* LOAD PROJECTS */
+
+loadProjects();
+
+function loadProjects(){
+
+const callbackName =
+"projectCallback_" + Date.now();
+
+window[callbackName] = function(response){
+
+const dropdown =
+document.getElementById("project");
+
+dropdown.innerHTML = "";
+
+if(response.success){
+
+const defaultOption =
+document.createElement("option");
+
+defaultOption.value = "";
+
+defaultOption.textContent =
+"Select Project";
+
+dropdown.appendChild(defaultOption);
+
+response.projects.forEach(project => {
+
+const option =
+document.createElement("option");
+
+option.value = project;
+
+option.textContent = project;
+
+dropdown.appendChild(option);
+
+});
+
+}
+else{
+
+dropdown.innerHTML =
+'<option>Projects Not Found</option>';
+
+}
+
+};
+
+const script =
+document.createElement("script");
+
+script.src =
+SCRIPT_URL +
+"?action=projects&callback=" +
+callbackName;
+
+document.body.appendChild(script);
+
+}
+
+/* SEND MOVEMENT */
+
+function sendMovement(status){
+
+const employee =
+document.getElementById("employee").value;
+
+const project =
+document.getElementById("project").value;
+
+const purpose =
+document.getElementById("purpose").value;
+
+if(project == ""){
+
+alert("Select Project");
+
+return;
+
+}
+
+navigator.geolocation.getCurrentPosition(
+
+async function(position){
+
+const latitude =
+position.coords.latitude;
+
+const longitude =
+position.coords.longitude;
+
+const payload = {
+
+type:"employeeMovement",
+
+employee:employee,
+
+status:status,
+
+project:project,
+
+purpose:purpose,
+
+latitude:latitude,
+
+longitude:longitude
+
+};
+
+try{
+
+const response =
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify(payload)
+
+});
+
+const result =
+await response.json();
+
+if(result.success){
+
+alert(status + " Submitted Successfully");
+
+}
+else{
+
+alert("Submission Failed");
+
+}
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Error Sending Data");
+
+}
+
+},
+
+function(){
+
+alert("Enable GPS Location");
+
+}
+
+);
+
+}
+
+/* LOGOUT */
+
+function logout(){
+
+localStorage.removeItem("employee");
+
+window.location.href =
+"index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

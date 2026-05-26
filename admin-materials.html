@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin Material Requests</title>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<link
+rel="icon"
+href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+display:flex;
+color:white;
+overflow:hidden;
+}
+
+/* REMOVE LINK UNDERLINE */
+
+a{
+text-decoration:none;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:240px;
+height:100vh;
+background:#071b46;
+padding:20px 15px;
+position:fixed;
+left:0;
+top:0;
+overflow-y:auto;
+}
+
+.logo{
+text-align:center;
+margin-bottom:30px;
+}
+
+.logo img{
+width:80px;
+margin-bottom:10px;
+}
+
+.logo h2{
+font-size:32px;
+}
+
+/* MENU */
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.menu-btn{
+display:block;
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#17357a;
+color:white;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+text-align:left;
+text-decoration:none;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+color:black;
+transform:translateX(3px);
+}
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+.logout-btn{
+background:red !important;
+color:white !important;
+margin-top:10px;
+}
+
+.logout-btn:hover{
+background:#cc0000 !important;
+}
+
+/* MAIN */
+
+.main{
+margin-left:240px;
+padding:25px;
+width:calc(100% - 240px);
+height:100vh;
+overflow-y:auto;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:30px;
+border-radius:24px;
+color:black;
+}
+
+.card h1{
+font-size:58px;
+margin-bottom:30px;
+}
+
+/* SEARCH */
+
+.searchBox{
+margin-bottom:25px;
+}
+
+.searchBox input{
+width:100%;
+padding:16px;
+border:1px solid #ccc;
+border-radius:14px;
+font-size:16px;
+outline:none;
+}
+
+/* TABLE */
+
+.tableWrapper{
+width:100%;
+overflow-x:auto;
+border-radius:18px;
+border:1px solid #ddd;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:1500px;
+}
+
+table th{
+background:#071b46;
+color:white;
+padding:18px;
+font-size:15px;
+text-align:left;
+white-space:nowrap;
+}
+
+table td{
+padding:18px;
+border-bottom:1px solid #ddd;
+font-size:15px;
+vertical-align:middle;
+white-space:nowrap;
+}
+
+/* STATUS */
+
+.pending{
+color:#ff9800;
+font-weight:bold;
+}
+
+.approved{
+color:green;
+font-weight:bold;
+}
+
+.rejected{
+color:red;
+font-weight:bold;
+}
+
+/* INPUTS */
+
+.inputField{
+padding:11px;
+border:1px solid #ccc;
+border-radius:10px;
+width:140px;
+font-size:14px;
+outline:none;
+}
+
+/* BUTTON GROUP */
+
+.actionButtons{
+display:flex;
+gap:10px;
+min-width:220px;
+}
+
+/* BUTTONS */
+
+.actionBtn{
+border:none;
+padding:11px 18px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+font-size:14px;
+transition:0.3s;
+min-width:95px;
+}
+
+.approveBtn{
+background:green;
+color:white;
+}
+
+.approveBtn:hover{
+background:#006d00;
+}
+
+.rejectBtn{
+background:red;
+color:white;
+}
+
+.rejectBtn:hover{
+background:#c40000;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+body{
+display:block;
+overflow:auto;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+width:100%;
+height:auto;
+padding:15px;
+}
+
+.card{
+padding:20px;
+}
+
+.card h1{
+font-size:36px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>
+SHOWY
+</h2>
+
+</div>
+
+<div class="menu">
+
+<a href="admin-dashboard.html"
+class="menu-btn">
+
+Dashboard
+
+</a>
+
+<a href="admin-employees.html"
+class="menu-btn">
+
+Employees
+
+</a>
+
+<a href="admin-attendance.html"
+class="menu-btn">
+
+Attendance
+
+</a>
+
+<a href="admin-task-assign.html"
+class="menu-btn">
+
+Tasks
+
+</a>
+
+<a href="admin-announcements.html"
+class="menu-btn">
+
+Announcements
+
+</a>
+
+<a href="admin-vehicle-site-keys.html"
+class="menu-btn">
+
+Vehicle & Keys
+
+</a>
+
+<a href="admin-materials.html"
+class="menu-btn active">
+
+Material Requests
+
+</a>
+
+<a href="admin-inventory.html"
+class="menu-btn">
+
+Inventory
+
+</a>
+
+<a href="admin-reports.html"
+class="menu-btn">
+
+Reports
+
+</a>
+
+<a href="index.html"
+class="menu-btn logout-btn">
+
+Logout
+
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="card">
+
+<h1>
+Material Request Approval
+</h1>
+
+<!-- SEARCH -->
+
+<div class="searchBox">
+
+<input
+type="text"
+id="search"
+placeholder="Search Employee / Project / Material"
+onkeyup="renderTable()">
+
+</div>
+
+<!-- TABLE -->
+
+<div class="tableWrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Request ID</th>
+<th>Employee</th>
+<th>Project</th>
+<th>Material</th>
+<th>Code</th>
+<th>Qty</th>
+<th>Status</th>
+<th>Dispatch Qty</th>
+<th>Remark</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="requestTable">
+
+<tr>
+
+<td colspan="10"
+style="text-align:center;padding:30px;">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ======================================
+   URLS
+====================================== */
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+
+const SHEET_URL =
+"https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Material_Request";
+
+/* ======================================
+   GLOBAL
+====================================== */
+
+let requestData = [];
+
+/* ======================================
+   LOAD REQUESTS
+====================================== */
+
+async function loadRequests(){
+
+try{
+
+const response =
+await fetch(SHEET_URL);
+
+requestData =
+await response.json();
+
+renderTable();
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Failed To Load Requests");
+
+}
+
+}
+
+/* ======================================
+   RENDER TABLE
+====================================== */
+
+function renderTable(){
+
+const table =
+document.getElementById(
+"requestTable"
+);
+
+const search =
+document.getElementById(
+"search"
+).value.toLowerCase();
+
+const filtered =
+requestData.filter(item =>
+
+(item.Employee || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(item.Project || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+(item["Material Name"] || "")
+.toLowerCase()
+.includes(search)
+
+);
+
+if(filtered.length === 0){
+
+table.innerHTML = `
+
+<tr>
+
+<td colspan="10"
+style="text-align:center;padding:30px;">
+
+No Requests Found
+
+</td>
+
+</tr>
+
+`;
+
+return;
+
+}
+
+table.innerHTML = "";
+
+filtered.forEach((item,index)=>{
+
+let statusClass = "pending";
+
+if(item.Status === "Approved"){
+statusClass = "approved";
+}
+
+if(item.Status === "Rejected"){
+statusClass = "rejected";
+}
+
+table.innerHTML += `
+
+<tr>
+
+<td>
+${item["Request ID"] || "-"}
+</td>
+
+<td>
+${item.Employee || "-"}
+</td>
+
+<td>
+${item.Project || "-"}
+</td>
+
+<td>
+${item["Material Name"] || "-"}
+</td>
+
+<td>
+${item["Material Code"] || "-"}
+</td>
+
+<td>
+${item.Quantity || "-"}
+</td>
+
+<td class="${statusClass}">
+${item.Status || "Pending"}
+</td>
+
+<td>
+
+<input
+class="inputField"
+type="number"
+id="dispatch${index}"
+value="${item["Dispatch Qty"] || item.Quantity || 0}">
+
+</td>
+
+<td>
+
+<input
+class="inputField"
+type="text"
+id="remark${index}"
+placeholder="Admin Remark"
+value="${item["Admin Remark"] || ""}">
+
+</td>
+
+<td>
+
+<div class="actionButtons">
+
+<button
+class="actionBtn approveBtn"
+onclick="updateStatus(
+'${item["Request ID"]}',
+'${item["Material Code"]}',
+'Approved',
+${index}
+)">
+
+Approve
+
+</button>
+
+<button
+class="actionBtn rejectBtn"
+onclick="updateStatus(
+'${item["Request ID"]}',
+'${item["Material Code"]}',
+'Rejected',
+${index}
+)">
+
+Reject
+
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* ======================================
+   UPDATE STATUS
+====================================== */
+
+async function updateStatus(
+requestID,
+materialCode,
+status,
+index
+){
+
+const dispatchQty =
+document.getElementById(
+`dispatch${index}`
+).value;
+
+const adminRemark =
+document.getElementById(
+`remark${index}`
+).value;
+
+const data = {
+
+type:"updateMaterialStatus",
+
+requestID:requestID,
+
+materialCode:materialCode,
+
+status:status,
+
+dispatchQty:dispatchQty,
+
+adminRemark:adminRemark
+
+};
+
+try{
+
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify(data)
+
+});
+
+alert(
+"Status Updated Successfully"
+);
+
+loadRequests();
+
+}
+catch(error){
+
+console.log(error);
+
+alert(
+"Failed To Update Status"
+);
+
+}
+
+}
+
+/* ======================================
+   START
+====================================== */
+
+loadRequests();
+
+</script>
+
+</body>
+
+</html>

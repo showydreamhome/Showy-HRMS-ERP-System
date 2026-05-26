@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Showy Salary</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" href="assets/logo.png">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+color:white;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+width:250px;
+height:100vh;
+background:#071b46;
+padding:25px 18px;
+overflow-y:auto;
+left:0;
+top:0;
+}
+
+.logo{
+text-align:center;
+margin-bottom:35px;
+}
+
+.logo img{
+width:90px;
+}
+
+.logo h2{
+margin-top:10px;
+font-size:30px;
+color:white;
+}
+
+.menu{
+margin-top:20px;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+border:none;
+cursor:pointer;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+transform:translateX(3px);
+}
+
+/* ACTIVE */
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+/* DROPDOWN */
+
+.dropdown-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#17357a;
+color:#ffb400;
+font-size:16px;
+font-weight:bold;
+border:none;
+cursor:pointer;
+text-align:left;
+}
+
+.dropdown-content{
+display:none;
+padding-left:10px;
+margin-bottom:10px;
+}
+
+.dropdown-content a{
+display:block;
+padding:14px;
+margin-bottom:10px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.dropdown-content a:hover{
+background:#f5a000;
+color:black;
+}
+
+/* LOGOUT */
+
+.logout-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:25px;
+border-radius:12px;
+background:red;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+text-align:center;
+transition:0.3s;
+}
+
+.logout-btn:hover{
+background:#cc0000;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+padding:30px;
+width:100%;
+}
+
+/* TOP */
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.top h1{
+font-size:55px;
+}
+
+/* CARD */
+
+.salaryCard{
+background:white;
+color:black;
+padding:35px;
+border-radius:20px;
+max-width:850px;
+}
+
+.salaryCard h1{
+font-size:55px;
+margin-bottom:10px;
+}
+
+.salaryCard h2{
+margin-bottom:20px;
+}
+
+.salaryCard h3{
+margin-top:18px;
+font-size:28px;
+}
+
+.salaryCard hr{
+margin:20px 0;
+}
+
+/* NAV */
+
+.nav button{
+padding:12px 20px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-size:18px;
+font-weight:bold;
+margin-left:10px;
+}
+
+/* DOWNLOAD */
+
+.downloadBtn{
+margin-top:30px;
+padding:15px 25px;
+background:#f5a000;
+border:none;
+border-radius:12px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.downloadBtn:hover{
+opacity:0.9;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.top{
+flex-direction:column;
+align-items:flex-start;
+gap:15px;
+}
+
+.top h1{
+font-size:40px;
+}
+
+.salaryCard h1{
+font-size:38px;
+}
+
+.salaryCard h3{
+font-size:22px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>SHOWY</h2>
+
+</div>
+
+<div class="menu">
+
+<!-- DASHBOARD -->
+
+<a href="dashboard.html" class="menu-btn">
+Dashboard
+</a>
+
+<a href="employee-movement.html" class="menu-btn">
+In & Out
+</a>
+
+<!-- HR -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
+HR ▼
+</button>
+
+<div id="hrMenu" class="dropdown-content" style="display:block;">
+
+<a href="attendance.html">
+Attendance
+</a>
+
+<a href="leave.html">
+Leave Request
+</a>
+
+<a href="leave-status.html">
+Leave Status
+</a>
+
+<a href="salary.html" class="active">
+Salary
+</a>
+
+</div>
+
+<!-- SITE OPERATIONS -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
+Site Operations ▼
+</button>
+
+<div id="siteMenu" class="dropdown-content">
+
+
+<a href="vehicle-site-keys.html">
+Vehicle / Site Keys
+</a>
+
+<a href="daily-task.html">
+Daily Tasks
+</a>
+
+<a href="material-request.html">
+Material Request
+</a>
+
+</div>
+
+<!-- INVENTORY -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
+Inventory ▼
+</button>
+
+<div id="inventoryMenu" class="dropdown-content">
+
+<a href="inventory.html">
+Inventory
+</a>
+
+
+</div>
+
+<!-- COMPANY -->
+
+<a href="company-hub.html" class="menu-btn">
+Company Hub
+</a>
+
+<!-- LOGOUT -->
+
+<a href="index.html" class="logout-btn">
+Logout
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="top">
+
+<h1>
+Salary Slip
+</h1>
+
+<div class="nav">
+
+<button onclick="changeMonth(-1)">
+⬅ Prev
+</button>
+
+<button onclick="changeMonth(1)">
+Next ➡
+</button>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+
+<div class="salaryCard">
+
+<h1 id="employeeName">
+Employee Name
+</h1>
+
+<h2 id="salaryMonth">
+May 2026
+</h2>
+
+<hr>
+
+<h3>
+Monthly Salary :
+₹ <span id="monthlySalary">0</span>
+</h3>
+
+<h3>
+Paid Days :
+<span id="paidDays">0</span>
+</h3>
+
+<h3>
+Absent Days :
+<span id="absentDays">0</span>
+</h3>
+
+<h3>
+Final Salary :
+₹ <span id="finalSalary">0</span>
+</h3>
+
+<button class="downloadBtn" onclick="downloadPDF()">
+Download Salary Slip
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* DROPDOWN */
+
+function toggleDropdown(id){
+
+const menu =
+document.getElementById(id);
+
+if(menu.style.display === "block"){
+
+menu.style.display = "none";
+
+}else{
+
+menu.style.display = "block";
+
+}
+
+}
+
+/* EMPLOYEE */
+
+const employee =
+JSON.parse(localStorage.getItem("employee"));
+
+if(!employee){
+
+window.location.href = "index.html";
+
+}
+
+/* MONTH */
+
+let year = 2026;
+let month = 4;
+
+/* LOAD SALARY */
+
+async function loadSalary(){
+
+const months = [
+"January","February","March","April",
+"May","June","July","August",
+"September","October","November","December"
+];
+
+try{
+
+const attendanceURL =
+`https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/${months[month]}_${year}`;
+
+const salaryURL =
+`https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Salary_Sheet`;
+
+const attendanceRes =
+await fetch(attendanceURL);
+
+const attendanceData =
+await attendanceRes.json();
+
+const salaryRes =
+await fetch(salaryURL);
+
+const salaryData =
+await salaryRes.json();
+
+const empAttendance =
+attendanceData.find(
+row =>
+row.Email &&
+row.Email.trim().toLowerCase() ===
+employee.email.trim().toLowerCase()
+);
+
+const empSalary =
+salaryData.find(
+row =>
+row.Email &&
+row.Email.trim().toLowerCase() ===
+employee.email.trim().toLowerCase()
+);
+
+if(!empAttendance || !empSalary){
+
+alert("Salary data not found");
+return;
+
+}
+
+const monthlySalary =
+Number(empSalary["Gross Salary(CTC)"]);
+
+const totalDays =
+new Date(year, month + 1, 0).getDate();
+
+const perDaySalary =
+monthlySalary / totalDays;
+
+let paidDays = 0;
+let absentDays = 0;
+
+for(let i=1; i<=totalDays; i++){
+
+let key =
+`${months[month]} ${i}`;
+
+let status =
+empAttendance[key] || "";
+
+if(status === "P") paidDays += 1;
+if(status === "WO") paidDays += 1;
+if(status === "H") paidDays += 1;
+if(status === "P-1/2") paidDays += 0.5;
+if(status === "A") absentDays += 1;
+
+}
+
+const finalSalary =
+Math.round(perDaySalary * paidDays);
+
+document.getElementById("employeeName")
+.innerHTML = empSalary.Name;
+
+document.getElementById("salaryMonth")
+.innerHTML =
+`${months[month]} ${year}`;
+
+document.getElementById("monthlySalary")
+.innerHTML = monthlySalary;
+
+document.getElementById("paidDays")
+.innerHTML = paidDays;
+
+document.getElementById("absentDays")
+.innerHTML = absentDays;
+
+document.getElementById("finalSalary")
+.innerHTML = finalSalary;
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Salary loading error");
+
+}
+
+}
+
+/* START */
+
+loadSalary();
+
+/* MONTH CHANGE */
+
+function changeMonth(dir){
+
+month += dir;
+
+if(month > 11){
+
+month = 0;
+year++;
+
+}
+
+if(month < 0){
+
+month = 11;
+year--;
+
+}
+
+loadSalary();
+
+}
+
+/* LOGOUT */
+
+function logout(){
+
+localStorage.removeItem("employee");
+
+window.location.href = "index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

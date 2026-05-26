@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Showy HRMS Dashboard</title>
+
+<link rel="icon" href="assets/logo.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#041638;
+color:white;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+width:250px;
+height:100vh;
+background:#071b46;
+padding:25px 18px;
+overflow-y:auto;
+left:0;
+top:0;
+}
+
+.logo{
+text-align:center;
+margin-bottom:35px;
+}
+
+.logo img{
+width:90px;
+}
+
+.logo h2{
+margin-top:10px;
+font-size:30px;
+color:white;
+}
+
+.menu{
+margin-top:20px;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+transition:0.3s;
+text-align:left;
+border:none;
+cursor:pointer;
+}
+
+.menu-btn:hover{
+background:#f5a000;
+transform:translateX(3px);
+}
+
+/* ACTIVE */
+
+.active{
+background:#f5a000 !important;
+color:black !important;
+}
+
+/* DROPDOWN */
+
+.dropdown-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border-radius:12px;
+background:#17357a;
+color:#ffb400;
+font-size:16px;
+font-weight:bold;
+border:none;
+cursor:pointer;
+text-align:left;
+}
+
+.dropdown-content{
+display:none;
+padding-left:10px;
+margin-bottom:10px;
+}
+
+.dropdown-content.show{
+display:block;
+}
+
+.dropdown-content a{
+display:block;
+padding:14px;
+margin-bottom:10px;
+border-radius:12px;
+background:#0f2c6b;
+color:white;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+.dropdown-content a:hover{
+background:#f5a000;
+color:black;
+}
+
+/* LOGOUT */
+
+.logout-btn{
+display:block;
+width:100%;
+padding:15px;
+margin-top:25px;
+border-radius:12px;
+background:red;
+color:white;
+text-decoration:none;
+font-size:16px;
+font-weight:bold;
+text-align:center;
+transition:0.3s;
+}
+
+.logout-btn:hover{
+background:#cc0000;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+padding:30px;
+width:100%;
+}
+
+/* TOPBAR */
+
+.topbar{
+background:white;
+color:black;
+padding:25px;
+border-radius:20px;
+margin-bottom:30px;
+}
+
+/* NEW HEADER */
+
+.topHeader{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.topbar h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+/* NOTIFICATION */
+
+.notificationWrapper{
+position:relative;
+}
+
+.bellIcon{
+position:relative;
+font-size:30px;
+cursor:pointer;
+}
+
+#notificationCount{
+position:absolute;
+top:-8px;
+right:-10px;
+background:red;
+color:white;
+font-size:12px;
+padding:4px 8px;
+border-radius:50%;
+}
+
+.notificationDropdown{
+position:absolute;
+right:0;
+top:45px;
+width:350px;
+background:white;
+border-radius:18px;
+box-shadow:0 5px 25px rgba(0,0,0,0.3);
+display:none;
+overflow:hidden;
+z-index:999;
+max-height:450px;
+overflow-y:auto;
+}
+
+.notificationHeader{
+padding:15px;
+font-size:20px;
+font-weight:bold;
+border-bottom:1px solid #ddd;
+color:black;
+}
+
+.notificationItem{
+padding:15px;
+border-bottom:1px solid #eee;
+position:relative;
+color:black;
+}
+
+.notificationItem h4{
+margin-bottom:6px;
+}
+
+.notificationItem p{
+font-size:14px;
+color:#555;
+}
+
+.notificationTime{
+font-size:11px;
+color:gray;
+margin-top:8px;
+}
+
+.closeNotification{
+position:absolute;
+top:12px;
+right:12px;
+color:red;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* CARDS */
+
+.cards{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+background:white;
+color:black;
+padding:25px;
+border-radius:20px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h3{
+margin-bottom:10px;
+color:#666;
+font-size:18px;
+}
+
+.card h1{
+color:#071739;
+font-size:40px;
+}
+
+/* PROFILE */
+
+.profile{
+background:white;
+color:black;
+padding:30px;
+border-radius:20px;
+}
+
+.profile h2{
+margin-bottom:20px;
+font-size:30px;
+}
+
+.profile p{
+margin-top:15px;
+font-size:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+body{
+display:block;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.cards{
+grid-template-columns:1fr;
+}
+
+.topbar h1{
+font-size:30px;
+}
+
+.topHeader{
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<img src="assets/logo.png">
+
+<h2>SHOWY</h2>
+
+</div>
+
+<div class="menu">
+
+<!-- DASHBOARD -->
+
+<a href="dashboard.html" class="menu-btn active">
+Dashboard
+</a>
+
+<a href="employee-movement.html" class="menu-btn active">
+In & Out
+</a>
+
+<!-- HR -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
+HR ▼
+</button>
+
+<div class="dropdown-content show" id="hrMenu">
+
+<a href="attendance.html">
+Attendance
+</a>
+
+<a href="leave.html">
+Leave Request
+</a>
+
+<a href="leave-status.html">
+Leave Status
+</a>
+
+<a href="salary.html">
+Salary
+</a>
+
+</div>
+
+<!-- SITE OPERATIONS -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
+Site Operations ▼
+</button>
+
+<div class="dropdown-content" id="siteMenu">
+
+<a href="vehicle-site-keys.html">
+Vehicle / Site Keys
+</a>
+
+<a href="daily-task.html">
+Daily Tasks
+</a>
+
+<div class="menu-btn"
+onclick="window.location.href='my-tasks.html'">
+
+📌 My Tasks
+
+</div>
+
+</div>
+
+<!-- INVENTORY -->
+
+<button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
+Inventory ▼
+</button>
+
+<div class="dropdown-content" id="inventoryMenu">
+
+<a href="inventory.html">
+Inventory
+</a>
+
+<a href="material-request.html">
+Material Request
+</a>
+
+</div>
+
+<!-- COMPANY -->
+
+<a href="company-hub.html" class="menu-btn">
+Company Hub
+</a>
+
+<!-- LOGOUT -->
+
+<a href="index.html" class="logout-btn">
+Logout
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div class="topHeader">
+
+<div>
+
+<h1>
+Welcome to Showy HRMS
+</h1>
+
+<p>
+Employee Management Dashboard
+</p>
+
+</div>
+
+<!-- NOTIFICATION -->
+
+<div class="notificationWrapper">
+
+<div class="bellIcon"
+onclick="toggleNotifications()">
+
+🔔
+
+<span id="notificationCount">
+
+0
+
+</span>
+
+</div>
+
+<div class="notificationDropdown"
+id="notificationDropdown">
+
+<div class="notificationHeader">
+
+Notifications
+
+</div>
+
+<div id="notificationList">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+Attendance
+</h3>
+
+<h1>
+96%
+</h1>
+
+</div>
+
+<div class="card">
+
+<h3>
+Leaves Left
+</h3>
+
+<h1>
+12
+</h1>
+
+</div>
+
+<div class="card">
+
+<h3>
+Salary Status
+</h3>
+
+<h1>
+Paid
+</h1>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div class="profile">
+
+<h2>
+Employee Details
+</h2>
+
+<p>
+<b>Name:</b>
+<span id="name"></span>
+</p>
+
+<p>
+<b>Email:</b>
+<span id="email"></span>
+</p>
+
+<p>
+<b>Department:</b>
+<span id="department"></span>
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+/* ======================================
+   WEB APP URL
+====================================== */
+
+const WEB_APP_URL =
+"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+
+/* ======================================
+   NOTIFICATIONS
+====================================== */
+
+let notifications = [];
+
+/* ======================================
+   DROPDOWN
+====================================== */
+
+function toggleDropdown(id){
+
+document
+.getElementById(id)
+.classList.toggle("show");
+
+}
+
+/* ======================================
+   EMPLOYEE DATA
+====================================== */
+
+const employee =
+JSON.parse(
+localStorage.getItem("employee")
+);
+
+if(employee){
+
+document.getElementById("name").innerHTML =
+employee.name || "Employee";
+
+document.getElementById("email").innerHTML =
+employee.email || "Not Available";
+
+document.getElementById("department").innerHTML =
+employee.department || "Showy";
+
+}
+else{
+
+document.getElementById("name").innerHTML =
+"Welcome Employee";
+
+document.getElementById("email").innerHTML =
+"showyhrms@gmail.com";
+
+document.getElementById("department").innerHTML =
+"Showy HRMS";
+
+}
+
+/* ======================================
+   LOGOUT
+====================================== */
+
+function logout(){
+
+localStorage.removeItem("employee");
+
+window.location.href =
+"index.html";
+
+}
+
+/* ======================================
+   LOAD NOTIFICATIONS
+====================================== */
+
+async function loadNotifications(){
+
+try{
+
+const employee =
+JSON.parse(
+localStorage.getItem("employee")
+);
+
+if(!employee){
+
+return;
+
+}
+
+const response =
+await fetch(
+
+WEB_APP_URL +
+"?action=notifications&employee=" +
+encodeURIComponent(employee.email)
+
+);
+
+const text =
+await response.text();
+
+const jsonText =
+text.substring(
+text.indexOf("(") + 1,
+text.lastIndexOf(")")
+);
+
+const result =
+JSON.parse(jsonText);
+
+notifications =
+result.notifications || [];
+
+renderNotifications();
+
+}
+catch(error){
+
+console.log(error);
+
+document.getElementById(
+"notificationList"
+).innerHTML =
+"Failed to load notifications";
+
+}
+
+}
+
+/* ======================================
+   RENDER NOTIFICATIONS
+====================================== */
+
+function renderNotifications(){
+
+const list =
+document.getElementById(
+"notificationList"
+);
+
+const count =
+document.getElementById(
+"notificationCount"
+);
+
+list.innerHTML = "";
+
+if(notifications.length == 0){
+
+list.innerHTML = `
+
+<div class="notificationItem">
+
+No Notifications
+
+</div>
+
+`;
+
+count.innerText = "0";
+
+return;
+
+}
+
+count.innerText =
+notifications.length;
+
+notifications.forEach((item,index)=>{
+
+list.innerHTML += `
+
+<div class="notificationItem">
+
+<div
+class="closeNotification"
+onclick="removeNotification('${item.ID}', ${index})">
+
+✖
+
+</div>
+
+<h4>${item.Title}</h4>
+
+<p>${item.Message}</p>
+
+<div class="notificationTime">
+
+${new Date(item.Time).toLocaleString('en-IN', {
+
+day:'2-digit',
+month:'short',
+year:'numeric',
+hour:'2-digit',
+minute:'2-digit',
+hour12:true
+
+})}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* ======================================
+   TOGGLE NOTIFICATIONS
+====================================== */
+
+async function toggleNotifications(){
+
+const dropdown =
+document.getElementById(
+"notificationDropdown"
+);
+
+if(
+dropdown.style.display == "block"
+){
+
+dropdown.style.display =
+"none";
+
+}
+else{
+
+dropdown.style.display =
+"block";
+
+for(let item of notifications){
+
+await fetch(
+
+WEB_APP_URL +
+"?action=readNotification&id=" +
+item.ID
+
+);
+
+}
+
+loadNotifications();
+
+}
+
+}
+
+/* ======================================
+   REMOVE NOTIFICATION
+====================================== */
+
+async function removeNotification(id,index){
+
+await fetch(
+
+WEB_APP_URL +
+"?action=removeNotification&id=" +
+id
+
+);
+
+notifications.splice(index,1);
+
+renderNotifications();
+
+}
+
+/* ======================================
+   AUTO LOAD
+====================================== */
+
+loadNotifications();
+
+/* ======================================
+   AUTO REFRESH
+====================================== */
+
+setInterval(()=>{
+
+loadNotifications();
+
+},5000);
+
+</script>
+</body>
+
+</html>

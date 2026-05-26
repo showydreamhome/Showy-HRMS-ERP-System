@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WhatsApp Test</title>
+</head>
+<body style="font-family: Arial; padding: 40px;">
+
+  <h2>SHOWY WhatsApp Test</h2>
+
+  <input id="phone" placeholder="Phone Number"
+    value="918019951344"
+    style="width:300px; padding:10px; margin-bottom:10px;">
+    
+  <br>
+
+  <textarea id="message"
+    placeholder="Message"
+    style="width:300px; height:100px; padding:10px;">Hello from SHOWY 🚀</textarea>
+
+  <br><br>
+
+  <button onclick="sendWhatsApp()"
+    style="padding:12px 20px; cursor:pointer;">
+    Send WhatsApp
+  </button>
+
+  <h3 id="result"></h3>
+
+  <script>
+
+    async function sendWhatsApp() {
+
+      const phone = document.getElementById("phone").value;
+      const message = document.getElementById("message").value;
+
+      try {
+
+        const response = await fetch("http://127.0.0.1:3000/send-whatsapp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            phone,
+            message
+          })
+        });
+
+        const data = await response.json();
+
+        console.log(data);
+
+        document.getElementById("result").innerHTML =
+          JSON.stringify(data, null, 2);
+
+      } catch (err) {
+
+        console.log(err);
+
+        document.getElementById("result").innerHTML =
+          "ERROR: " + err.message;
+      }
+    }
+
+  </script>
+
+</body>
+</html>

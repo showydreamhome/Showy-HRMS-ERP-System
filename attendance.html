@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Showy Attendance</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="assets/logo.png">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#041638;
+    color:white;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    width:250px;
+    height:100vh;
+    background:#071b46;
+    padding:25px 18px;
+    overflow-y:auto;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.logo img{
+    width:90px;
+}
+
+.logo h2{
+    margin-top:10px;
+    font-size:30px;
+    color:white;
+}
+
+.menu{
+    margin-top:20px;
+}
+
+/* DROPDOWN BUTTON */
+
+.dropdown-btn{
+    width:100%;
+    padding:15px;
+    margin-bottom:10px;
+    border:none;
+    border-radius:12px;
+    background:#102d6d;
+    color:#f5a000;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    text-align:left;
+    transition:0.3s;
+}
+
+.dropdown-btn:hover{
+    background:#163a87;
+}
+
+/* DROPDOWN CONTENT */
+
+.dropdown-content{
+    display:none;
+    padding-left:10px;
+    margin-bottom:15px;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+    display:block;
+    width:100%;
+    padding:14px;
+    margin-bottom:10px;
+    border-radius:12px;
+    background:#0f2c6b;
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:bold;
+    transition:0.3s;
+    text-align:center;
+}
+
+.menu-btn:hover{
+    background:#f5a000;
+    transform:translateX(3px);
+}
+
+/* ACTIVE */
+
+.active{
+    background:#f5a000 !important;
+    color:black !important;
+}
+
+/* LOGOUT */
+
+.logout-btn{
+    display:block;
+    width:100%;
+    padding:15px;
+    margin-top:25px;
+    border-radius:12px;
+    background:red;
+    color:white;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:bold;
+    text-align:center;
+    transition:0.3s;
+}
+
+.logout-btn:hover{
+    background:#cc0000;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:250px;
+    padding:30px;
+}
+
+/* TOP */
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.top h1{
+    font-size:60px;
+}
+
+/* SUMMARY */
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.box{
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+}
+
+.box h1{
+    font-size:60px;
+    margin-bottom:10px;
+}
+
+.presentBox{
+    background:linear-gradient(#22c55e,#16a34a);
+}
+
+.absentBox{
+    background:linear-gradient(#ef4444,#dc2626);
+}
+
+.holidayBox{
+    background:linear-gradient(#8b5cf6,#6d28d9);
+}
+
+.halfdayBox{
+    background:linear-gradient(#f97316,#ea580c);
+}
+
+/* CALENDAR */
+
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:12px;
+}
+
+.weekday{
+    text-align:center;
+    opacity:0.7;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.day{
+    background:rgba(255,255,255,0.08);
+    border-radius:18px;
+    min-height:120px;
+    padding:12px;
+}
+
+.date{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.task{
+    margin-top:50px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* COLORS */
+
+.present{
+    background:linear-gradient(#22c55e,#16a34a);
+}
+
+.absent{
+    background:linear-gradient(#ef4444,#dc2626);
+}
+
+.holiday{
+    background:linear-gradient(#8b5cf6,#6d28d9);
+}
+
+.weekoff{
+    background:linear-gradient(#6366f1,#4f46e5);
+}
+
+.halfday{
+    background:linear-gradient(#f97316,#ea580c);
+}
+
+/* BUTTONS */
+
+.nav button{
+    padding:12px 20px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <img src="assets/logo.png">
+
+        <h2>SHOWY</h2>
+
+    </div>
+
+    <div class="menu">
+
+        <!-- DASHBOARD -->
+
+        <a href="dashboard.html" class="menu-btn">
+        Dashboard
+        </a>
+
+        <a href="employee-movement.html" class="menu-btn">
+            In & Out
+            </a>
+
+        <!-- HR -->
+
+        <button class="dropdown-btn" onclick="toggleMenu('hrMenu')">
+        HR ▼
+        </button>
+
+        <div id="hrMenu" class="dropdown-content">
+
+            <a href="attendance.html" class="menu-btn active">
+            Attendance
+            </a>
+
+            <a href="leave.html" class="menu-btn">
+            Leave Request
+            </a>
+
+            <a href="leave-status.html" class="menu-btn">
+            Leave Status
+            </a>
+
+            <a href="salary.html" class="menu-btn">
+            Salary
+            </a>
+
+        </div>
+
+        <!-- SITE OPERATIONS -->
+
+        <button class="dropdown-btn" onclick="toggleMenu('siteMenu')">
+        Site Operations ▼
+        </button>
+
+        <div id="siteMenu" class="dropdown-content">
+
+
+            <a href="vehicle-site-keys.html" class="menu-btn">
+            Vehicle / Site Keys
+            </a>
+
+            <a href="daily-task.html" class="menu-btn">
+            Daily Tasks
+            </a>
+
+            
+
+        </div>
+
+        <!-- INVENTORY -->
+
+        <button class="dropdown-btn" onclick="toggleMenu('inventoryMenu')">
+        Inventory ▼
+        </button>
+
+        <div id="inventoryMenu" class="dropdown-content">
+
+            <a href="inventory.html" class="menu-btn">
+            Inventory
+            </a>
+            
+        <a href="material-request.html" class="menu-btn">
+            Material Request
+            </a>
+            
+
+        </div>
+
+        <!-- COMPANY -->
+
+        <a href="company-hub.html" class="menu-btn">
+        Company Hub
+        </a>
+
+        <!-- LOGOUT -->
+
+        <a href="index.html" class="logout-btn">
+        Logout
+        </a>
+
+    </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- TOP -->
+
+    <div class="top">
+
+        <h1 id="title">
+            Attendance
+        </h1>
+
+        <div class="nav">
+
+            <button onclick="changeMonth(-1)">
+                ⬅ Prev
+            </button>
+
+            <button onclick="changeMonth(1)">
+                Next ➡
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- SUMMARY -->
+
+    <div class="summary">
+
+        <div class="box presentBox">
+            <h1 id="presentCount">0</h1>
+            <h2>Present</h2>
+        </div>
+
+        <div class="box absentBox">
+            <h1 id="absentCount">0</h1>
+            <h2>Absent</h2>
+        </div>
+
+        <div class="box holidayBox">
+            <h1 id="holidayCount">0</h1>
+            <h2>Holiday</h2>
+        </div>
+
+        <div class="box halfdayBox">
+            <h1 id="halfdayCount">0</h1>
+            <h2>Half Day</h2>
+        </div>
+
+    </div>
+
+    <!-- CALENDAR -->
+
+    <div id="calendar" class="calendar"></div>
+
+</div>
+
+<script>
+
+/* DROPDOWN MENU */
+
+function toggleMenu(id){
+
+const menu =
+document.getElementById(id);
+
+if(menu.style.display === "block"){
+
+menu.style.display = "none";
+
+}else{
+
+menu.style.display = "block";
+
+}
+
+}
+
+/* AUTO OPEN HR MENU */
+
+document.getElementById("hrMenu").style.display =
+"block";
+
+/* EMPLOYEE */
+
+const employee = JSON.parse(
+localStorage.getItem("employee")
+);
+
+if(!employee){
+window.location.href = "index.html";
+}
+
+/* MONTH */
+
+let year = 2026;
+let month = 4;
+
+/* ATTENDANCE */
+
+let attendance = [];
+
+/* LOAD ATTENDANCE */
+
+function loadAttendance(){
+
+const months=[
+"January",
+"February",
+"March",
+"April",
+"May",
+"June",
+"July",
+"August",
+"September",
+"October",
+"November",
+"December"
+];
+
+const sheetName = `${months[month]}_${year}`;
+
+const SHEET_URL =
+`https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/${sheetName}`;
+
+fetch(SHEET_URL)
+
+.then(res => res.json())
+
+.then(data => {
+
+const emp = data.find(
+row =>
+row.Email &&
+row.Email.trim().toLowerCase() ===
+employee.email.trim().toLowerCase()
+);
+
+if(!emp){
+
+attendance = [];
+
+generateCalendar();
+
+return;
+}
+
+attendance = [];
+
+for(let i=1; i<=31; i++){
+
+let key = Object.keys(emp).find(
+k => k.includes(`${months[month]} ${i}`)
+);
+
+let status = key ? emp[key] : "";
+
+attendance.push({
+day:i,
+status:status
+});
+}
+
+generateCalendar();
+
+})
+
+.catch(error => {
+
+console.log(error);
+
+alert("Sheet connection error");
+
+});
+
+}
+
+/* START */
+
+loadAttendance();
+
+/* CALENDAR */
+
+function generateCalendar(){
+
+const cal = document.getElementById("calendar");
+
+cal.innerHTML = "";
+
+const months = [
+"January",
+"February",
+"March",
+"April",
+"May",
+"June",
+"July",
+"August",
+"September",
+"October",
+"November",
+"December"
+];
+
+document.getElementById("title").innerHTML =
+`${months[month]} ${year} Attendance`;
+
+const days = [
+"Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+];
+
+days.forEach(d => {
+
+cal.innerHTML += `
+<div class="weekday">${d}</div>
+`;
+
+});
+
+const firstDay =
+new Date(year,month,1).getDay();
+
+const total =
+new Date(year,month+1,0).getDate();
+
+for(let i=0; i<firstDay; i++){
+
+cal.innerHTML += `<div></div>`;
+}
+
+let present = 0;
+let absent = 0;
+let holiday = 0;
+let halfday = 0;
+
+for(let d=1; d<=total; d++){
+
+let rec =
+attendance.find(x => x.day === d);
+
+let cls = "day";
+
+let text = "";
+
+if(rec){
+
+if(rec.status === "P"){
+
+cls += " present";
+
+text = "Present";
+
+present++;
+}
+
+if(rec.status === "A"){
+
+cls += " absent";
+
+text = "Absent";
+
+absent++;
+}
+
+if(rec.status === "H"){
+
+cls += " holiday";
+
+text = "Holiday";
+
+holiday++;
+}
+
+if(rec.status === "WO"){
+
+cls += " weekoff";
+
+text = "Week Off";
+}
+
+if(rec.status === "P-1/2"){
+
+cls += " halfday";
+
+text = "Half Day";
+
+halfday++;
+}
+
+}
+
+cal.innerHTML += `
+
+<div class="${cls}">
+
+<div class="date">
+${d}
+</div>
+
+<div class="task">
+${text}
+</div>
+
+</div>
+
+`;
+}
+
+document.getElementById("presentCount").innerHTML =
+present;
+
+document.getElementById("absentCount").innerHTML =
+absent;
+
+document.getElementById("holidayCount").innerHTML =
+holiday;
+
+document.getElementById("halfdayCount").innerHTML =
+halfday;
+
+}
+
+/* MONTH CHANGE */
+
+function changeMonth(dir){
+
+month += dir;
+
+if(month > 11){
+
+month = 0;
+year++;
+}
+
+if(month < 0){
+
+month = 11;
+year--;
+}
+
+loadAttendance();
+
+}
+
+</script>
+
+</body>
+
+</html>
