@@ -73,3 +73,97 @@ background:#d97706;
 margin-top:15px;
 font-weight:bold;
 }
+/* =========================================
+   DASHBOARD CARDS
+========================================= */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-top:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    min-height:180px;
+}
+
+.card h2{
+    color:gray;
+    margin-bottom:20px;
+}
+
+.card p{
+    font-size:55px;
+    font-weight:bold;
+    color:#0f172a;
+}
+
+/* =========================================
+   MENU BUTTONS
+========================================= */
+
+.menu-btn{
+    width:100%;
+    padding:18px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:18px;
+    background:#1e3a8a;
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+    text-align:left;
+}
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media screen and (max-width:768px){
+
+    body{
+        padding:10px;
+        height:auto;
+        display:block;
+    }
+
+    .dashboard-grid{
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    }
+
+    .card{
+        padding:15px;
+        min-height:120px;
+        border-radius:16px;
+    }
+
+    .card h2{
+        font-size:18px;
+        margin-bottom:10px;
+    }
+
+    .card p{
+        font-size:38px;
+    }
+
+    .menu-btn{
+        padding:14px;
+        font-size:18px;
+        border-radius:14px;
+    }
+
+    h1{
+        font-size:36px;
+        text-align:center;
+    }
+
+    .login-box{
+        width:100%;
+    }
+
+}

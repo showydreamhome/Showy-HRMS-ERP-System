@@ -314,35 +314,143 @@ font-size:18px;
 
 /* MOBILE */
 
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
 @media(max-width:900px){
 
 body{
 display:block;
+background:#041638;
 }
+
+/* SIDEBAR */
 
 .sidebar{
 position:relative;
 width:100%;
 height:auto;
+padding:15px;
 }
+
+.logo img{
+width:70px;
+}
+
+.logo h2{
+font-size:24px;
+}
+
+/* MENU */
+
+.menu-btn,
+.dropdown-btn,
+.dropdown-content a{
+
+padding:14px;
+font-size:15px;
+border-radius:12px;
+margin-bottom:10px;
+
+}
+
+/* MAIN */
 
 .main{
 margin-left:0;
-padding:20px;
+padding:15px;
+width:100%;
 }
+
+/* TOPBAR */
+
+.topbar{
+padding:18px;
+border-radius:18px;
+}
+
+.topbar h1{
+font-size:28px;
+line-height:1.2;
+}
+
+.topbar p{
+font-size:14px;
+}
+
+/* HEADER */
+
+.topHeader{
+flex-direction:column;
+align-items:flex-start;
+gap:18px;
+}
+
+/* NOTIFICATION */
+
+.notificationDropdown{
+width:100%;
+right:auto;
+left:0;
+}
+
+/* CARDS */
+
+.cards{
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+/* CARD */
+
+.card{
+padding:18px;
+border-radius:18px;
+min-height:120px;
+}
+
+.card h3{
+font-size:15px;
+margin-bottom:10px;
+}
+
+.card h1{
+font-size:32px;
+}
+
+/* PROFILE */
+
+.profile{
+padding:20px;
+border-radius:18px;
+}
+
+.profile h2{
+font-size:24px;
+}
+
+.profile p{
+font-size:15px;
+margin-top:10px;
+}
+
+/* VERY SMALL PHONE */
+
+@media(max-width:500px){
 
 .cards{
 grid-template-columns:1fr;
 }
 
-.topbar h1{
-font-size:30px;
+.card h1{
+font-size:28px;
 }
 
-.topHeader{
-flex-direction:column;
-align-items:flex-start;
-gap:20px;
+.topbar h1{
+font-size:24px;
+}
+
 }
 
 }
