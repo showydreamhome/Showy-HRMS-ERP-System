@@ -1,11 +1,12 @@
 {
-  "name": "Showy HRMS ERP",
-  "short_name": "Showy HRMS",
-  "start_url": "index.html",
+  "name": "Showy HRMS",
+  "short_name": "Showy",
+  "start_url": "/Showy-HRMS-ERP-System/index.html",
+  "scope": "/Showy-HRMS-ERP-System/",
   "display": "standalone",
-  "background_color": "#041638",
-  "theme_color": "#041638",
   "orientation": "portrait",
+  "background_color": "#041638",
+  "theme_color": "#071b46",
   "icons": [
     {
       "src": "assets/logo.png",
