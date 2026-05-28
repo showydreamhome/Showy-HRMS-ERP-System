@@ -740,6 +740,82 @@ console.log(
 }
 </script>
 
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getMessaging,
+getToken,
+onMessage
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyDSjoIT4gJgey1kbaZalGvOFbKxnKFpjf0",
+
+authDomain: "showy-hrms.firebaseapp.com",
+
+projectId: "showy-hrms",
+
+storageBucket: "showy-hrms.firebasestorage.app",
+
+messagingSenderId: "749206666404",
+
+appId: "1:749206666404:web:e0adba555f79f7cb357a31"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const messaging =
+getMessaging(app);
+
+Notification.requestPermission()
+.then((permission)=>{
+
+if(permission === "granted"){
+
+getToken(messaging,{
+
+vapidKey:"BHUncyG-C-pxfzu8TDBoqyCAPHduwJLQutbrwexmhg-CCeBi5Kww-aZwepBOmWJES1IRmiWaSjv6LwiJLhBb56Y"
+
+})
+.then((currentToken)=>{
+
+if(currentToken){
+
+console.log(
+"FCM TOKEN:",
+currentToken
+);
+
+localStorage.setItem(
+"fcmToken",
+currentToken
+);
+
+}
+
+});
+
+}
+
+});
+
+onMessage(messaging,(payload)=>{
+
+alert(
+payload.notification.title +
+"\n" +
+payload.notification.body
+);
+
+});
+
+</script>
 
 </body>
 

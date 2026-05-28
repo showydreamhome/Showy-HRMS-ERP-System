@@ -1034,12 +1034,49 @@ document.body.appendChild(script);
 SEND MOVEMENT
 ====================================== */
 
-function sendMovement(status){
-
 if(!navigator.onLine){
 
+/* ======================================
+OFFLINE SAVE
+====================================== */
+
+const offlineData = {
+
+type:"employeeMovement",
+
+employee:employee,
+
+status:status,
+
+project:project,
+
+purpose:purpose,
+
+time:new Date().toISOString()
+
+};
+
+/* GET EXISTING */
+
+let pendingData =
+
+JSON.parse(
+localStorage.getItem("pendingMovements")
+) || [];
+
+/* PUSH NEW */
+
+pendingData.push(offlineData);
+
+/* SAVE */
+
+localStorage.setItem(
+"pendingMovements",
+JSON.stringify(pendingData)
+);
+
 alert(
-"Please turn ON internet connection"
+"No Internet.\nMovement saved offline.\nWill sync automatically."
 );
 
 return;
@@ -1171,6 +1208,11 @@ checkInternet
 );
 
 window.addEventListener(
+"online",
+syncOfflineMovements
+);
+
+window.addEventListener(
 "offline",
 checkInternet
 );
@@ -1178,6 +1220,108 @@ checkInternet
 /* START CHECK */
 
 checkInternet();
+syncOfflineMovements();
+
+/* ======================================
+AUTO SYNC OFFLINE DATA
+====================================== */
+
+async function syncOfflineMovements(){
+
+if(!navigator.onLine){
+
+return;
+
+}
+
+/* GET SAVED DATA */
+
+let pendingData =
+
+JSON.parse(
+localStorage.getItem("pendingMovements")
+) || [];
+
+if(pendingData.length === 0){
+
+return;
+
+}
+
+console.log(
+"Syncing Offline Data..."
+);
+
+let successCount = 0;
+
+for(const item of pendingData){
+
+try{
+
+/* GET LIVE GPS */
+
+const position =
+await new Promise((resolve,reject)=>{
+
+navigator.geolocation.getCurrentPosition(
+resolve,
+reject
+);
+
+});
+
+item.latitude =
+position.coords.latitude;
+
+item.longitude =
+position.coords.longitude;
+
+/* SEND TO SERVER */
+
+const response =
+await fetch(SCRIPT_URL,{
+
+method:"POST",
+
+body:JSON.stringify(item)
+
+});
+
+const result =
+await response.json();
+
+if(result.success){
+
+successCount++;
+
+}
+
+}catch(error){
+
+console.log(
+"Sync Failed",
+error
+);
+
+}
+
+}
+
+/* CLEAR AFTER SUCCESS */
+
+if(successCount === pendingData.length){
+
+localStorage.removeItem(
+"pendingMovements"
+);
+
+alert(
+"Offline movements synced successfully"
+);
+
+}
+
+}
 
 </script>
 
