@@ -10,7 +10,14 @@ content="width=device-width, initial-scale=1.0">
 
 <title>My Tasks</title>
 
+<link rel="icon"
+href="assets/logo.png">
+
 <style>
+
+/* =========================================
+RESET
+========================================= */
 
 *{
 margin:0;
@@ -21,22 +28,40 @@ font-family:Arial,sans-serif;
 
 body{
 background:#04143c;
-display:flex;
-height:100vh;
-overflow:hidden;
+overflow-x:hidden;
 color:white;
 }
 
-/* =========================
+/* =========================================
+MOBILE HEADER
+========================================= */
+
+.mobileTop{
+display:none;
+}
+
+/* =========================================
 SIDEBAR
-========================= */
+========================================= */
 
 .sidebar{
 
-width:270px;
+position:fixed;
+left:0;
+top:0;
+
+width:260px;
+height:100vh;
+
 background:#021033;
+
 padding:20px 15px;
+
 overflow-y:auto;
+
+z-index:2000;
+
+transition:0.3s;
 
 }
 
@@ -51,19 +76,21 @@ margin-bottom:30px;
 
 .logo img{
 
-width:95px;
+width:90px;
 margin-bottom:10px;
 
 }
 
 .logo h2{
 
-font-size:28px;
+font-size:30px;
 color:#f5a300;
 
 }
 
-/* MENU */
+/* =========================================
+MENU
+========================================= */
 
 .menu{
 display:flex;
@@ -77,68 +104,33 @@ gap:12px;
 .dropdown-btn{
 
 width:100%;
+
 padding:16px 18px;
 
 background:#14357f;
-border:none;
 
+border:none;
 border-radius:14px;
 
 color:white;
-font-size:18px;
+
+font-size:16px;
 font-weight:bold;
 
 text-align:left;
+
 cursor:pointer;
 
 transition:0.3s;
+
 text-decoration:none;
+
 display:block;
 
 }
 
 .menu-btn:hover,
 .dropdown-btn:hover{
-
-background:#f5a300;
-color:black;
-
-}
-
-/* DROPDOWN */
-
-.dropdown-content{
-
-display:none;
-flex-direction:column;
-gap:10px;
-
-padding-left:12px;
-
-margin-top:-5px;
-margin-bottom:10px;
-
-}
-
-.dropdown-content a{
-
-background:#20479d;
-
-padding:13px 15px;
-
-border-radius:12px;
-
-color:white;
-text-decoration:none;
-
-font-size:16px;
-font-weight:bold;
-
-transition:0.3s;
-
-}
-
-.dropdown-content a:hover{
 
 background:#f5a300;
 color:black;
@@ -154,7 +146,73 @@ color:black !important;
 
 }
 
-/* LOGOUT */
+/* =========================================
+DROPDOWN
+========================================= */
+
+.dropdown-content{
+
+display:none;
+flex-direction:column;
+
+gap:10px;
+
+padding-left:8px;
+
+margin-top:-5px;
+margin-bottom:10px;
+
+}
+
+.dropdown-content.show{
+display:flex;
+}
+
+/* DROPDOWN LINKS */
+
+.dropdown-content a{
+
+display:block;
+
+width:100%;
+
+padding:14px 16px;
+
+border-radius:14px;
+
+background:#20479d;
+
+color:white !important;
+
+text-decoration:none !important;
+
+font-size:15px;
+font-weight:bold;
+
+transition:0.3s;
+
+}
+
+.dropdown-content a:hover{
+
+background:#f5a300;
+
+color:black !important;
+
+transform:translateX(3px);
+
+}
+
+.dropdown-content a.active-link{
+
+background:#f5a300 !important;
+color:black !important;
+
+}
+
+/* =========================================
+LOGOUT
+========================================= */
 
 .logout-btn{
 
@@ -164,15 +222,19 @@ background:red;
 color:white;
 
 padding:16px;
+
 border-radius:14px;
 
 text-decoration:none;
-font-size:18px;
+
+font-size:16px;
 font-weight:bold;
 
 text-align:center;
 
 transition:0.3s;
+
+display:block;
 
 }
 
@@ -180,14 +242,18 @@ transition:0.3s;
 opacity:0.9;
 }
 
-/* =========================
+/* =========================================
 MAIN
-========================= */
+========================================= */
 
 .main{
 
-flex:1;
+margin-left:260px;
+
 padding:25px;
+
+min-height:100vh;
+
 overflow-y:auto;
 
 }
@@ -199,22 +265,27 @@ overflow-y:auto;
 display:flex;
 justify-content:space-between;
 align-items:center;
+
 margin-bottom:30px;
+
+flex-wrap:wrap;
+gap:15px;
 
 }
 
 .top-bar h1{
 
-font-size:55px;
+font-size:52px;
 
 }
 
 .employee-box{
 
 background:#f5a300;
+
 padding:14px 24px;
 
-border-radius:12px;
+border-radius:14px;
 
 font-size:18px;
 font-weight:bold;
@@ -223,7 +294,9 @@ color:black;
 
 }
 
-/* PROJECT */
+/* =========================================
+PROJECT SECTION
+========================================= */
 
 .project-section{
 
@@ -233,7 +306,7 @@ margin-bottom:35px;
 
 .project-title{
 
-font-size:32px;
+font-size:30px;
 font-weight:bold;
 
 margin-bottom:18px;
@@ -242,17 +315,20 @@ color:#f5a300;
 
 }
 
-/* TASK ROW */
+/* =========================================
+TASK CARD
+========================================= */
 
 .task-row{
 
 background:white;
 color:black;
 
-padding:14px 16px;
-border-radius:14px;
+padding:18px;
 
-margin-bottom:12px;
+border-radius:18px;
+
+margin-bottom:15px;
 
 display:grid;
 
@@ -264,25 +340,41 @@ grid-template-columns:
 1.2fr
 1.3fr;
 
-gap:12px;
+gap:14px;
 
 align-items:center;
 
-min-height:110px;
+min-height:120px;
+
+transition:0.3s;
 
 }
 
-/* TASK */
+.task-row:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 6px 18px rgba(0,0,0,0.12);
+
+}
+
+/* =========================================
+TASK TITLE
+========================================= */
 
 .task-title{
 
-font-size:15px;
+font-size:16px;
 font-weight:bold;
-margin-bottom:4px;
+
+margin-bottom:5px;
 
 }
 
-/* PRIORITY */
+/* =========================================
+PRIORITY
+========================================= */
 
 .high{
 color:red;
@@ -302,14 +394,19 @@ font-weight:bold;
 font-size:18px;
 }
 
-/* STATUS */
+/* =========================================
+STATUS BADGE
+========================================= */
 
 .status-badge{
 
-padding:5px 9px;
+padding:6px 10px;
+
 border-radius:8px;
+
 font-size:12px;
 font-weight:bold;
+
 display:inline-block;
 
 }
@@ -329,22 +426,30 @@ background:#a5efad;
 color:black;
 }
 
-/* INPUTS */
+/* =========================================
+INPUTS
+========================================= */
 
 select,
 input{
 
 width:100%;
-padding:8px 10px;
 
-border-radius:8px;
+padding:10px 12px;
+
+border-radius:10px;
+
 border:1px solid #ccc;
 
 font-size:13px;
 
+outline:none;
+
 }
 
-/* FILE */
+/* =========================================
+FILE
+========================================= */
 
 .file-box{
 
@@ -352,23 +457,30 @@ font-size:13px;
 
 }
 
-/* BUTTON */
+/* =========================================
+BUTTON
+========================================= */
 
 .update-btn{
 
 background:#f5a300;
+
 border:none;
 
-padding:8px 10px;
-border-radius:8px;
+padding:10px 12px;
+
+border-radius:10px;
 
 font-size:13px;
 font-weight:bold;
 
 cursor:pointer;
 
-margin-top:6px;
+margin-top:8px;
+
 width:100%;
+
+transition:0.3s;
 
 }
 
@@ -376,7 +488,9 @@ width:100%;
 opacity:0.9;
 }
 
-/* DONE */
+/* =========================================
+TASK COLORS
+========================================= */
 
 .done{
 background:#d4ffd9 !important;
@@ -395,50 +509,217 @@ border-left:6px solid #005eff;
 border-left:6px solid #00a63e;
 }
 
-/* PROOF */
+/* =========================================
+PROOF LINK
+========================================= */
 
 .proof-link{
 
 display:inline-block;
+
 margin-top:8px;
 
 font-size:14px;
 font-weight:bold;
 
 color:#0047ff;
+
 text-decoration:none;
 
 }
 
-/* MOBILE */
+/* =========================================
+MOBILE
+========================================= */
 
-@media(max-width:1100px){
+@media(max-width:900px){
 
-body{
-display:block;
-overflow:auto;
+/* MOBILE HEADER */
+
+.mobileTop{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:15px 20px;
+
+background:#021033;
+
+position:sticky;
+top:0;
+
+z-index:3000;
+
 }
+
+.mobileTop img{
+width:45px;
+height:auto;
+}
+
+.menuToggle{
+font-size:30px;
+cursor:pointer;
+}
+
+/* SIDEBAR */
 
 .sidebar{
-width:100%;
+left:-100%;
+width:280px;
 }
 
-.main{
-padding:15px;
+.sidebar.show{
+left:0;
 }
+
+/* MAIN */
+
+.main{
+margin-left:0;
+padding:15px;
+padding-bottom:95px;
+}
+
+/* TOP */
+
+.top-bar{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.top-bar h1{
+font-size:38px;
+}
+
+/* TASK */
 
 .task-row{
 grid-template-columns:1fr;
 }
 
-.top-bar{
-flex-direction:column;
-align-items:flex-start;
-gap:15px;
+/* =========================================
+BOTTOM NAV
+========================================= */
+
+.mobileBottomNav{
+
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+position:fixed;
+
+bottom:12px;
+left:12px;
+right:12px;
+
+height:58px;
+
+background:rgba(7,27,70,0.88);
+
+backdrop-filter:blur(18px);
+
+border-radius:24px;
+
+border:1px solid rgba(255,255,255,0.06);
+
+box-shadow:
+0 8px 25px rgba(0,0,0,0.25);
+
+z-index:5000;
+
+padding:6px;
+
 }
 
-.top-bar h1{
-font-size:40px;
+/* ITEM */
+
+.bottomNavItem{
+
+flex:1;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+gap:4px;
+
+background:transparent;
+
+transition:0.3s ease;
+
+}
+
+/* ICON */
+
+.bottomIcon{
+
+width:38px;
+height:38px;
+
+border-radius:14px;
+
+background:#12307a;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+transition:0.3s;
+
+}
+
+/* IMAGE */
+
+.bottomIcon img{
+
+width:45px;
+height:45px;
+
+object-fit:contain;
+
+}
+
+/* TEXT */
+
+.bottomNavItem p{
+
+font-size:9px;
+font-weight:600;
+
+color:white;
+
+}
+
+/* ACTIVE */
+
+.bottomNavItem.active .bottomIcon{
+
+background:#f5a300;
+
+width:34px;
+height:34px;
+
+border-radius:12px;
+
+}
+
+}
+
+/* =========================================
+DESKTOP HIDE
+========================================= */
+
+@media(min-width:901px){
+
+.mobileBottomNav{
+display:none;
 }
 
 }
@@ -449,9 +730,27 @@ font-size:40px;
 
 <body>
 
+<!-- MOBILE HEADER -->
+
+<div class="mobileTop">
+
+<div class="menuToggle"
+onclick="openSidebar()">
+
+☰
+
+</div>
+
+<img src="assets/logo.png">
+
+</div>
+
 <!-- SIDEBAR -->
 
-<div class="sidebar">
+<div class="sidebar"
+id="sidebar">
+
+<!-- LOGO -->
 
 <div class="logo">
 
@@ -460,6 +759,8 @@ font-size:40px;
 <h2>SHOWY</h2>
 
 </div>
+
+<!-- MENU -->
 
 <div class="menu">
 
@@ -499,6 +800,7 @@ id="hrMenu">
 
 Attendance
 
+</a>
 
 <a href="leave.html">
 
@@ -531,7 +833,7 @@ Site Operations ▼
 </button>
 
 <div
-class="dropdown-content"
+class="dropdown-content show"
 id="siteMenu">
 
 <a href="vehicle-site-keys.html">
@@ -543,8 +845,6 @@ Vehicle / Site Keys
 <a href="daily-task.html">
 
 Daily Tasks
-
-</a>
 
 </a>
 
@@ -585,6 +885,15 @@ Material Request
 
 </div>
 
+<!-- ANNOUNCEMENTS -->
+
+<a href="employee-announcements.html"
+class="menu-btn">
+
+📢 Announcements
+
+</a>
+
 <!-- COMPANY -->
 
 <a href="company-hub.html"
@@ -614,7 +923,9 @@ Logout
 
 <div class="top-bar">
 
-<h1>My Tasks</h1>
+<h1>
+My Tasks
+</h1>
 
 <div
 class="employee-box"
@@ -634,32 +945,96 @@ Loading Tasks...
 
 </div>
 
+<!-- MOBILE BOTTOM NAV -->
+
+<div class="mobileBottomNav">
+
+<!-- HOME -->
+
+<a href="dashboard.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/home.png">
+
+</div>
+
+<p>Home</p>
+
+</a>
+
+<!-- IN OUT -->
+
+<a href="employee-movement.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/movement.png">
+
+</div>
+
+<p>In-Out</p>
+
+</a>
+
+<!-- TASKS -->
+
+<a href="my-tasks.html"
+class="bottomNavItem active">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/tasks.png">
+
+</div>
+
+<p>Tasks</p>
+
+</a>
+
+<!-- KEYS -->
+
+<a href="vehicle-site-keys.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/keys.png">
+
+</div>
+
+<p>Keys</p>
+
+</a>
+
+</div>
+
 <script>
 
-/* =========================
-URL
-========================= */
+/* =========================================
+SCRIPT URL
+========================================= */
 
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
 
-/* =========================
+/* =========================================
 IMGBB
-========================= */
+========================================= */
 
 const IMGBB_API_KEY =
 "474625ac45e96672f499790199a07997";
 
-/* =========================
+/* =========================================
 EMPLOYEE
-========================= */
+========================================= */
 
-const employeeName =
-localStorage.getItem("employeeName");
+const employee =
+JSON.parse(localStorage.getItem("employee"));
 
-/* LOGIN CHECK */
-
-if(!employeeName){
+if(!employee){
 
 alert("Please Login First");
 
@@ -668,43 +1043,42 @@ window.location.href =
 
 }
 
+const employeeName =
+employee.name || employee.Name || "";
+
 /* SHOW NAME */
 
 document.getElementById(
 "employeeBox"
 ).innerText = employeeName;
 
-/* =========================
+/* =========================================
+SIDEBAR
+========================================= */
+
+function openSidebar(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("show");
+
+}
+
+/* =========================================
 DROPDOWN
-========================= */
+========================================= */
 
 function toggleDropdown(id){
 
-const menu =
-document.getElementById(id);
-
-if(menu.style.display === "flex"){
-
-menu.style.display = "none";
-
-}
-else{
-
-menu.style.display = "flex";
+document
+.getElementById(id)
+.classList.toggle("show");
 
 }
 
-}
-
-/* AUTO OPEN HR */
-
-document.getElementById(
-"hrMenu"
-).style.display = "flex";
-
-/* =========================
+/* =========================================
 LOAD TASKS
-========================= */
+========================================= */
 
 function loadTasks(){
 
@@ -808,6 +1182,7 @@ section.innerHTML += `
 ${task.status == "Completed" ? "completed-task done" : ""}
 ${task.status == "Pending" ? "pending-task" : ""}
 ${task.status == "Started" || task.status == "In Progress" ? "progress-task" : ""}">
+
 <div>
 
 <div class="task-title">
@@ -834,7 +1209,9 @@ ${task.priority}
 
 <div>
 
-${task.deadline.split("T")[0]}
+${task.deadline
+? task.deadline.split("T")[0]
+: "-"}
 
 </div>
 
@@ -946,9 +1323,9 @@ document.body.appendChild(script);
 
 }
 
-/* =========================
+/* =========================================
 UPDATE TASK
-========================= */
+========================================= */
 
 async function updateTask(taskID){
 
@@ -1077,9 +1454,9 @@ alert(
 
 }
 
-/* =========================
+/* =========================================
 LOGOUT
-========================= */
+========================================= */
 
 function logout(){
 
@@ -1090,9 +1467,9 @@ window.location.href =
 
 }
 
-/* =========================
+/* =========================================
 START
-========================= */
+========================================= */
 
 loadTasks();
 

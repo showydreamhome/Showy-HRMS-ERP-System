@@ -23,6 +23,7 @@ body{
 background:#041638;
 display:flex;
 color:white;
+overflow-x:hidden;
 }
 
 /* SIDEBAR */
@@ -243,19 +244,31 @@ outline:none;
 /* BUTTONS */
 
 .btn{
+
 padding:15px 25px;
+
 border:none;
-border-radius:12px;
+
+border-radius:16px;
+
 font-size:16px;
 font-weight:bold;
+
 cursor:pointer;
+
 transition:0.3s;
+
+width:100%;
+
+margin-top:12px;
+
+display:block;
+
 }
 
 .takeBtn{
 background:#071b46;
 color:white;
-margin-right:10px;
 }
 
 .returnBtn{
@@ -287,6 +300,18 @@ padding:14px;
 border-bottom:1px solid #ddd;
 }
 
+/* MOBILE HEADER */
+
+.mobileTop{
+display:none;
+}
+
+/* MOBILE BOTTOM NAV */
+
+.mobileBottomNav{
+display:none;
+}
+
 /* MOBILE */
 
 @media(max-width:900px){
@@ -295,23 +320,188 @@ body{
 display:block;
 }
 
-.sidebar{
-position:relative;
-width:100%;
-height:auto;
+/* MOBILE HEADER */
+
+.mobileTop{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:15px 20px;
+
+background:#071b46;
+
+position:sticky;
+top:0;
+
+z-index:6000;
+
 }
+
+.mobileTop img{
+width:45px;
+}
+
+.menuToggle{
+font-size:32px;
+cursor:pointer;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+position:fixed;
+
+left:-100%;
+
+top:0;
+
+width:280px;
+
+height:100vh;
+
+z-index:7000;
+
+transition:0.3s;
+
+}
+
+.sidebar.show{
+left:0;
+}
+
+/* MAIN */
 
 .main{
 margin-left:0;
 padding:20px;
+padding-bottom:120px;
 }
+
+/* GRID */
 
 .grid{
 grid-template-columns:1fr;
 }
 
+/* CARD */
+
 .card h1{
 font-size:35px;
+}
+
+/* TABLE SCROLL */
+
+.tableWrap{
+overflow-x:auto;
+}
+
+table{
+min-width:850px;
+}
+
+/* MOBILE NAV */
+
+.mobileBottomNav{
+
+display:flex;
+
+justify-content:space-around;
+align-items:center;
+
+position:fixed;
+
+bottom:12px;
+left:12px;
+right:12px;
+
+height:72px;
+
+background:#071b46;
+
+border-radius:24px;
+
+padding:8px;
+
+z-index:8000;
+
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+
+}
+
+/* NAV ITEM */
+
+.bottomNavItem{
+
+flex:1;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+gap:5px;
+
+}
+
+/* ICON */
+
+.bottomIcon{
+
+width:48px;
+height:48px;
+
+border-radius:16px;
+
+background:#12307a;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+/* ACTIVE ICON */
+
+.bottomNavItem.active .bottomIcon{
+
+background:#f5a000;
+
+}
+
+/* FIX RECTANGLE ISSUE */
+
+.bottomNavItem.active{
+
+background:transparent !important;
+
+}
+
+/* ICON IMAGE */
+
+.bottomIcon img{
+
+width:45px;
+height:45px;
+
+object-fit:contain;
+
+}
+
+/* TEXT */
+
+.bottomNavItem p{
+
+font-size:11px;
+font-weight:bold;
+
+color:white;
+
 }
 
 }
@@ -321,10 +511,24 @@ font-size:35px;
 </head>
 
 <body>
+<!-- MOBILE HEADER -->
+
+<div class="mobileTop">
+
+<div class="menuToggle"
+onclick="openSidebar()">
+
+☰
+
+</div>
+
+<img src="assets/logo.png">
+
+</div>
 
 <!-- SIDEBAR -->
 
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
 
 <div class="logo">
 
@@ -555,6 +759,8 @@ Return Key
 Today's Movement
 </h2>
 
+<div class="tableWrap">
+
 <table>
 
 <thead>
@@ -590,12 +796,76 @@ Loading...
 </div>
 
 </div>
+<!-- MOBILE BOTTOM NAV -->
+
+<div class="mobileBottomNav">
+
+<a href="dashboard.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/home.png">
+
+</div>
+
+<p>Home</p>
+
+</a>
+
+<a href="employee-movement.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/movement.png">
+
+</div>
+
+<p>In-Out</p>
+
+</a>
+
+<a href="my-tasks.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/tasks.png">
+
+</div>
+
+<p>My Tasks</p>
+
+</a>
+
+<a href="vehicle-site-keys.html"
+class="bottomNavItem active">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/keys.png">
+
+</div>
+
+<p>Keys</p>
+
+</a>
+
+</div>
 
 <script>
 
 /* ======================================
    DROPDOWN
 ====================================== */
+function openSidebar(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("show");
+
+}
 
 function toggleDropdown(id){
 

@@ -4,182 +4,22 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Showy HRMS Dashboard</title>
 
-<link rel="icon" href="assets/logo.png">
+<link rel="icon"
+href="assets/logo.png">
+
+<link rel="stylesheet"
+href="css/style.css">
 
 <style>
 
 /* =========================================
-   RESET
-========================================= */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-html,
-body{
-width:100%;
-overflow-x:hidden;
-background:#041638;
-color:white;
-}
-
-/* =========================================
-   BODY
-========================================= */
-
-body{
-display:flex;
-min-height:100vh;
-}
-
-/* =========================================
-   SIDEBAR
-========================================= */
-
-.sidebar{
-position:fixed;
-left:0;
-top:0;
-width:250px;
-height:100vh;
-background:#071b46;
-padding:20px;
-overflow-y:auto;
-z-index:1000;
-}
-
-.logo{
-text-align:center;
-margin-bottom:30px;
-}
-
-.logo img{
-width:90px;
-max-width:100%;
-}
-
-.logo h2{
-margin-top:10px;
-font-size:34px;
-color:white;
-}
-
-/* =========================================
-   MENU
-========================================= */
-
-.menu{
-margin-top:20px;
-}
-
-.menu-btn,
-.dropdown-btn{
-display:block;
-width:100%;
-padding:16px;
-margin-bottom:12px;
-border-radius:16px;
-background:#12307a;
-color:white;
-text-decoration:none;
-font-size:16px;
-font-weight:bold;
-border:none;
-cursor:pointer;
-transition:0.3s;
-text-align:left;
-}
-
-.menu-btn:hover,
-.dropdown-btn:hover{
-background:#f5a000;
-color:black;
-}
-
-.active{
-background:#f5a000 !important;
-color:black !important;
-}
-
-/* =========================================
-   DROPDOWN
-========================================= */
-
-.dropdown-btn{
-color:#ffb400;
-}
-
-.dropdown-content{
-display:none;
-padding-left:8px;
-margin-bottom:10px;
-}
-
-.dropdown-content.show{
-display:block;
-}
-
-.dropdown-content a{
-display:block;
-padding:14px;
-margin-bottom:10px;
-border-radius:14px;
-background:#0f2c6b;
-color:white;
-text-decoration:none;
-font-weight:bold;
-transition:0.3s;
-}
-
-.dropdown-content a:hover{
-background:#f5a000;
-color:black;
-}
-
-/* =========================================
-   LOGOUT
-========================================= */
-
-.logout-btn{
-display:block;
-width:100%;
-padding:16px;
-margin-top:20px;
-border-radius:16px;
-background:red;
-color:white;
-text-decoration:none;
-font-size:16px;
-font-weight:bold;
-text-align:center;
-transition:0.3s;
-}
-
-.logout-btn:hover{
-background:#c40000;
-}
-
-/* =========================================
-   MAIN
-========================================= */
-
-.main{
-margin-left:250px;
-width:calc(100% - 250px);
-padding:25px;
-overflow-x:hidden;
-}
-
-/* =========================================
-   TOPBAR
+PAGE ONLY CSS
 ========================================= */
 
 .topbar{
@@ -195,17 +35,13 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 gap:20px;
+flex-wrap:wrap;
 }
 
 .topbar h1{
 font-size:42px;
 margin-bottom:10px;
-line-height:1.1;
 }
-
-/* =========================================
-   NOTIFICATION
-========================================= */
 
 .notificationWrapper{
 position:relative;
@@ -282,21 +118,9 @@ cursor:pointer;
 font-weight:bold;
 }
 
-/* =========================================
-   MOBILE HOME GRID
-========================================= */
-
-.mobile-home-grid{
-display:none;
-}
-
-/* =========================================
-   CARDS
-========================================= */
-
 .cards{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:20px;
 margin-bottom:25px;
 }
@@ -324,10 +148,6 @@ font-size:42px;
 color:#071739;
 }
 
-/* =========================================
-   PROFILE
-========================================= */
-
 .profile{
 background:white;
 color:black;
@@ -343,195 +163,185 @@ font-size:32px;
 .profile p{
 margin-top:14px;
 font-size:18px;
-word-wrap:break-word;
 }
 
 /* =========================================
-   MOBILE RESPONSIVE
+MOBILE NAV
 ========================================= */
 
-@media screen and (max-width:900px){
+.mobileBottomNav{
 
-body{
-display:block;
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+position:fixed;
+
+bottom:12px;
+left:12px;
+right:12px;
+
+height:82px;
+
+background:rgba(7,27,70,0.95);
+
+backdrop-filter:blur(18px);
+
+border-radius:24px;
+
+padding:8px;
+
+z-index:5000;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,0.25);
+
 }
 
-/* SIDEBAR */
+.bottomNavItem{
 
-.sidebar{
-position:relative;
-width:100%;
-height:auto;
-padding:20px;
-overflow:hidden;
-}
-
-/* LOGO */
-
-.logo img{
-width:80px;
-}
-
-.logo h2{
-font-size:28px;
-}
-
-/* HIDE OLD MENU */
-
-.menu{
-display:none;
-}
-
-/* SHOW MOBILE GRID */
-
-.mobile-home-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-margin-top:25px;
-}
-
-.mobile-card{
-background:#12307a;
-border-radius:20px;
-padding:25px 15px;
-text-align:center;
-text-decoration:none;
-color:white;
-font-weight:bold;
-font-size:18px;
+flex:1;
 
 display:flex;
 flex-direction:column;
-gap:10px;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+color:white;
+
+font-size:11px;
+font-weight:bold;
+
+gap:4px;
+
+}
+
+.bottomIcon{
+
+width:52px;
+height:52px;
+
+background:#12307a;
+
+border-radius:16px;
+
+display:flex;
+align-items:center;
+justify-content:center;
 
 transition:0.3s;
+
 }
 
-.mobile-card:hover{
+.bottomIcon img{
+
+width:45px;
+height:45px;
+
+object-fit:contain;
+
+}
+
+.bottomNavItem.active .bottomIcon{
+
 background:#f5a000;
-color:black;
-transform:scale(1.03);
+
+transform:translateY(-4px);
+
+width:52px;
+height:52px;
+
+border-radius:18px;
+
+box-shadow:
+0 8px 18px rgba(245,160,0,0.35);
+
 }
 
-.mobile-card span{
-font-size:15px;
+.bottomNavItem.active p{
+
+color:#f5a000;
+
 }
 
-/* MAIN */
-
-.main{
-margin-left:0;
-width:100%;
-padding:15px;
+.mobileBottomNav .active{
+background:transparent !important;
 }
 
-/* TOPBAR */
+.bottomNavItem p{
+margin:0;
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media(max-width:768px){
 
 .topbar{
 padding:20px;
-border-radius:20px;
 }
-
-.topHeader{
-flex-direction:column;
-align-items:flex-start;
-}
-
-/* TITLE */
 
 .topbar h1{
-font-size:28px;
+font-size:30px;
 }
-
-/* NOTIFICATION */
 
 .notificationDropdown{
 position:fixed;
 left:10px;
 right:10px;
-top:90px;
+top:80px;
 width:auto;
 }
 
-/* CARDS */
-
 .cards{
 grid-template-columns:1fr;
-gap:15px;
 }
-
-/* CARD */
-
-.card{
-padding:20px;
-border-radius:20px;
-}
-
-.card h1{
-font-size:34px;
-}
-
-/* PROFILE */
 
 .profile{
 padding:22px;
-border-radius:20px;
 }
 
-.profile h2{
-font-size:26px;
+.main{
+padding-bottom:100px;
 }
 
-.profile p{
-font-size:16px;
+/* FIX SIDEBAR */
+
+.sidebar{
+
+position:fixed;
+
+top:0;
+left:-100%;
+
+width:280px;
+height:100vh;
+
+background:#071b46;
+
+padding:25px 18px;
+
+overflow-y:auto;
+
+transition:0.3s ease;
+
+z-index:9999;
+
 }
 
-/* PREVENT OVERFLOW */
-
-table{
-display:block;
-overflow-x:auto;
-white-space:nowrap;
-width:100%;
-}
-
-input,
-select,
-textarea,
-button{
-width:100%;
-max-width:100%;
+.sidebar.show{
+left:0;
 }
 
 }
 
-/* =========================================
-   VERY SMALL DEVICES
-========================================= */
+@media(min-width:769px){
 
-@media screen and (max-width:500px){
-
-.mobile-home-grid{
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.mobile-card{
-padding:20px 10px;
-font-size:16px;
-}
-
-.mobile-card span{
-font-size:13px;
-}
-
-.topbar h1{
-font-size:24px;
-}
-
-.card h1{
-font-size:28px;
+.mobileBottomNav{
+display:none;
 }
 
 }
@@ -542,11 +352,25 @@ font-size:28px;
 
 <body>
 
-<!-- =========================================
-     SIDEBAR
-========================================= -->
+<!-- MOBILE HEADER -->
 
-<div class="sidebar">
+<div class="mobileTop">
+
+<div class="menuToggle"
+onclick="openSidebar()">
+
+☰
+
+</div>
+
+<img src="assets/logo.png">
+
+</div>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar"
+id="sidebar">
 
 <div class="logo">
 
@@ -556,166 +380,147 @@ font-size:28px;
 
 </div>
 
-<!-- =========================================
-     MOBILE APP GRID
-========================================= -->
-
-<div class="mobile-home-grid">
-
-<a href="dashboard.html" class="mobile-card active">
-📊
-<span>Dashboard</span>
-</a>
-
-<a href="employee-movement.html" class="mobile-card">
-🚶
-<span>In & Out</span>
-</a>
-
-<a href="attendance.html" class="mobile-card">
-📅
-<span>Attendance</span>
-</a>
-
-<a href="leave.html" class="mobile-card">
-📝
-<span>Leave</span>
-</a>
-
-<a href="salary.html" class="mobile-card">
-💰
-<span>Salary</span>
-</a>
-
-<a href="vehicle-site-keys.html" class="mobile-card">
-🚗
-<span>Keys</span>
-</a>
-
-<a href="daily-task.html" class="mobile-card">
-📌
-<span>Tasks</span>
-</a>
-
-<a href="inventory.html" class="mobile-card">
-📦
-<span>Inventory</span>
-</a>
-
-<a href="material-request.html" class="mobile-card">
-📋
-<span>Request</span>
-</a>
-
-<a href="company-hub.html" class="mobile-card">
-🏢
-<span>Company Hub</span>
-</a>
-
-<a href="index.html" class="mobile-card">
-🚪
-<span>Logout</span>
-</a>
-
-</div>
-
-<!-- =========================================
-     DESKTOP MENU
-========================================= -->
-
 <div class="menu">
 
-<a href="dashboard.html" class="menu-btn active">
+<a href="dashboard.html"
+class="menu-btn active">
+
 Dashboard
+
 </a>
 
-<a href="employee-movement.html" class="menu-btn">
+<a href="employee-movement.html"
+class="menu-btn">
+
 In & Out
+
 </a>
 
 <button class="dropdown-btn"
 onclick="toggleDropdown('hrMenu')">
+
 HR ▼
+
 </button>
 
-<div class="dropdown-content show"
-id="hrMenu">
+<div id="hrMenu"
+class="dropdown-content">
 
-<a href="attendance.html">
+<a href="attendance.html"
+class="menu-btn">
+
 Attendance
+
 </a>
 
-<a href="leave.html">
+<a href="leave.html"
+class="menu-btn">
+
 Leave Request
+
 </a>
 
-<a href="leave-status.html">
+<a href="leave-status.html"
+class="menu-btn">
+
 Leave Status
+
 </a>
 
-<a href="salary.html">
+<a href="salary.html"
+class="menu-btn">
+
 Salary
+
 </a>
 
 </div>
 
 <button class="dropdown-btn"
 onclick="toggleDropdown('siteMenu')">
+
 Site Operations ▼
+
 </button>
 
-<div class="dropdown-content"
-id="siteMenu">
+<div id="siteMenu"
+class="dropdown-content">
 
-<a href="vehicle-site-keys.html">
+<a href="vehicle-site-keys.html"
+class="menu-btn">
+
 Vehicle / Site Keys
+
 </a>
 
-<a href="daily-task.html">
+<a href="daily-task.html"
+class="menu-btn">
+
 Daily Tasks
+
 </a>
 
-<a href="my-tasks.html">
-📌 My Tasks
+<a href="my-tasks.html"
+class="menu-btn">
+
+My Tasks
+
 </a>
 
 </div>
 
 <button class="dropdown-btn"
 onclick="toggleDropdown('inventoryMenu')">
+
 Inventory ▼
+
 </button>
 
-<div class="dropdown-content"
-id="inventoryMenu">
+<div id="inventoryMenu"
+class="dropdown-content">
 
-<a href="inventory.html">
+<a href="inventory.html"
+class="menu-btn">
+
 Inventory
+
 </a>
 
-<a href="material-request.html">
+<a href="material-request.html"
+class="menu-btn">
+
 Material Request
+
 </a>
 
 </div>
 
 <a href="company-hub.html"
 class="menu-btn">
+
 Company Hub
+
+</a>
+
+<a href="employee-announcements.html"
+class="menu-btn">
+
+Announcements
+
 </a>
 
 <a href="index.html"
 class="logout-btn">
+
 Logout
+
 </a>
 
 </div>
 
 </div>
 
-<!-- =========================================
-     MAIN
-========================================= -->
+<!-- MAIN -->
 
 <div class="main">
 
@@ -737,6 +542,8 @@ Employee Management Dashboard
 
 </div>
 
+<!-- NOTIFICATION -->
+
 <div class="notificationWrapper">
 
 <div class="bellIcon"
@@ -745,7 +552,9 @@ onclick="toggleNotifications()">
 🔔
 
 <span id="notificationCount">
+
 0
+
 </span>
 
 </div>
@@ -754,12 +563,14 @@ onclick="toggleNotifications()">
 id="notificationDropdown">
 
 <div class="notificationHeader">
+
 Notifications
+
 </div>
 
 <div id="notificationList">
+
 Loading...
-</div>
 
 </div>
 
@@ -769,7 +580,9 @@ Loading...
 
 </div>
 
-<!-- STATS -->
+</div>
+
+<!-- CARDS -->
 
 <div class="cards">
 
@@ -820,42 +633,104 @@ Employee Details
 </h2>
 
 <p>
+
 <b>Name:</b>
+
 <span id="name"></span>
+
 </p>
 
 <p>
+
 <b>Email:</b>
+
 <span id="email"></span>
+
 </p>
 
 <p>
+
 <b>Department:</b>
+
 <span id="department"></span>
+
 </p>
 
 </div>
+
+</div>
+
+<!-- MOBILE NAV -->
+
+<div class="mobileBottomNav">
+
+<a href="dashboard.html"
+class="bottomNavItem active">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/home.png">
+
+</div>
+
+<p>Home</p>
+
+</a>
+
+<a href="employee-movement.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/movement.png">
+
+</div>
+
+<p>In-Out</p>
+
+</a>
+
+<a href="my-tasks.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/tasks.png">
+
+</div>
+
+<p>My Tasks</p>
+
+</a>
+
+<a href="vehicle-site-keys.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/keys.png">
+
+</div>
+
+<p>Keys</p>
+
+</a>
 
 </div>
 
 <script>
 
-/* ======================================
-   WEB APP URL
-====================================== */
+/* SIDEBAR */
 
-const WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+function openSidebar(){
 
-/* ======================================
-   NOTIFICATIONS
-====================================== */
+document
+.getElementById("sidebar")
+.classList.toggle("show");
 
-let notifications = [];
+}
 
-/* ======================================
-   DROPDOWN
-====================================== */
+/* DROPDOWN */
 
 function toggleDropdown(id){
 
@@ -865,9 +740,12 @@ document
 
 }
 
-/* ======================================
-   EMPLOYEE DATA
-====================================== */
+/* WEB APP URL */
+
+const WEB_APP_URL =
+"https://script.google.com/macros/s/AKfycbyFx70qjoYYPeer9JMMvcXKiswUXe0HUJDaRSEGZeUVLjdOCKOQ2icoKCaPlWPEVImwXg/exec";
+
+/* EMPLOYEE */
 
 const employee =
 JSON.parse(
@@ -886,31 +764,14 @@ document.getElementById("department").innerHTML =
 employee.department || "Showy";
 
 }
-else{
 
-document.getElementById("name").innerHTML =
-"Welcome Employee";
+/* NOTIFICATIONS */
 
-document.getElementById("email").innerHTML =
-"showyhrms@gmail.com";
-
-document.getElementById("department").innerHTML =
-"Showy HRMS";
-
-}
-
-/* ======================================
-   LOAD NOTIFICATIONS
-====================================== */
+let notifications = [];
 
 async function loadNotifications(){
 
 try{
-
-const employee =
-JSON.parse(
-localStorage.getItem("employee")
-);
 
 if(!employee){
 return;
@@ -930,7 +791,7 @@ await response.text();
 
 const jsonText =
 text.substring(
-text.indexOf("(") + 1,
+text.indexOf("(")+1,
 text.lastIndexOf(")")
 );
 
@@ -947,18 +808,9 @@ catch(error){
 
 console.log(error);
 
-document.getElementById(
-"notificationList"
-).innerHTML =
-"Failed to load notifications";
-
 }
 
 }
-
-/* ======================================
-   RENDER NOTIFICATIONS
-====================================== */
 
 function renderNotifications(){
 
@@ -974,15 +826,12 @@ document.getElementById(
 
 list.innerHTML = "";
 
-if(notifications.length == 0){
+if(notifications.length === 0){
 
-list.innerHTML = `
-
-<div class="notificationItem">
+list.innerHTML =
+`<div class="notificationItem">
 No Notifications
-</div>
-
-`;
+</div>`;
 
 count.innerText = "0";
 
@@ -999,9 +848,7 @@ list.innerHTML += `
 
 <div class="notificationItem">
 
-<div
-class="closeNotification"
-onclick="removeNotification('${item.ID}', ${index})">
+<div class="closeNotification">
 
 ✖
 
@@ -1013,16 +860,7 @@ onclick="removeNotification('${item.ID}', ${index})">
 
 <div class="notificationTime">
 
-${new Date(item.Time).toLocaleString('en-IN', {
-
-day:'2-digit',
-month:'short',
-year:'numeric',
-hour:'2-digit',
-minute:'2-digit',
-hour12:true
-
-})}
+${new Date(item.Time).toLocaleString('en-IN')}
 
 </div>
 
@@ -1034,81 +872,31 @@ hour12:true
 
 }
 
-/* ======================================
-   TOGGLE NOTIFICATIONS
-====================================== */
-
-async function toggleNotifications(){
+function toggleNotifications(){
 
 const dropdown =
 document.getElementById(
 "notificationDropdown"
 );
 
-if(dropdown.style.display == "block"){
+if(dropdown.style.display === "block"){
 
 dropdown.style.display = "none";
 
-}
-else{
+}else{
 
 dropdown.style.display = "block";
 
-for(let item of notifications){
-
-await fetch(
-
-WEB_APP_URL +
-"?action=readNotification&id=" +
-item.ID
-
-);
+}
 
 }
+
+/* START */
 
 loadNotifications();
-
-}
-
-}
-
-/* ======================================
-   REMOVE NOTIFICATION
-====================================== */
-
-async function removeNotification(id,index){
-
-await fetch(
-
-WEB_APP_URL +
-"?action=removeNotification&id=" +
-id
-
-);
-
-notifications.splice(index,1);
-
-renderNotifications();
-
-}
-
-/* ======================================
-   AUTO LOAD
-====================================== */
-
-loadNotifications();
-
-/* ======================================
-   AUTO REFRESH
-====================================== */
-
-setInterval(()=>{
-
-loadNotifications();
-
-},5000);
 
 </script>
 
 </body>
+
 </html>

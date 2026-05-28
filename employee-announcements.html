@@ -9,12 +9,13 @@ content="width=device-width, initial-scale=1.0">
 
 <title>Employee Announcements</title>
 
-<link rel="icon" href="assets/logo.png">
+<link rel="icon"
+href="assets/logo.png">
 
 <style>
 
 /* ======================================
-   GLOBAL
+RESET
 ====================================== */
 
 *{
@@ -27,12 +28,19 @@ font-family:Arial,sans-serif;
 body{
 background:#041638;
 color:white;
-display:flex;
-overflow:hidden;
+overflow-x:hidden;
 }
 
 /* ======================================
-   SIDEBAR
+MOBILE HEADER
+====================================== */
+
+.mobileTop{
+display:none;
+}
+
+/* ======================================
+SIDEBAR
 ====================================== */
 
 .sidebar{
@@ -42,56 +50,63 @@ left:0;
 top:0;
 width:250px;
 height:100vh;
+
 background:#071b46;
+
 padding:20px 15px;
+
 overflow-y:auto;
 
-display:flex;
-flex-direction:column;
+z-index:999;
+
+transition:0.3s;
 
 }
 
 .logo{
 text-align:center;
-margin-bottom:20px;
+margin-bottom:30px;
 }
 
 .logo img{
-width:80px;
-margin-bottom:8px;
+width:90px;
 }
 
 .logo h2{
-font-size:22px;
+margin-top:10px;
+font-size:30px;
 }
 
 /* ======================================
-   MENU BUTTON
+MENU BUTTON
 ====================================== */
 
 .menu-btn{
 
 display:block;
 width:100%;
-padding:15px;
-margin-bottom:10px;
+padding:16px;
+margin-bottom:12px;
 
-background:#14357d;
+background:#12307a;
 color:white;
 
 text-decoration:none;
 
-border-radius:14px;
+border-radius:16px;
 
-font-size:15px;
+font-size:16px;
 font-weight:bold;
 
 transition:0.3s;
 
+text-align:left;
+
 }
 
 .menu-btn:hover{
-background:#2950ad;
+background:#f5a000;
+color:black;
 }
 
 .menu-btn.active{
@@ -100,13 +115,13 @@ color:black;
 }
 
 /* ======================================
-   DROPDOWN BUTTON
+DROPDOWN
 ====================================== */
 
 .dropdown-btn{
 
 width:100%;
-padding:15px;
+padding:16px;
 
 border:none;
 outline:none;
@@ -115,32 +130,33 @@ cursor:pointer;
 
 text-align:left;
 
-border-radius:14px;
+border-radius:16px;
 
-background:#14357d;
-color:white;
+background:#12307a;
+color:#ffb400;
 
-font-size:15px;
+font-size:16px;
 font-weight:bold;
 
-margin-bottom:10px;
+margin-bottom:12px;
 
 transition:0.3s;
 
 }
 
 .dropdown-btn:hover{
-background:#2950ad;
+background:#f5a000;
+color:black;
 }
 
 /* ======================================
-   DROPDOWN CONTENT
+DROPDOWN CONTENT
 ====================================== */
 
 .dropdown-content{
 
 display:none;
-padding-left:12px;
+padding-left:8px;
 margin-bottom:10px;
 
 }
@@ -153,17 +169,17 @@ display:block;
 
 display:block;
 
-padding:12px;
-margin-bottom:8px;
+padding:14px;
+margin-bottom:10px;
 
-background:#1b377f;
+background:#0f2c6b;
 
-border-radius:12px;
+border-radius:14px;
 
 color:white;
 text-decoration:none;
 
-font-size:14px;
+font-size:15px;
 font-weight:bold;
 
 transition:0.3s;
@@ -178,7 +194,7 @@ color:black;
 }
 
 /* ======================================
-   LOGOUT
+LOGOUT
 ====================================== */
 
 .logout-btn{
@@ -186,19 +202,19 @@ color:black;
 display:block;
 width:100%;
 
-padding:15px;
+padding:16px;
 
-border-radius:14px;
+border-radius:16px;
 
 background:red;
 color:white;
 
 text-decoration:none;
 
-font-size:15px;
+font-size:16px;
 font-weight:bold;
 
-margin-top:auto;
+margin-top:20px;
 
 text-align:center;
 
@@ -211,7 +227,7 @@ background:#c40000;
 }
 
 /* ======================================
-   MAIN
+MAIN
 ====================================== */
 
 .main{
@@ -220,27 +236,23 @@ margin-left:250px;
 
 padding:25px;
 
-width:calc(100% - 250px);
-
-height:100vh;
-
-overflow-y:auto;
+min-height:100vh;
 
 }
 
 /* ======================================
-   TITLE
+TITLE
 ====================================== */
 
 .page-title{
 
-font-size:34px;
+font-size:42px;
 margin-bottom:25px;
 
 }
 
 /* ======================================
-   FILTER BAR
+FILTER BAR
 ====================================== */
 
 .filterBar{
@@ -257,19 +269,19 @@ margin-bottom:25px;
 .filterBar input,
 .filterBar select{
 
-padding:15px;
+padding:16px;
 
 border:none;
 outline:none;
 
-border-radius:14px;
+border-radius:16px;
 
 font-size:15px;
 
 }
 
 /* ======================================
-   ANNOUNCEMENT CARD
+ANNOUNCEMENT CARD
 ====================================== */
 
 .announcementCard{
@@ -283,8 +295,6 @@ border-radius:24px;
 
 margin-bottom:20px;
 
-position:relative;
-
 }
 
 .announcementHeader{
@@ -294,6 +304,9 @@ justify-content:space-between;
 align-items:center;
 
 margin-bottom:15px;
+
+gap:10px;
+flex-wrap:wrap;
 
 }
 
@@ -317,7 +330,7 @@ color:white;
 
 }
 
-/* PRIORITY COLORS */
+/* PRIORITY */
 
 .high{
 background:red;
@@ -411,40 +424,197 @@ font-size:18px;
 }
 
 /* ======================================
-   MOBILE
+MOBILE
 ====================================== */
 
-@media(max-width:900px){
+@media(max-width:768px){
 
-body{
-display:block;
-overflow:auto;
+/* MOBILE HEADER */
+
+.mobileTop{
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:15px 20px;
+
+background:#071b46;
+
+position:sticky;
+top:0;
+
+z-index:3000;
 }
+
+.mobileTop img{
+width:70px;
+height:auto;
+}
+
+.menuToggle{
+font-size:30px;
+cursor:pointer;
+}
+
+/* SIDEBAR */
 
 .sidebar{
-
-position:relative;
-
-width:100%;
-height:auto;
-
+left:-100%;
+width:280px;
 }
+
+.sidebar.show{
+left:0;
+}
+
+/* MAIN */
 
 .main{
-
 margin-left:0;
-
-width:100%;
-height:auto;
-
+padding:15px;
+padding-bottom:100px;
 }
+
+/* TITLE */
+
+.page-title{
+font-size:34px;
+}
+
+/* FILTER */
 
 .filterBar{
 grid-template-columns:1fr;
 }
 
-.page-title{
-font-size:28px;
+/* ======================================
+PREMIUM MOBILE NAV
+====================================== */
+
+.mobileBottomNav{
+
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+position:fixed;
+bottom:12px;
+left:12px;
+right:12px;
+
+height:58px;
+
+background:rgba(7,27,70,0.88);
+
+backdrop-filter:blur(18px);
+
+border-radius:24px;
+
+border:1px solid rgba(255,255,255,0.06);
+
+box-shadow:
+0 8px 25px rgba(0,0,0,0.25);
+
+z-index:5000;
+
+padding:6px;
+
+}
+
+/* ITEM */
+
+.bottomNavItem{
+
+flex:1;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+gap:4px;
+
+background:transparent;
+
+transition:0.3s ease;
+
+}
+
+/* ICON */
+
+.bottomIcon{
+
+width:38px;
+height:38px;
+
+border-radius:14px;
+
+background:#12307a;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+transition:all 0.3s ease;
+
+}
+
+/* IMAGE */
+
+.bottomIcon img{
+
+width:45px;
+height:45px;
+
+object-fit:contain;
+
+}
+
+/* TEXT */
+
+.bottomNavItem p{
+
+font-size:9px;
+font-weight:600;
+
+color:white;
+
+margin-top:2px;
+
+}
+
+/* ACTIVE */
+
+.bottomNavItem.active .bottomIcon{
+
+background:#f5a000;
+
+width:34px;
+height:34px;
+
+border-radius:12px;
+
+box-shadow:
+0 4px 10px rgba(245,160,0,0.22);
+
+}
+
+.bottomNavItem.active{
+background:transparent !important;
+}
+
+}
+
+/* ======================================
+DESKTOP HIDE
+====================================== */
+
+@media(min-width:769px){
+
+.mobileBottomNav{
+display:none;
 }
 
 }
@@ -455,11 +625,25 @@ font-size:28px;
 
 <body>
 
-<!-- ======================================
-     SIDEBAR
-====================================== -->
+<!-- MOBILE HEADER -->
 
-<div class="sidebar">
+<div class="mobileTop">
+
+<div class="menuToggle"
+onclick="openSidebar()">
+
+☰
+
+</div>
+
+<img src="assets/logo.png">
+
+</div>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar"
+id="sidebar">
 
 <div class="logo">
 
@@ -525,7 +709,7 @@ Salary
 
 </div>
 
-<!-- SITE OPERATIONS -->
+<!-- SITE -->
 
 <button class="dropdown-btn"
 onclick="toggleDropdown('siteMenu')">
@@ -551,7 +735,7 @@ Daily Tasks
 
 <a href="my-tasks.html">
 
-📌 My Tasks
+My Tasks
 
 </a>
 
@@ -601,7 +785,6 @@ Company Hub
 
 </a>
 
-
 <!-- LOGOUT -->
 
 <a href="index.html"
@@ -613,9 +796,7 @@ Logout
 
 </div>
 
-<!-- ======================================
-     MAIN
-====================================== -->
+<!-- MAIN -->
 
 <div class="main">
 
@@ -673,23 +854,114 @@ Loading Announcements...
 
 </div>
 
+<!-- MOBILE NAV -->
+
+<div class="mobileBottomNav">
+
+<!-- HOME -->
+
+<a href="dashboard.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/home.png">
+
+</div>
+
+<p>Home</p>
+
+</a>
+
+<!-- IN OUT -->
+
+<a href="employee-movement.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/movement.png">
+
+</div>
+
+<p>In-Out</p>
+
+</a>
+
+<!-- TASKS -->
+
+<a href="my-tasks.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/tasks.png">
+
+</div>
+
+<p>My Tasks</p>
+
+</a>
+
+<!-- KEYS -->
+
+<a href="vehicle-site-keys.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/keys.png">
+
+</div>
+
+<p>Keys</p>
+
+</a>
+
+</div>
+
 <script>
 
 /* ======================================
-   SHEET URL
+SIDEBAR
+====================================== */
+
+function openSidebar(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("show");
+
+}
+
+/* ======================================
+DROPDOWN
+====================================== */
+
+function toggleDropdown(id){
+
+const menu =
+document.getElementById(id);
+
+menu.classList.toggle("show");
+
+}
+
+/* ======================================
+SHEET URL
 ====================================== */
 
 const SHEET_URL =
 "https://opensheet.vercel.app/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU";
 
 /* ======================================
-   GLOBAL
+GLOBAL
 ====================================== */
 
 let allAnnouncements = [];
 
 /* ======================================
-   LOAD ANNOUNCEMENTS
+LOAD ANNOUNCEMENTS
 ====================================== */
 
 async function loadAnnouncements(){
@@ -727,7 +999,7 @@ Failed to Load Announcements
 }
 
 /* ======================================
-   RENDER ANNOUNCEMENTS
+RENDER
 ====================================== */
 
 function renderAnnouncements(data){
@@ -837,7 +1109,7 @@ View Attachment
 }
 
 /* ======================================
-   FILTER
+FILTER
 ====================================== */
 
 function filterAnnouncements(){
@@ -884,20 +1156,7 @@ renderAnnouncements(filtered);
 }
 
 /* ======================================
-   DROPDOWN
-====================================== */
-
-function toggleDropdown(id){
-
-const menu =
-document.getElementById(id);
-
-menu.classList.toggle("show");
-
-}
-
-/* ======================================
-   START
+START
 ====================================== */
 
 loadAnnouncements();

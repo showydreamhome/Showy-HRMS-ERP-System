@@ -6,68 +6,74 @@
 <title>Showy Salary</title>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" href="assets/logo.png">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<link rel="icon"
+href="assets/logo.png">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 
+/* =========================================
+RESET
+========================================= */
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:Arial,sans-serif;
 }
 
 body{
 background:#041638;
-color:white;
 overflow-x:hidden;
+color:white;
 }
 
-/* MOBILE TOPBAR */
+/* =========================================
+MOBILE HEADER
+========================================= */
 
-.mobileTopbar{
+.mobileTop{
 display:none;
 }
 
-/* OVERLAY */
-
-.overlay{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-z-index:1400;
-}
-
-.overlay.show{
-display:block;
-}
-
-/* SIDEBAR */
+/* =========================================
+SIDEBAR
+========================================= */
 
 .sidebar{
+
 position:fixed;
-width:250px;
-height:100vh;
-background:#071b46;
-padding:25px 18px;
-overflow-y:auto;
+
 left:0;
 top:0;
-z-index:1500;
-transition:0.3s;
+
+width:250px;
+height:100vh;
+
+background:#071b46;
+
+padding:20px;
+
+overflow-y:auto;
+
+z-index:2000;
+
+transition:0.3s ease;
+
+box-shadow:
+0 0 30px rgba(0,0,0,0.35);
+
 }
 
 .logo{
 text-align:center;
-margin-bottom:35px;
+margin-bottom:30px;
 }
 
 .logo img{
@@ -76,36 +82,48 @@ width:90px;
 
 .logo h2{
 margin-top:10px;
-font-size:30px;
+font-size:34px;
 color:white;
 }
 
-.menu{
-margin-top:20px;
-}
+/* =========================================
+MENU
+========================================= */
 
-/* BUTTONS */
+.menu-btn,
+.dropdown-btn{
 
-.menu-btn{
 display:block;
 width:100%;
-padding:15px;
+
+padding:16px;
 margin-bottom:12px;
-border-radius:12px;
-background:#0f2c6b;
+
+border:none;
+border-radius:16px;
+
+background:#12307a;
 color:white;
+
 text-decoration:none;
+
 font-size:16px;
 font-weight:bold;
-text-align:left;
-border:none;
+
 cursor:pointer;
+
 transition:0.3s;
+
+text-align:left;
+
 }
 
-.menu-btn:hover{
+.menu-btn:hover,
+.dropdown-btn:hover{
+
 background:#f5a000;
 color:black;
+
 }
 
 .active{
@@ -113,192 +131,302 @@ background:#f5a000 !important;
 color:black !important;
 }
 
-/* DROPDOWN */
+/* =========================================
+DROPDOWN
+========================================= */
 
 .dropdown-btn{
-display:block;
-width:100%;
-padding:15px;
-margin-bottom:12px;
-border-radius:12px;
-background:#17357a;
 color:#ffb400;
-font-size:16px;
-font-weight:bold;
-border:none;
-cursor:pointer;
-text-align:left;
 }
 
 .dropdown-content{
 display:none;
-padding-left:10px;
+padding-left:8px;
 margin-bottom:10px;
+}
+
+.dropdown-content.show{
+display:block;
 }
 
 .dropdown-content a{
+
 display:block;
+
+width:100%;
+
 padding:14px;
+
 margin-bottom:10px;
-border-radius:12px;
-background:#0f2c6b;
+
+border-radius:14px;
+
+background:#12307a;
+
 color:white;
+
 text-decoration:none;
+
+font-size:15px;
+
 font-weight:bold;
+
 transition:0.3s;
+
 }
 
 .dropdown-content a:hover{
+
 background:#f5a000;
 color:black;
+
+transform:translateX(3px);
+
 }
 
-/* LOGOUT */
+/* =========================================
+LOGOUT
+========================================= */
 
 .logout-btn{
+
 display:block;
 width:100%;
-padding:15px;
-margin-top:25px;
-border-radius:12px;
+
+padding:16px;
+
+margin-top:20px;
+
+border-radius:16px;
+
 background:red;
 color:white;
+
 text-decoration:none;
+
 font-size:16px;
 font-weight:bold;
+
 text-align:center;
+
+transition:0.3s;
+
 }
 
-/* MAIN */
+.logout-btn:hover{
+background:#cc0000;
+}
+
+/* =========================================
+MAIN
+========================================= */
 
 .main{
 margin-left:250px;
-padding:30px;
+padding:35px;
 width:calc(100% - 250px);
 }
 
-/* TOP */
+/* =========================================
+TOP
+========================================= */
 
 .top{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:30px;
 gap:20px;
+margin-bottom:30px;
 flex-wrap:wrap;
 }
 
 .top h1{
-font-size:55px;
-line-height:1.2;
+font-size:52px;
 }
 
-/* NAV */
+/* =========================================
+NAV
+========================================= */
 
 .nav{
 display:flex;
-gap:10px;
-flex-wrap:wrap;
+gap:12px;
 }
 
 .nav button{
-padding:12px 20px;
+
+padding:14px 24px;
+
 border:none;
-border-radius:12px;
+border-radius:14px;
+
 cursor:pointer;
-font-size:18px;
+
+font-size:16px;
 font-weight:bold;
-}
 
-/* CARD */
-
-.salaryCard{
 background:white;
 color:black;
+
+transition:0.3s;
+
+}
+
+.nav button:hover{
+background:#f5a000;
+}
+
+/* =========================================
+CARD
+========================================= */
+
+.salaryCard{
+
+background:white;
+color:black;
+
 padding:35px;
-border-radius:20px;
-width:100%;
+
+border-radius:24px;
+
 max-width:850px;
-overflow:hidden;
+
+width:100%;
+
 }
 
 .salaryCard h1{
-font-size:55px;
+font-size:52px;
 margin-bottom:10px;
-word-break:break-word;
 }
 
 .salaryCard h2{
-margin-bottom:20px;
-}
-
-.salaryCard h3{
-margin-top:18px;
 font-size:28px;
-word-break:break-word;
+margin-bottom:20px;
+color:#666;
 }
 
 .salaryCard hr{
 margin:20px 0;
 }
 
-/* DOWNLOAD */
+.salaryCard h3{
+font-size:28px;
+margin-top:18px;
+}
+
+/* =========================================
+DOWNLOAD BUTTON
+========================================= */
 
 .downloadBtn{
+
 margin-top:30px;
-padding:15px 25px;
-background:#f5a000;
-border:none;
-border-radius:12px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
+
 width:100%;
+
+padding:18px;
+
+border:none;
+border-radius:16px;
+
+background:#f5a000;
+
+font-size:20px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.3s;
+
 }
 
 .downloadBtn:hover{
 opacity:0.9;
 }
 
-/* MOBILE */
+/* =========================================
+BOTTOM NAV
+========================================= */
 
-@media screen and (max-width:768px){
+.mobileBottomNav{
+display:none;
+}
 
-.mobileTopbar{
+/* =========================================
+MOBILE
+========================================= */
+
+@media(max-width:768px){
+
+.mobileTop{
+
 display:flex;
 justify-content:space-between;
 align-items:center;
+
 padding:15px 20px;
+
 background:#071b46;
+
 position:sticky;
 top:0;
-z-index:1600;
+
+z-index:3000;
+
 }
 
-.mobileLogo{
-font-size:28px;
-font-weight:bold;
+.mobileTop img{
+width:45px;
+height:auto;
 }
 
-.menuIcon{
-font-size:34px;
+.menuToggle{
+font-size:30px;
 cursor:pointer;
 }
 
+/* SIDEBAR */
+
 .sidebar{
+
 left:-100%;
+
 width:280px;
+
+height:100vh;
+
+top:0;
+
 }
 
 .sidebar.show{
 left:0;
 }
 
+/* MAIN */
+
 .main{
+
 margin-left:0;
+
+padding:15px;
+
+padding-bottom:95px;
+
 width:100%;
-padding:20px;
+
+overflow-x:hidden;
+
 }
+
+/* BODY LOCK */
+
+body.sidebar-open{
+overflow:hidden;
+}
+
+/* TOP */
 
 .top{
 flex-direction:column;
@@ -309,23 +437,15 @@ align-items:flex-start;
 font-size:36px;
 }
 
-.nav{
-width:100%;
-}
-
-.nav button{
-flex:1;
-font-size:16px;
-padding:14px;
-}
+/* CARD */
 
 .salaryCard{
 padding:25px;
-border-radius:18px;
+border-radius:22px;
 }
 
 .salaryCard h1{
-font-size:40px;
+font-size:34px;
 }
 
 .salaryCard h2{
@@ -333,46 +453,136 @@ font-size:22px;
 }
 
 .salaryCard h3{
-font-size:22px;
-line-height:1.5;
+font-size:20px;
 }
+
+/* NAV */
+
+.nav{
+width:100%;
+}
+
+.nav button{
+flex:1;
+}
+
+/* DOWNLOAD */
 
 .downloadBtn{
-font-size:16px;
-padding:15px;
-}
-
-.menu-btn,
-.dropdown-btn,
-.logout-btn{
-font-size:16px;
+font-size:17px;
 padding:16px;
 }
 
-.logo img{
-width:75px;
+/* =========================================
+BOTTOM NAV
+========================================= */
+
+.mobileBottomNav{
+
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+position:fixed;
+
+bottom:12px;
+left:12px;
+right:12px;
+
+height:58px;
+
+background:rgba(7,27,70,0.88);
+
+backdrop-filter:blur(18px);
+
+border-radius:24px;
+
+border:1px solid rgba(255,255,255,0.06);
+
+box-shadow:
+0 8px 25px rgba(0,0,0,0.25);
+
+z-index:5000;
+
+padding:6px;
+
 }
 
-.logo h2{
-font-size:24px;
-}
+.bottomNavItem{
+
+flex:1;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+gap:4px;
+
+height:100%;
+
+border-radius:18px;
+
+transition:0.3s ease;
 
 }
 
-/* SMALL DEVICES */
+.bottomIcon{
 
-@media screen and (max-width:480px){
+width:38px;
+height:38px;
 
-.top h1{
-font-size:30px;
+border-radius:14px;
+
+background:#12307a;
+
+flex-shrink:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
 }
 
-.salaryCard h1{
-font-size:32px;
+.bottomIcon img{
+
+width:45px;
+height:45px;
+
+object-fit:contain;
+
 }
 
-.salaryCard h3{
-font-size:18px;
+.bottomNavItem p{
+
+font-size:9px;
+font-weight:600;
+
+color:white;
+
+}
+
+.bottomNavItem.active{
+
+background:transparent !important;
+
+}
+
+.bottomNavItem.active .bottomIcon{
+
+background:#f5a300;
+
+width:38px;
+height:38px;
+
+border-radius:14px;
+
+box-shadow:
+0 4px 10px rgba(245,163,0,0.25);
+
 }
 
 }
@@ -383,27 +593,25 @@ font-size:18px;
 
 <body>
 
-<!-- MOBILE TOPBAR -->
+<!-- MOBILE HEADER -->
 
-<div class="mobileTopbar">
+<div class="mobileTop">
 
-<div class="mobileLogo">
-SHOWY
-</div>
+<div class="menuToggle"
+onclick="openSidebar()">
 
-<div class="menuIcon" onclick="openSidebar()">
 ☰
-</div>
 
 </div>
 
-<!-- OVERLAY -->
+<img src="assets/logo.png">
 
-<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+</div>
 
 <!-- SIDEBAR -->
 
-<div class="sidebar">
+<div class="sidebar"
+id="sidebar">
 
 <div class="logo">
 
@@ -415,72 +623,123 @@ SHOWY
 
 <div class="menu">
 
-<a href="dashboard.html" class="menu-btn">
+<a href="dashboard.html"
+class="menu-btn">
+
 Dashboard
+
 </a>
 
-<a href="employee-movement.html" class="menu-btn">
+<a href="employee-movement.html"
+class="menu-btn">
+
 In & Out
+
 </a>
 
-<button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
+<button class="dropdown-btn"
+onclick="toggleDropdown('hrMenu')">
+
 HR ▼
+
 </button>
 
-<div id="hrMenu" class="dropdown-content" style="display:block;">
+<div id="hrMenu"
+class="dropdown-content show">
 
 <a href="attendance.html">
+
 Attendance
+
 </a>
 
 <a href="leave.html">
+
 Leave Request
+
 </a>
 
 <a href="leave-status.html">
+
 Leave Status
+
 </a>
 
-<a href="salary.html" class="menu-btn active">
+<a href="salary.html"
+class="active">
+
 Salary
+
 </a>
 
 </div>
 
-<button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
+<button class="dropdown-btn"
+onclick="toggleDropdown('siteMenu')">
+
 Site Operations ▼
+
 </button>
 
-<div id="siteMenu" class="dropdown-content">
+<div id="siteMenu"
+class="dropdown-content">
 
 <a href="vehicle-site-keys.html">
+
 Vehicle / Site Keys
+
 </a>
 
 <a href="daily-task.html">
+
 Daily Tasks
+
+</a>
+
+<a href="my-tasks.html">
+
+My Tasks
+
 </a>
 
 </div>
 
-<button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
+<button class="dropdown-btn"
+onclick="toggleDropdown('inventoryMenu')">
+
 Inventory ▼
+
 </button>
 
-<div id="inventoryMenu" class="dropdown-content">
+<div id="inventoryMenu"
+class="dropdown-content">
 
 <a href="inventory.html">
+
 Inventory
+
+</a>
+
+<a href="material-request.html">
+
+Material Request
+
 </a>
 
 </div>
 
-<a href="company-hub.html" class="menu-btn">
+<a href="company-hub.html"
+class="menu-btn">
+
 Company Hub
+
 </a>
 
-<a href="index.html" class="logout-btn">
+<a href="index.html"
+class="logout-btn">
+
 Logout
+
 </a>
 
 </div>
@@ -545,56 +804,752 @@ Final Salary :
 ₹ <span id="finalSalary">0</span>
 </h3>
 
-<button class="downloadBtn">
+<button class="downloadBtn"
+onclick="downloadPDF()">
+
 Download Salary Slip
+
 </button>
 
 </div>
 
 </div>
 
+<!-- MOBILE BOTTOM NAV -->
+
+<div class="mobileBottomNav">
+
+<a href="dashboard.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/home.png">
+
+</div>
+
+<p>Home</p>
+
+</a>
+
+<a href="employee-movement.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/movement.png">
+
+</div>
+
+<p>In-Out</p>
+
+</a>
+
+<a href="my-tasks.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/tasks.png">
+
+</div>
+
+<p>My Tasks</p>
+
+</a>
+
+<a href="vehicle-site-keys.html"
+class="bottomNavItem active">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/keys.png">
+
+</div>
+
+<p>Keys</p>
+
+</a>
+
+</div>
+
 <script>
 
-/* MOBILE SIDEBAR */
+/* ======================================
+SIDEBAR
+====================================== */
 
 function openSidebar(){
 
-document.querySelector(".sidebar")
-.classList.add("show");
+const sidebar =
+document.getElementById("sidebar");
 
-document.getElementById("overlay")
-.classList.add("show");
+sidebar.classList.toggle("show");
 
-}
-
-function closeSidebar(){
-
-document.querySelector(".sidebar")
-.classList.remove("show");
-
-document.getElementById("overlay")
-.classList.remove("show");
+document.body.classList.toggle("sidebar-open");
 
 }
 
-/* DROPDOWN */
+/* ======================================
+DROPDOWN
+====================================== */
 
 function toggleDropdown(id){
 
-const menu =
-document.getElementById(id);
+document
+.getElementById(id)
+.classList.toggle("show");
 
-if(menu.style.display === "block"){
+}
 
-menu.style.display = "none";
+/* ======================================
+EMPLOYEE
+====================================== */
+
+const employee =
+JSON.parse(
+localStorage.getItem("employee")
+);
+
+if(!employee){
+
+window.location.href =
+"index.html";
+
+}
+
+/* ======================================
+MONTH
+====================================== */
+
+let year = 2026;
+let month = 4;
+
+/* ======================================
+LOAD SALARY
+====================================== */
+
+async function loadSalary(){
+
+const months = [
+
+"January","February","March",
+"April","May","June",
+"July","August","September",
+"October","November","December"
+
+];
+
+try{
+
+const attendanceURL =
+
+`https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/${months[month]}_${year}`;
+
+const salaryURL =
+
+`https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Salary_Sheet`;
+
+const attendanceRes =
+await fetch(attendanceURL);
+
+const attendanceData =
+await attendanceRes.json();
+
+const salaryRes =
+await fetch(salaryURL);
+
+const salaryData =
+await salaryRes.json();
+
+const employeeEmail =
+(employee.email || "")
+.trim()
+.toLowerCase();
+
+const empAttendance =
+
+attendanceData.find(row =>
+
+(row.Email || "")
+.trim()
+.toLowerCase() === employeeEmail
+
+);
+
+const empSalary =
+
+salaryData.find(row =>
+
+(row.Email || "")
+.trim()
+.toLowerCase() === employeeEmail
+
+);
+
+if(!empSalary){
+
+alert("Salary data not found");
+return;
+
+}
+
+const monthlySalary =
+
+Number(
+empSalary["Gross Salary(CTC)"] ||
+empSalary["Salary"] ||
+25000
+);
+
+const totalDays =
+
+new Date(
+year,
+month + 1,
+0
+).getDate();
+
+const perDaySalary =
+monthlySalary / totalDays;
+
+let paidDays = 0;
+let absentDays = 0;
+
+if(empAttendance){
+
+for(let i=1; i<=totalDays; i++){
+
+let key =
+`${months[month]} ${i}`;
+
+let status =
+(empAttendance[key] || "")
+.trim();
+
+if(
+status === "P" ||
+status === "WO" ||
+status === "H"
+){
+paidDays += 1;
+}
+
+if(status === "P-1/2"){
+paidDays += 0.5;
+}
+
+if(status === "A"){
+absentDays += 1;
+}
+
+}
 
 }else{
 
-menu.style.display = "block";
+paidDays = totalDays;
+
+}
+
+const finalSalary =
+
+Math.round(
+perDaySalary * paidDays
+);
+
+document.getElementById(
+"employeeName"
+).innerHTML =
+
+empSalary.Name ||
+employee.name ||
+"Employee";
+
+document.getElementById(
+"salaryMonth"
+).innerHTML =
+
+`${months[month]} ${year}`;
+
+document.getElementById(
+"monthlySalary"
+).innerHTML =
+
+monthlySalary;
+
+document.getElementById(
+"paidDays"
+).innerHTML =
+
+paidDays;
+
+document.getElementById(
+"absentDays"
+).innerHTML =
+
+absentDays;
+
+document.getElementById(
+"finalSalary"
+).innerHTML =
+
+finalSalary;
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Salary loading error");
 
 }
 
 }
+
+/* ======================================
+MONTH CHANGE
+====================================== */
+
+function changeMonth(dir){
+
+month += dir;
+
+if(month > 11){
+
+month = 0;
+year++;
+
+}
+
+if(month < 0){
+
+month = 11;
+year--;
+
+}
+
+loadSalary();
+
+}
+
+/* ======================================
+DOWNLOAD PDF
+====================================== */
+
+function downloadPDF(){
+
+const { jsPDF } = window.jspdf;
+
+const doc =
+new jsPDF("p","mm","a4");
+
+/* DATA */
+
+const employeeName =
+document.getElementById("employeeName").innerText;
+
+const monthName =
+document.getElementById("salaryMonth").innerText;
+
+const monthlySalary =
+Number(document.getElementById("monthlySalary").innerText);
+
+const paidDays =
+document.getElementById("paidDays").innerText;
+
+const absentDays =
+document.getElementById("absentDays").innerText;
+
+const finalSalary =
+Number(document.getElementById("finalSalary").innerText);
+
+/* EMPLOYEE */
+
+const designation =
+employee.designation || "Employee";
+
+const joiningDate =
+employee.joiningDate || "25-08-2025";
+
+const panNumber =
+employee.pan || "ABCDE1234F";
+
+const uanNumber =
+employee.uan || "100000000000";
+
+const pfNumber =
+employee.pf || "SHOWYPF001";
+
+const empCode =
+employee.employeeCode || "SHW3987";
+
+const location =
+employee.location ||
+"Crossgate, House of Hiranandani, Bengaluru";
+
+/* ======================================
+AUTO SALARY CALCULATION
+ACCORDING TO PRESENT DAYS
+====================================== */
+
+const totalMonthDays = 31;
+
+/* PER DAY */
+
+const perDaySalary =
+monthlySalary / totalMonthDays;
+
+/* GROSS EARNED */
+
+const earnedSalary =
+Math.round(
+perDaySalary * Number(paidDays)
+);
+
+/* BREAKUP BASED ON EARNED SALARY */
+
+const basicSalary =
+Math.round(earnedSalary * 0.60);
+
+const hra =
+Math.round(earnedSalary * 0.20);
+
+const conveyance =
+Math.round(earnedSalary * 0.10);
+
+const medical =
+Math.round(earnedSalary * 0.05);
+
+const otherAllowance =
+
+earnedSalary -
+(
+basicSalary +
+hra +
+conveyance +
+medical
+);
+
+/* ======================================
+DEDUCTIONS
+====================================== */
+
+const employeePF =
+Math.round(basicSalary * 0.12);
+
+const employerPF =
+Math.round(basicSalary * 0.12);
+
+const professionalTax =
+paidDays > 0 ? 200 : 0;
+
+const totalDeduction =
+employeePF + professionalTax;
+
+/* FINAL IN HAND */
+
+const netSalary =
+earnedSalary - totalDeduction;
+
+/* OUTER */
+
+doc.rect(8,8,194,281);
+
+/* HEADER */
+
+doc.setFillColor(245,160,0);
+
+doc.rect(8,8,194,24,"F");
+
+/* LOGO */
+
+doc.addImage(
+"assets/logo 2.png",
+"PNG",
+118,
+10,
+18,
+18
+);
+
+/* COMPANY */
+
+doc.setFont("helvetica","bold");
+
+doc.setFontSize(18);
+
+doc.text("Showy",140,16);
+
+doc.setFontSize(11);
+
+doc.text(
+"Dream Home Solutions",
+140,
+23
+);
+
+doc.setFontSize(8);
+
+doc.text(
+"“Delightfully Different”",
+142,
+28
+);
+
+/* ADDRESS */
+
+doc.setFontSize(7);
+
+doc.text(
+"Shop No-1, Cross Gate, House of",
+15,
+16
+);
+
+doc.text(
+"Hiranandani, Devanahalli, Bengaluru",
+15,
+21
+);
+
+doc.text(
+"562110",
+34,
+26
+);
+
+/* TITLE */
+
+doc.setFontSize(11);
+
+doc.rect(28,42,145,10);
+
+doc.text(
+`PAYSLIP FOR THE MONTH ${monthName.toUpperCase()}`,
+65,
+48
+);
+
+/* DETAILS */
+
+doc.rect(28,52,145,38);
+
+doc.line(115,52,115,90);
+
+doc.line(28,60,173,60);
+doc.line(28,68,173,68);
+doc.line(28,76,173,76);
+doc.line(28,84,173,84);
+
+doc.setFontSize(7);
+
+doc.setFont("helvetica","normal");
+
+doc.text(
+`Employee Name : ${employeeName}`,
+30,
+57
+);
+
+doc.text(
+`Date of Joining : ${joiningDate}`,
+30,
+65
+);
+
+doc.text(
+`Designation : ${designation}`,
+30,
+73
+);
+
+doc.text(
+`Location : ${location}`,
+30,
+81
+);
+
+doc.text(
+`PAN No : ${panNumber}`,
+30,
+89
+);
+
+doc.text(
+`EMP NO : ${empCode}`,
+118,
+57
+);
+
+doc.text(
+`UAN NO : ${uanNumber}`,
+118,
+65
+);
+
+doc.text(
+`PF NO : ${pfNumber}`,
+118,
+73
+);
+
+doc.text(
+`Current Month Days : 31`,
+118,
+81
+);
+
+doc.text(
+`Current Paid Days : ${paidDays}`,
+118,
+89
+);
+
+/* TABLE */
+
+doc.rect(28,98,145,78);
+
+doc.line(86,98,86,176);
+doc.line(116,98,116,176);
+doc.line(146,98,146,176);
+
+doc.line(28,106,173,106);
+
+doc.setFont("helvetica","bold");
+
+doc.text("EARNINGS",50,103);
+
+doc.text("AMOUNT",92,103);
+
+doc.text("DEDUCTIONS",120,103);
+
+doc.text("TOTAL",152,103);
+
+let y = 114;
+
+doc.setFont("helvetica","normal");
+
+doc.text("Basic Salary",30,y);
+doc.text(String(basicSalary),95,y);
+doc.text("Employee PF",118,y);
+doc.text(String(employeePF),152,y);
+
+y += 8;
+
+doc.text("House Rent Allowance",30,y);
+doc.text(String(hra),95,y);
+doc.text("Employer PF",118,y);
+doc.text(String(employerPF),152,y);
+
+y += 8;
+
+doc.text("Conveyance Allowance",30,y);
+doc.text(String(conveyance),95,y);
+doc.text("Professional Tax",118,y);
+doc.text(String(professionalTax),152,y);
+
+y += 8;
+
+doc.text("Medical Allowance",30,y);
+doc.text(String(medical),95,y);
+
+y += 8;
+
+doc.text("Other Allowance",30,y);
+doc.text(String(otherAllowance),95,y);
+
+y += 12;
+
+doc.line(28,y-4,173,y-4);
+
+doc.setFont("helvetica","bold");
+
+doc.text("TOTAL EARNINGS",30,y);
+doc.text(String(earnedSalary),95,y);
+
+doc.text("TOTAL DEDUCTION",118,y);
+doc.text(String(totalDeduction),152,y);
+
+y += 14;
+
+doc.setFontSize(14);
+
+/* NET SALARY */
+
+y += 14;
+
+doc.setFontSize(14);
+
+doc.setFont(
+"helvetica",
+"bold"
+);
+
+doc.text(
+`NET SALARY : ₹ ${netSalary}`,
+78,
+y
+);
+
+/* SEAL */
+
+doc.addImage(
+"assets/Showy seal.png",
+"PNG",
+35,
+205,
+28,
+28
+);
+
+/* SIGNATURE */
+
+doc.addImage(
+"assets/Hr signature.png",
+"PNG",
+128,
+214,
+25,
+12
+);
+
+doc.setFontSize(8);
+
+doc.text(
+"Authorized Signatory",
+124,
+232
+);
+
+doc.text(
+"Showy Dream Home Solutions",
+114,
+237
+);
+
+/* FOOTER */
+
+doc.setFontSize(6);
+
+doc.text(
+"This is a system generated salary slip.",
+90,
+265
+);
+
+/* SAVE */
+
+doc.save(
+`${employeeName}_${monthName}.pdf`
+);
+
+}
+
+/* ======================================
+START
+====================================== */
+
+loadSalary();
 
 </script>
 

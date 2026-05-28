@@ -4,43 +4,62 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Leave Status</title>
 
-<link rel="icon" href="assets/logo.png">
+<link rel="icon"
+href="assets/logo.png">
 
 <style>
+
+/* =========================================
+RESET
+========================================= */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:Arial,sans-serif;
 }
 
 body{
 background:#041638;
+overflow-x:hidden;
 color:white;
-display:flex;
 }
 
-/* SIDEBAR */
+/* =========================================
+MOBILE HEADER
+========================================= */
+
+.mobileTop{
+display:none;
+}
+
+/* =========================================
+SIDEBAR
+========================================= */
 
 .sidebar{
 position:fixed;
+left:0;
+top:0;
 width:250px;
 height:100vh;
 background:#071b46;
-padding:25px 18px;
+padding:20px;
 overflow-y:auto;
-left:0;
-top:0;
+z-index:2000;
+transition:0.3s;
 }
 
 .logo{
 text-align:center;
-margin-bottom:35px;
+margin-bottom:30px;
 }
 
 .logo img{
@@ -49,66 +68,71 @@ width:90px;
 
 .logo h2{
 margin-top:10px;
-font-size:30px;
+font-size:34px;
 color:white;
 }
 
-.menu{
-margin-top:20px;
-}
+/* =========================================
+MENU
+========================================= */
 
-/* MENU BUTTON */
+.menu-btn,
+.dropdown-btn{
 
-.menu-btn{
 display:block;
 width:100%;
-padding:15px;
+
+padding:16px;
 margin-bottom:12px;
-border-radius:12px;
-background:#0f2c6b;
+
+border:none;
+border-radius:16px;
+
+background:#12307a;
 color:white;
+
 text-decoration:none;
+
 font-size:16px;
 font-weight:bold;
-transition:0.3s;
-text-align:left;
-border:none;
+
 cursor:pointer;
+
+transition:0.3s;
+
+text-align:left;
+
 }
 
-.menu-btn:hover{
+.menu-btn:hover,
+.dropdown-btn:hover{
+
 background:#f5a000;
-transform:translateX(3px);
-}
+color:black;
 
-/* ACTIVE */
+}
 
 .active{
 background:#f5a000 !important;
 color:black !important;
 }
 
-/* DROPDOWN */
+/* =========================================
+DROPDOWN FIXED
+========================================= */
 
 .dropdown-btn{
-display:block;
-width:100%;
-padding:15px;
-margin-bottom:12px;
-border-radius:12px;
-background:#17357a;
 color:#ffb400;
-font-size:16px;
-font-weight:bold;
-border:none;
-cursor:pointer;
-text-align:left;
 }
 
 .dropdown-content{
+
 display:none;
-padding-left:10px;
+
+padding-left:8px;
+
 margin-bottom:10px;
+
 }
 
 .dropdown-content.show{
@@ -116,126 +140,392 @@ display:block;
 }
 
 .dropdown-content a{
+
 display:block;
-padding:14px;
+
+width:100%;
+
+padding:15px;
+
 margin-bottom:10px;
-border-radius:12px;
-background:#0f2c6b;
-color:white;
-text-decoration:none;
+
+border-radius:14px;
+
+background:#12307a !important;
+
+color:white !important;
+
+text-decoration:none !important;
+
+font-size:15px;
+
 font-weight:bold;
+
 transition:0.3s;
+
+}
+
+.dropdown-content a:visited{
+color:white !important;
 }
 
 .dropdown-content a:hover{
-background:#f5a000;
-color:black;
+
+background:#f5a000 !important;
+
+color:black !important;
+
+transform:translateX(3px);
+
 }
 
-/* LOGOUT */
+.dropdown-content a.active{
+
+background:#f5a000 !important;
+
+color:black !important;
+
+}
+
+/* =========================================
+LOGOUT
+========================================= */
 
 .logout-btn{
+
 display:block;
 width:100%;
-padding:15px;
-margin-top:25px;
-border-radius:12px;
+
+padding:16px;
+
+margin-top:20px;
+
+border-radius:16px;
+
 background:red;
 color:white;
+
 text-decoration:none;
+
 font-size:16px;
 font-weight:bold;
+
 text-align:center;
+
 transition:0.3s;
+
 }
 
 .logout-btn:hover{
 background:#cc0000;
 }
 
-/* MAIN */
+/* =========================================
+MAIN
+========================================= */
 
 .main{
 margin-left:250px;
-padding:40px;
+padding:35px;
+}
+
+/* =========================================
+CARD
+========================================= */
+
+.card{
+
+background:white;
+color:black;
+
+padding:30px;
+
+border-radius:28px;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,0.18);
+
+overflow-x:auto;
+
+}
+
+/* =========================================
+TITLE
+========================================= */
+
+.card h1{
+
+font-size:42px;
+margin-bottom:25px;
+
+color:#071b46;
+
+}
+
+/* =========================================
+TABLE
+========================================= */
+
+.tableWrapper{
+overflow-x:auto;
+}
+
+table{
+
 width:100%;
+border-collapse:collapse;
+min-width:800px;
+
+}
+
+th{
+
+background:#071b46;
+color:white;
+
+padding:16px;
+
+text-align:left;
+
+font-size:15px;
+
+}
+
+td{
+
+padding:16px;
+border-bottom:1px solid #eee;
+
+font-size:15px;
+
+}
+
+tr:hover{
+background:#f8f8f8;
+}
+
+/* =========================================
+STATUS
+========================================= */
+
+.pending{
+color:#f59e0b;
+font-weight:bold;
+}
+
+.approved{
+color:#16a34a;
+font-weight:bold;
+}
+
+.rejected{
+color:#ef4444;
+font-weight:bold;
+}
+
+/* =========================================
+EMPTY
+========================================= */
+
+.emptyRow{
+text-align:center;
+font-weight:bold;
+padding:25px;
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media(max-width:768px){
+
+/* MOBILE HEADER */
+
+.mobileTop{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:15px 20px;
+
+background:#071b46;
+
+position:sticky;
+top:0;
+
+z-index:3000;
+
+}
+
+.mobileTop img{
+width:45px;
+height:auto;
+}
+
+.menuToggle{
+font-size:30px;
+cursor:pointer;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+left:-100%;
+width:280px;
+}
+
+.sidebar.show{
+left:0;
+}
+
+/* MAIN */
+
+.main{
+margin-left:0;
+padding:15px;
+padding-bottom:95px;
 }
 
 /* CARD */
 
 .card{
-background:white;
-color:black;
-padding:30px;
-border-radius:20px;
-overflow-x:auto;
-}
-
-.card h1{
-margin-bottom:25px;
-font-size:40px;
-}
-
-/* TABLE */
-
-table{
-width:100%;
-border-collapse:collapse;
-min-width:700px;
-}
-
-th{
-background:#f5a000;
-color:black;
-padding:15px;
-text-align:left;
-font-size:16px;
-}
-
-td{
-padding:15px;
-border-bottom:1px solid #ddd;
-font-size:15px;
-}
-
-/* STATUS */
-
-.pending{
-color:orange;
-font-weight:bold;
-}
-
-.approved{
-color:green;
-font-weight:bold;
-}
-
-.rejected{
-color:red;
-font-weight:bold;
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-body{
-display:block;
-}
-
-.sidebar{
-position:relative;
-width:100%;
-height:auto;
-}
-
-.main{
-margin-left:0;
 padding:20px;
+border-radius:24px;
 }
 
 .card h1{
-font-size:28px;
+font-size:30px;
+}
+
+/* =========================================
+PREMIUM MOBILE NAV
+========================================= */
+
+.mobileBottomNav{
+
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+position:fixed;
+bottom:12px;
+left:12px;
+right:12px;
+
+height:58px;
+
+background:rgba(7,27,70,0.88);
+
+backdrop-filter:blur(18px);
+
+border-radius:24px;
+
+border:1px solid rgba(255,255,255,0.06);
+
+box-shadow:
+0 8px 25px rgba(0,0,0,0.25);
+
+z-index:5000;
+
+padding:6px;
+
+}
+
+/* ITEM */
+
+.bottomNavItem{
+
+flex:1;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+gap:4px;
+
+background:transparent;
+
+transition:0.3s ease;
+
+}
+
+/* ICON */
+
+.bottomIcon{
+
+width:38px;
+height:38px;
+
+border-radius:14px;
+
+background:#12307a;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+transition:all 0.3s ease;
+
+}
+
+/* IMAGE */
+
+.bottomIcon img{
+
+width:45px;
+height:45px;
+
+object-fit:contain;
+
+}
+
+/* TEXT */
+
+.bottomNavItem p{
+
+font-size:9px;
+font-weight:600;
+
+color:white;
+
+margin-top:2px;
+
+}
+
+/* ACTIVE */
+
+.bottomNavItem.active .bottomIcon{
+
+background:#f5a000;
+
+width:34px;
+height:34px;
+
+border-radius:12px;
+
+box-shadow:
+0 4px 10px rgba(245,160,0,0.22);
+
+}
+
+.bottomNavItem.active{
+background:transparent !important;
+}
+
+}
+
+/* =========================================
+DESKTOP HIDE
+========================================= */
+
+@media(min-width:769px){
+
+.mobileBottomNav{
+display:none;
 }
 
 }
@@ -246,9 +536,25 @@ font-size:28px;
 
 <body>
 
+<!-- MOBILE HEADER -->
+
+<div class="mobileTop">
+
+<div class="menuToggle"
+onclick="openSidebar()">
+
+☰
+
+</div>
+
+<img src="assets/logo.png">
+
+</div>
+
 <!-- SIDEBAR -->
 
-<div class="sidebar">
+<div class="sidebar"
+id="sidebar">
 
 <div class="logo">
 
@@ -262,88 +568,144 @@ font-size:28px;
 
 <!-- DASHBOARD -->
 
-<a href="dashboard.html" class="menu-btn">
+<a href="dashboard.html"
+class="menu-btn">
+
 Dashboard
+
 </a>
 
-<a href="employee-movement.html" class="menu-btn">
+<!-- IN OUT -->
+
+<a href="employee-movement.html"
+class="menu-btn">
+
 In & Out
+
 </a>
 
 <!-- HR -->
 
-<button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
+<button class="dropdown-btn"
+onclick="toggleDropdown('hrMenu')">
+
 HR ▼
+
 </button>
 
-<div class="dropdown-content show" id="hrMenu">
+<div class="dropdown-content show"
+id="hrMenu">
 
 <a href="attendance.html">
+
 Attendance
+
 </a>
 
 <a href="leave.html">
+
 Leave Request
+
 </a>
 
-<a href="leave-status.html" class="active">
+<a href="leave-status.html"
+class="active">
+
 Leave Status
+
 </a>
 
 <a href="salary.html">
+
 Salary
+
 </a>
 
 </div>
 
-<!-- SITE OPERATIONS -->
+<!-- SITE -->
 
-<button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
+<button class="dropdown-btn"
+onclick="toggleDropdown('siteMenu')">
+
 Site Operations ▼
+
 </button>
 
-<div class="dropdown-content" id="siteMenu">
-
+<div class="dropdown-content"
+id="siteMenu">
 
 <a href="vehicle-site-keys.html">
+
 Vehicle / Site Keys
+
 </a>
 
 <a href="daily-task.html">
+
 Daily Tasks
+
 </a>
 
-<a href="material-request.html">
-Material Request
+<a href="my-tasks.html">
+
+My Tasks
+
 </a>
 
 </div>
 
 <!-- INVENTORY -->
 
-<button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
+<button class="dropdown-btn"
+onclick="toggleDropdown('inventoryMenu')">
+
 Inventory ▼
+
 </button>
 
-<div class="dropdown-content" id="inventoryMenu">
+<div class="dropdown-content"
+id="inventoryMenu">
 
 <a href="inventory.html">
+
 Inventory
+
 </a>
 
+<a href="material-request.html">
+
+Material Request
+
+</a>
 
 </div>
 
+<!-- ANNOUNCEMENTS -->
+
+<a href="employee-announcements.html"
+class="menu-btn">
+
+Announcements
+
+</a>
+
 <!-- COMPANY -->
 
-<a href="company-hub.html" class="menu-btn">
+<a href="company-hub.html"
+class="menu-btn">
+
 Company Hub
+
 </a>
 
 <!-- LOGOUT -->
 
-<a href="index.html" class="logout-btn">
+<a href="index.html"
+class="logout-btn">
+
 Logout
+
 </a>
 
 </div>
@@ -360,31 +722,23 @@ Logout
 My Leave Requests
 </h1>
 
+<div class="tableWrapper">
+
 <table>
 
 <thead>
 
 <tr>
 
-<th>
-Leave Type
-</th>
+<th>Leave Type</th>
 
-<th>
-From
-</th>
+<th>From</th>
 
-<th>
-To
-</th>
+<th>To</th>
 
-<th>
-Reason
-</th>
+<th>Reason</th>
 
-<th>
-Status
-</th>
+<th>Status</th>
 
 </tr>
 
@@ -400,9 +754,91 @@ Status
 
 </div>
 
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+
+<div class="mobileBottomNav">
+
+<!-- HOME -->
+
+<a href="dashboard.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/home.png">
+
+</div>
+
+<p>Home</p>
+
+</a>
+
+<!-- IN OUT -->
+
+<a href="employee-movement.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/movement.png">
+
+</div>
+
+<p>In-Out</p>
+
+</a>
+
+<!-- TASKS -->
+
+<a href="my-tasks.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/tasks.png">
+
+</div>
+
+<p>My Tasks</p>
+
+</a>
+
+<!-- KEYS -->
+
+<a href="vehicle-site-keys.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/keys.png">
+
+</div>
+
+<p>Keys</p>
+
+</a>
+
+</div>
+
 <script>
 
-/* DROPDOWN */
+/* ======================================
+SIDEBAR
+====================================== */
+
+function openSidebar(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("show");
+
+}
+
+/* ======================================
+DROPDOWN
+====================================== */
 
 function toggleDropdown(id){
 
@@ -412,10 +848,15 @@ document
 
 }
 
-/* EMPLOYEE */
+/* ======================================
+EMPLOYEE
+====================================== */
 
 const employee =
-JSON.parse(localStorage.getItem("employee"));
+
+JSON.parse(
+localStorage.getItem("employee")
+);
 
 if(!employee){
 
@@ -424,13 +865,16 @@ window.location.href =
 
 }
 
-/* LOAD LEAVES */
+/* ======================================
+LOAD LEAVES
+====================================== */
 
 async function loadLeaves(){
 
 try{
 
 const response =
+
 await fetch(
 "https://opensheet.elk.sh/1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU/Leave_Request"
 );
@@ -439,11 +883,14 @@ const data =
 await response.json();
 
 const table =
-document.getElementById("leaveTable");
+document.getElementById(
+"leaveTable"
+);
 
 table.innerHTML = "";
 
 const employeeLeaves =
+
 data.filter(
 row =>
 row.Name &&
@@ -454,11 +901,18 @@ row.Name.toLowerCase() ===
 if(employeeLeaves.length === 0){
 
 table.innerHTML = `
+
 <tr>
-<td colspan="5">
-No leave requests found
+
+<td colspan="5"
+class="emptyRow">
+
+No Leave Requests Found
+
 </td>
+
 </tr>
+
 `;
 
 return;
@@ -524,26 +978,17 @@ catch(error){
 
 console.log(error);
 
-alert("Error loading leave status");
+alert("Error Loading Leave Status");
 
 }
 
 }
 
-/* START */
+/* ======================================
+START
+====================================== */
 
 loadLeaves();
-
-/* LOGOUT */
-
-function logout(){
-
-localStorage.removeItem("employee");
-
-window.location.href =
-"index.html";
-
-}
 
 </script>
 

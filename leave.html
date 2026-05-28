@@ -4,43 +4,61 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Leave Request</title>
 
-<link rel="icon" href="assets/logo.png">
+<link rel="icon"
+href="assets/logo.png">
 
 <style>
+
+/* =========================================
+RESET
+========================================= */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:Arial,sans-serif;
 }
 
 body{
 background:#041638;
+overflow-x:hidden;
 color:white;
-display:flex;
 }
 
-/* SIDEBAR */
+/* =========================================
+MOBILE HEADER
+========================================= */
+
+.mobileTop{
+display:none;
+}
+
+/* =========================================
+SIDEBAR
+========================================= */
 
 .sidebar{
 position:fixed;
+left:0;
+top:0;
 width:250px;
 height:100vh;
 background:#071b46;
-padding:25px 18px;
+padding:20px;
 overflow-y:auto;
-left:0;
-top:0;
+z-index:2000;
+transition:0.3s;
 }
 
 .logo{
 text-align:center;
-margin-bottom:35px;
+margin-bottom:30px;
 }
 
 .logo img{
@@ -49,65 +67,66 @@ width:90px;
 
 .logo h2{
 margin-top:10px;
-font-size:30px;
+font-size:34px;
 color:white;
 }
 
-.menu{
-margin-top:20px;
-}
+/* =========================================
+MENU
+========================================= */
 
-/* MENU BUTTON */
+.menu-btn,
+.dropdown-btn{
 
-.menu-btn{
 display:block;
 width:100%;
-padding:15px;
+
+padding:16px;
 margin-bottom:12px;
-border-radius:12px;
-background:#0f2c6b;
+
+border:none;
+border-radius:16px;
+
+background:#12307a;
 color:white;
+
 text-decoration:none;
+
 font-size:16px;
 font-weight:bold;
-transition:0.3s;
-text-align:left;
-border:none;
+
 cursor:pointer;
+
+transition:0.3s;
+
+text-align:left;
+
 }
 
-.menu-btn:hover{
+.menu-btn:hover,
+.dropdown-btn:hover{
+
 background:#f5a000;
-transform:translateX(3px);
-}
+color:black;
 
-/* ACTIVE */
+}
 
 .active{
 background:#f5a000 !important;
 color:black !important;
 }
 
-/* DROPDOWN */
+/* =========================================
+DROPDOWN
+========================================= */
 
 .dropdown-btn{
-display:block;
-width:100%;
-padding:15px;
-margin-bottom:12px;
-border-radius:12px;
-background:#17357a;
 color:#ffb400;
-font-size:16px;
-font-weight:bold;
-border:none;
-cursor:pointer;
-text-align:left;
 }
 
 .dropdown-content{
 display:none;
-padding-left:10px;
+padding-left:8px;
 margin-bottom:10px;
 }
 
@@ -115,89 +134,184 @@ margin-bottom:10px;
 display:block;
 }
 
+/* FIXED DROPDOWN LINKS */
+
 .dropdown-content a{
+
 display:block;
-padding:14px;
+
+width:100%;
+
+padding:14px 16px;
+
 margin-bottom:10px;
-border-radius:12px;
-background:#0f2c6b;
-color:white;
-text-decoration:none;
+
+border-radius:14px;
+
+background:#12307a;
+
+color:white !important;
+
+text-decoration:none !important;
+
+font-size:15px;
+
 font-weight:bold;
+
 transition:0.3s;
+
 }
 
 .dropdown-content a:hover{
+
 background:#f5a000;
-color:black;
+
+color:black !important;
+
+transform:translateX(3px);
+
 }
 
-/* LOGOUT */
+.dropdown-content a.active{
+
+background:#f5a000 !important;
+
+color:black !important;
+
+}
+
+.dropdown-content a:visited{
+
+color:white !important;
+
+}
+
+/* =========================================
+LOGOUT
+========================================= */
 
 .logout-btn{
+
 display:block;
 width:100%;
-padding:15px;
-margin-top:25px;
-border-radius:12px;
+
+padding:16px;
+
+margin-top:20px;
+
+border-radius:16px;
+
 background:red;
 color:white;
+
 text-decoration:none;
+
 font-size:16px;
 font-weight:bold;
+
 text-align:center;
+
 transition:0.3s;
+
 }
 
 .logout-btn:hover{
 background:#cc0000;
 }
 
-/* MAIN */
+/* =========================================
+MAIN
+========================================= */
 
 .main{
 margin-left:250px;
-padding:40px;
-width:100%;
+padding:35px;
 }
 
-/* CARD */
+/* =========================================
+CARD
+========================================= */
 
 .card{
+
 background:white;
 color:black;
+
 padding:35px;
-border-radius:20px;
-max-width:700px;
+
+border-radius:28px;
+
+max-width:760px;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,0.18);
+
 }
+
+/* =========================================
+TITLE
+========================================= */
 
 .card h1{
-margin-bottom:25px;
-font-size:40px;
+
+font-size:42px;
+margin-bottom:28px;
+
+color:#071b46;
+
 }
 
-/* FORM */
+/* =========================================
+FORM
+========================================= */
 
 .inputBox{
-margin-bottom:20px;
+margin-bottom:22px;
 }
 
 .inputBox label{
+
 display:block;
-margin-bottom:8px;
+
+margin-bottom:10px;
+
 font-weight:bold;
+
 font-size:16px;
+
+color:#071b46;
+
 }
 
 .inputBox input,
 .inputBox select,
 .inputBox textarea{
+
 width:100%;
-padding:14px;
-border:1px solid #ccc;
-border-radius:10px;
+
+padding:16px;
+
+border:1px solid #ddd;
+
+border-radius:14px;
+
 font-size:15px;
+
 outline:none;
+
+transition:0.3s;
+
+}
+
+.inputBox input:focus,
+.inputBox select:focus,
+.inputBox textarea:focus{
+
+border-color:#f5a000;
+
+box-shadow:
+0 0 8px rgba(245,160,0,0.25);
+
 }
 
 textarea{
@@ -205,49 +319,232 @@ height:120px;
 resize:none;
 }
 
-/* SUBMIT BUTTON */
+/* =========================================
+BUTTON
+========================================= */
 
 .submitBtn{
+
 background:#f5a000;
 border:none;
-padding:15px 25px;
-font-size:16px;
+
+padding:16px;
+
+font-size:17px;
 font-weight:bold;
-border-radius:12px;
+
+border-radius:14px;
+
 cursor:pointer;
+
 transition:0.3s;
+
 width:100%;
+
 }
 
 .submitBtn:hover{
+
 opacity:0.9;
+
+transform:translateY(-2px);
+
 }
 
-/* MOBILE */
+/* =========================================
+MOBILE
+========================================= */
 
-@media(max-width:900px){
+@media(max-width:768px){
 
-body{
-display:block;
+/* MOBILE HEADER */
+
+.mobileTop{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:15px 20px;
+
+background:#071b46;
+
+position:sticky;
+top:0;
+
+z-index:3000;
+
 }
 
-.sidebar{
-position:relative;
-width:100%;
+.mobileTop img{
+width:45px;
 height:auto;
 }
 
+.menuToggle{
+font-size:30px;
+cursor:pointer;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+left:-100%;
+width:280px;
+}
+
+.sidebar.show{
+left:0;
+}
+
+/* MAIN */
+
 .main{
 margin-left:0;
-padding:20px;
+padding:15px;
+padding-bottom:95px;
 }
+
+/* CARD */
 
 .card{
 max-width:100%;
+padding:22px;
+border-radius:24px;
 }
 
 .card h1{
 font-size:30px;
+}
+
+/* =========================================
+PREMIUM MOBILE NAV
+========================================= */
+
+.mobileBottomNav{
+
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+position:fixed;
+bottom:12px;
+left:12px;
+right:12px;
+
+height:58px;
+
+background:rgba(7,27,70,0.88);
+
+backdrop-filter:blur(18px);
+
+border-radius:24px;
+
+border:1px solid rgba(255,255,255,0.06);
+
+box-shadow:
+0 8px 25px rgba(0,0,0,0.25);
+
+z-index:5000;
+
+padding:6px;
+
+}
+
+/* ITEM */
+
+.bottomNavItem{
+
+flex:1;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+text-decoration:none;
+
+gap:4px;
+
+background:transparent;
+
+transition:0.3s ease;
+
+}
+
+/* ICON */
+
+.bottomIcon{
+
+width:38px;
+height:38px;
+
+border-radius:14px;
+
+background:#12307a;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+transition:all 0.3s ease;
+
+}
+
+/* IMAGE */
+
+.bottomIcon img{
+
+width:45px;
+height:45px;
+
+object-fit:contain;
+
+}
+
+/* TEXT */
+
+.bottomNavItem p{
+
+font-size:9px;
+font-weight:600;
+
+color:white;
+
+margin-top:2px;
+
+}
+
+/* ACTIVE */
+
+.bottomNavItem.active .bottomIcon{
+
+background:#f5a000;
+
+width:34px;
+height:34px;
+
+border-radius:12px;
+
+box-shadow:
+0 4px 10px rgba(245,160,0,0.22);
+
+}
+
+.bottomNavItem.active{
+background:transparent !important;
+}
+
+}
+
+/* =========================================
+DESKTOP HIDE
+========================================= */
+
+@media(min-width:769px){
+
+.mobileBottomNav{
+display:none;
 }
 
 }
@@ -258,9 +555,25 @@ font-size:30px;
 
 <body>
 
+<!-- MOBILE HEADER -->
+
+<div class="mobileTop">
+
+<div class="menuToggle"
+onclick="openSidebar()">
+
+☰
+
+</div>
+
+<img src="assets/logo.png">
+
+</div>
+
 <!-- SIDEBAR -->
 
-<div class="sidebar">
+<div class="sidebar"
+id="sidebar">
 
 <div class="logo">
 
@@ -274,93 +587,150 @@ font-size:30px;
 
 <!-- DASHBOARD -->
 
-<a href="dashboard.html" class="menu-btn">
+<a href="dashboard.html"
+class="menu-btn">
+
 Dashboard
+
 </a>
 
-<a href="employee-movement.html" class="menu-btn">
+<!-- IN OUT -->
+
+<a href="employee-movement.html"
+class="menu-btn">
+
 In & Out
+
 </a>
 
-            
 <!-- HR -->
 
-<button class="dropdown-btn" onclick="toggleDropdown('hrMenu')">
+<button class="dropdown-btn"
+onclick="toggleDropdown('hrMenu')">
+
 HR ▼
+
 </button>
 
-<div class="dropdown-content show" id="hrMenu">
+<div class="dropdown-content show"
+id="hrMenu">
 
 <a href="attendance.html">
+
 Attendance
+
 </a>
 
-<a href="leave.html" class="active">
+<a href="leave.html"
+class="active">
+
 Leave Request
+
 </a>
 
 <a href="leave-status.html">
+
 Leave Status
+
 </a>
 
 <a href="salary.html">
+
 Salary
+
 </a>
 
 </div>
 
-<!-- SITE OPERATIONS -->
+<!-- SITE -->
 
-<button class="dropdown-btn" onclick="toggleDropdown('siteMenu')">
+<button class="dropdown-btn"
+onclick="toggleDropdown('siteMenu')">
+
 Site Operations ▼
+
 </button>
 
-<div class="dropdown-content" id="siteMenu">
+<div class="dropdown-content"
+id="siteMenu">
 
 <a href="employee-movement.html">
+
 Employee Movement
+
 </a>
 
 <a href="vehicle-site-keys.html">
+
 Vehicle / Site Keys
+
 </a>
 
 <a href="daily-task.html">
+
 Daily Tasks
+
 </a>
 
+<a href="my-tasks.html">
 
+My Tasks
+
+</a>
 
 </div>
 
 <!-- INVENTORY -->
 
-<button class="dropdown-btn" onclick="toggleDropdown('inventoryMenu')">
+<button class="dropdown-btn"
+onclick="toggleDropdown('inventoryMenu')">
+
 Inventory ▼
+
 </button>
 
-<div class="dropdown-content" id="inventoryMenu">
+<div class="dropdown-content"
+id="inventoryMenu">
 
 <a href="inventory.html">
+
 Inventory
+
 </a>
 
 <a href="material-request.html">
+
 Material Request
+
 </a>
 
 </div>
 
+<!-- ANNOUNCEMENTS -->
+
+<a href="employee-announcements.html"
+class="menu-btn">
+
+Announcements
+
+</a>
+
 <!-- COMPANY -->
 
-<a href="company-hub.html" class="menu-btn">
+<a href="company-hub.html"
+class="menu-btn">
+
 Company Hub
+
 </a>
 
 <!-- LOGOUT -->
 
-<a href="index.html" class="logout-btn">
+<a href="index.html"
+class="logout-btn">
+
 Logout
+
 </a>
 
 </div>
@@ -383,7 +753,9 @@ Leave Request Form
 Employee Name
 </label>
 
-<input type="text" id="name" readonly>
+<input type="text"
+id="name"
+readonly>
 
 </div>
 
@@ -425,7 +797,8 @@ Half Day Leave
 From Date
 </label>
 
-<input type="date" id="fromDate">
+<input type="date"
+id="fromDate">
 
 </div>
 
@@ -435,7 +808,8 @@ From Date
 To Date
 </label>
 
-<input type="date" id="toDate">
+<input type="date"
+id="toDate">
 
 </div>
 
@@ -449,17 +823,100 @@ Reason
 
 </div>
 
-<button class="submitBtn" onclick="submitLeave()">
+<button class="submitBtn"
+onclick="submitLeave()">
+
 Submit Leave Request
+
 </button>
 
 </div>
 
 </div>
 
+<!-- MOBILE BOTTOM NAV -->
+
+<div class="mobileBottomNav">
+
+<!-- HOME -->
+
+<a href="dashboard.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/home.png">
+
+</div>
+
+<p>Home</p>
+
+</a>
+
+<!-- IN OUT -->
+
+<a href="employee-movement.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/movement.png">
+
+</div>
+
+<p>In-Out</p>
+
+</a>
+
+<!-- TASKS -->
+
+<a href="my-tasks.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/tasks.png">
+
+</div>
+
+<p>My Tasks</p>
+
+</a>
+
+<!-- KEYS -->
+
+<a href="vehicle-site-keys.html"
+class="bottomNavItem">
+
+<div class="bottomIcon">
+
+<img src="assets/icons/keys.png">
+
+</div>
+
+<p>Keys</p>
+
+</a>
+
+</div>
+
 <script>
 
-/* DROPDOWN TOGGLE */
+/* ======================================
+SIDEBAR
+====================================== */
+
+function openSidebar(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("show");
+
+}
+
+/* ======================================
+DROPDOWN
+====================================== */
 
 function toggleDropdown(id){
 
@@ -469,7 +926,9 @@ document
 
 }
 
-/* EMPLOYEE */
+/* ======================================
+EMPLOYEE
+====================================== */
 
 const employee =
 JSON.parse(localStorage.getItem("employee"));
@@ -480,12 +939,16 @@ window.location.href = "index.html";
 
 }
 
-/* SET NAME */
+/* ======================================
+SET NAME
+====================================== */
 
 document.getElementById("name").value =
 employee.name || employee.Name || "";
 
-/* SUBMIT LEAVE */
+/* ======================================
+SUBMIT LEAVE
+====================================== */
 
 async function submitLeave(){
 
@@ -568,17 +1031,6 @@ console.log(error);
 alert("Error submitting leave request");
 
 }
-
-}
-
-/* LOGOUT */
-
-function logout(){
-
-localStorage.removeItem("employee");
-
-window.location.href =
-"index.html";
 
 }
 
