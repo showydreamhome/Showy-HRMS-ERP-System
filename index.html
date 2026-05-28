@@ -681,14 +681,24 @@ installBtn.addEventListener(
 "click",
 async ()=>{
 
+console.log("Install button clicked");
+
 if(!deferredPrompt){
+
+alert(
+"Install popup not available yet. Please refresh page once."
+);
+
 return;
+
 }
 
 deferredPrompt.prompt();
 
 const result =
 await deferredPrompt.userChoice;
+
+console.log(result);
 
 if(result.outcome === "accepted"){
 
