@@ -936,10 +936,10 @@ const SCRIPT_URL =
 EMPLOYEE
 ====================================== */
 
-const employee =
+const employeeData =
 JSON.parse(localStorage.getItem("employee"));
 
-if(!employee){
+if(!employeeData){
 
 window.location.href =
 "index.html";
@@ -947,7 +947,7 @@ window.location.href =
 }
 
 document.getElementById("employee").value =
-employee.name || employee.Name || "";
+employeeData.name || employeeData.Name || ""
 
 /* ======================================
 LOAD PROJECTS
@@ -1034,6 +1034,8 @@ document.body.appendChild(script);
 SEND MOVEMENT
 ====================================== */
 
+function sendMovement(status){
+
 if(!navigator.onLine){
 
 /* ======================================
@@ -1044,7 +1046,7 @@ const offlineData = {
 
 type:"employeeMovement",
 
-employee:employee,
+employee:employeeData.name || employeeData.Name,
 
 status:status,
 
@@ -1174,7 +1176,6 @@ alert("Enable GPS Location");
 
 );
 
-}
 
 /* ======================================
 INTERNET CHECK
@@ -1320,7 +1321,7 @@ alert(
 );
 
 }
-
+}
 }
 
 </script>
