@@ -17,6 +17,28 @@ SHOWY HRMS
 rel="icon"
 href="assets/logo.png">
 
+D BELOW IT:
+
+<link
+rel="manifest"
+href="manifest.json">
+
+<meta
+name="theme-color"
+content="#041638">
+
+<link
+rel="apple-touch-icon"
+href="assets/logo.png">
+
+<meta
+name="apple-mobile-web-app-capable"
+content="yes">
+
+<meta
+name="apple-mobile-web-app-status-bar-style"
+content="black-translucent">
+
 <style>
 
 *{
@@ -39,6 +61,33 @@ display:flex;
 justify-content:center;
 align-items:center;
 overflow:hidden;
+position:relative;
+}
+
+/* BACKGROUND GLOW */
+
+body::before{
+content:"";
+position:absolute;
+width:500px;
+height:500px;
+background:rgba(245,160,0,0.08);
+border-radius:50%;
+top:-150px;
+right:-150px;
+filter:blur(40px);
+}
+
+body::after{
+content:"";
+position:absolute;
+width:400px;
+height:400px;
+background:rgba(255,255,255,0.05);
+border-radius:50%;
+bottom:-120px;
+left:-120px;
+filter:blur(50px);
 }
 
 /* CONTAINER */
@@ -63,6 +112,8 @@ text-align:center;
 box-shadow:
 0 20px 60px rgba(0,0,0,0.35);
 animation:fadeIn 0.8s ease;
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
 }
 
 /* LOGO */
@@ -85,6 +136,34 @@ font-weight:800;
 font-size:16px;
 color:#666;
 margin-bottom:35px;
+}
+
+/* PASSWORD BOX */
+
+.passwordBox{
+position:relative;
+width:100%;
+margin-bottom:18px;
+}
+
+.passwordBox input{
+margin-bottom:0 !important;
+padding-right:55px;
+}
+
+.togglePassword{
+position:absolute;
+right:18px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+font-size:20px;
+user-select:none;
+color:#666;
+}
+
+.togglePassword:hover{
+color:#071b46;
 }
 
 /* INPUT */
@@ -205,10 +284,22 @@ type="email"
 id="email"
 placeholder="Enter Email">
 
+<div class="passwordBox">
+
 <input
 type="password"
 id="password"
 placeholder="Enter Password">
+
+<span
+class="togglePassword"
+onclick="togglePassword()">
+
+👁️
+
+</span>
+
+</div>
 
 <button onclick="loginUser()">
 Login
@@ -219,6 +310,23 @@ Login
 <div class="version">
 Version 2.0
 </div>
+
+<button
+id="installBtn"
+style="
+display:none;
+margin-top:18px;
+background:#071b46;
+color:white;
+border:none;
+padding:14px 20px;
+border-radius:14px;
+font-weight:bold;
+cursor:pointer;
+width:100%;
+">
+Install App
+</button>
 
 </div>
 
@@ -232,6 +340,28 @@ Version 2.0
 
 const SHEET_ID =
 "1WgtFzzQTJ4-lRyrS0SURRH8fmMGqjK7Yt2ACDYmn0ZU";
+
+/* =========================================
+   TOGGLE PASSWORD
+========================================= */
+
+function togglePassword(){
+
+const passwordInput =
+document.getElementById("password");
+
+if(passwordInput.type === "password"){
+
+passwordInput.type = "text";
+
+}else{
+
+passwordInput.type = "password";
+
+}
+
+}
+
 
 /* =========================================
    LOGIN FUNCTION
@@ -529,6 +659,79 @@ window.location.href =
 
 };
 
+/* =========================================
+   PWA INSTALL
+========================================= */
+
+let deferredPrompt;
+
+const installBtn =
+document.getElementById("installBtn");
+
+window.addEventListener(
+"beforeinstallprompt",
+(e)=>{
+
+e.preventDefault();
+
+deferredPrompt = e;
+
+installBtn.style.display =
+"block";
+
+});
+
+installBtn.addEventListener(
+"click",
+async ()=>{
+
+if(!deferredPrompt){
+return;
+}
+
+deferredPrompt.prompt();
+
+const result =
+await deferredPrompt.userChoice;
+
+if(result.outcome === "accepted"){
+
+console.log("App Installed");
+
+}
+
+deferredPrompt = null;
+
+installBtn.style.display =
+"none";
+
+});
+
+/* =========================================
+   SERVICE WORKER
+========================================= */
+
+if("serviceWorker" in navigator){
+
+window.addEventListener(
+"load",
+()=>{
+
+navigator
+.serviceWorker
+.register("service-worker.js")
+
+.then(()=>{
+
+console.log(
+"Service Worker Registered"
+);
+
+});
+
+});
+
+}
 </script>
 
 </body>

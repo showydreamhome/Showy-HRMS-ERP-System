@@ -166,6 +166,65 @@ font-size:18px;
 }
 
 /* =========================================
+OFFLINE POPUP
+========================================= */
+
+#offlinePopup{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,0.92);
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+z-index:99999;
+
+}
+
+.offlineBox{
+
+background:white;
+
+padding:35px;
+
+border-radius:25px;
+
+text-align:center;
+
+width:90%;
+max-width:350px;
+
+color:black;
+
+}
+
+.offlineBox h2{
+
+color:red;
+
+margin-bottom:15px;
+
+font-size:28px;
+
+}
+
+.offlineBox p{
+
+font-size:16px;
+color:#555;
+
+}
+
+/* =========================================
 MOBILE NAV
 ========================================= */
 
@@ -351,6 +410,24 @@ display:none;
 </head>
 
 <body>
+
+    <!-- OFFLINE POPUP -->
+
+<div id="offlinePopup">
+
+<div class="offlineBox">
+
+<h2>
+No Internet Connection
+</h2>
+
+<p>
+Please switch ON Mobile Data or WiFi
+</p>
+
+</div>
+
+</div>
 
 <!-- MOBILE HEADER -->
 
@@ -894,6 +971,46 @@ dropdown.style.display = "block";
 /* START */
 
 loadNotifications();
+
+/* ======================================
+   INTERNET CHECK
+====================================== */
+
+function checkInternet(){
+
+const popup =
+document.getElementById(
+"offlinePopup"
+);
+
+if(navigator.onLine){
+
+popup.style.display =
+"none";
+
+}else{
+
+popup.style.display =
+"flex";
+
+}
+
+}
+
+/* CHECK INTERNET */
+
+checkInternet();
+
+window.addEventListener(
+"online",
+checkInternet
+);
+
+window.addEventListener(
+"offline",
+checkInternet
+);
+
 
 </script>
 

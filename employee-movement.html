@@ -32,6 +32,68 @@ color:white;
 }
 
 /* =========================================
+INTERNET POPUP
+========================================= */
+
+#internetPopup{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,0.75);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+z-index:99999;
+
+}
+
+.internetBox{
+
+background:white;
+
+padding:35px 25px;
+
+border-radius:24px;
+
+width:90%;
+max-width:340px;
+
+text-align:center;
+
+color:black;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,0.3);
+
+}
+
+.internetBox h2{
+
+color:red;
+
+margin-bottom:15px;
+
+font-size:28px;
+
+}
+
+.internetBox p{
+
+font-size:16px;
+color:#555;
+
+}
+
+
+/* =========================================
 MOBILE HEADER
 ========================================= */
 
@@ -452,6 +514,24 @@ display:none;
 
 <body>
 
+    <!-- INTERNET CHECK POPUP -->
+
+<div id="internetPopup" style="display:none;">
+
+<div class="internetBox">
+
+<h2>
+No Internet Connection
+</h2>
+
+<p>
+Live tracking requires internet connection
+</p>
+
+</div>
+
+</div>
+
 <!-- MOBILE HEADER -->
 
 <div class="mobileTop">
@@ -847,6 +927,12 @@ loadProjects();
 
 function loadProjects(){
 
+if(!navigator.onLine){
+
+return;
+
+}
+
 const callbackName =
 "projectCallback_" + Date.now();
 
@@ -909,6 +995,16 @@ SEND MOVEMENT
 ====================================== */
 
 function sendMovement(status){
+
+if(!navigator.onLine){
+
+alert(
+"Please turn ON internet connection"
+);
+
+return;
+
+}
 
 const employee =
 document.getElementById("employee").value;
@@ -1000,6 +1096,46 @@ alert("Enable GPS Location");
 );
 
 }
+
+/* ======================================
+INTERNET CHECK
+====================================== */
+
+function checkInternet(){
+
+const popup =
+document.getElementById(
+"internetPopup"
+);
+
+if(navigator.onLine){
+
+popup.style.display = "none";
+
+}
+else{
+
+popup.style.display = "flex";
+
+}
+
+}
+
+/* CHECK CONTINUOUSLY */
+
+window.addEventListener(
+"online",
+checkInternet
+);
+
+window.addEventListener(
+"offline",
+checkInternet
+);
+
+/* START CHECK */
+
+checkInternet();
 
 </script>
 
