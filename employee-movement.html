@@ -184,6 +184,36 @@ padding-left:8px;
 margin-bottom:10px;
 }
 
+.dropdown-content a{
+
+display:block;
+
+padding:14px;
+
+margin-bottom:10px;
+
+border-radius:12px;
+
+background:#0f2c6b;
+
+color:white;
+
+text-decoration:none;
+
+font-weight:bold;
+
+transition:0.3s;
+
+}
+
+.dropdown-content a:hover{
+
+background:#f5a000;
+
+color:black;
+
+}
+
 .dropdown-content.show{
 display:block;
 }
@@ -929,6 +959,12 @@ function loadProjects(){
 
 if(!navigator.onLine){
 
+const dropdown =
+document.getElementById("project");
+
+dropdown.innerHTML =
+'<option>No Internet Connection</option>';
+
 return;
 
 }
@@ -960,9 +996,13 @@ response.projects.forEach(project => {
 const option =
 document.createElement("option");
 
-option.value = project;
+option.value =
+project.ProjectCode || "";
 
-option.textContent = project;
+option.textContent =
+(project.ProjectCode || "") +
+" - " +
+(project.ProjectName || "");
 
 dropdown.appendChild(option);
 
@@ -1068,6 +1108,8 @@ await response.json();
 if(result.success){
 
 alert(status + " Submitted Successfully");
+
+document.getElementById("purpose").value = "";
 
 }
 else{
