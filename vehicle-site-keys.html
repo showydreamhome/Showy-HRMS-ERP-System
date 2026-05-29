@@ -803,6 +803,19 @@ placeholder="Vehicle Start KM">
 <div class="inputBox">
 
 <label>
+Fuel Filled By
+</label>
+
+<input
+type="text"
+id="fuelFilledBy"
+readonly>
+
+</div>
+
+<div class="inputBox">
+
+<label>
 End KM
 </label>
 
@@ -978,6 +991,9 @@ window.location.href = "index.html";
 document.getElementById("employee").value =
 employee.name || "";
 
+document.getElementById("fuelFilledBy").value =
+employee.name || "";
+
 /* ======================================
    GLOBAL
 ====================================== */
@@ -1122,11 +1138,49 @@ v => v.Vehicle === key.Name
 
 if(vehicle){
 
-currentKM =
-`<br><small>KM : ${vehicle["Current KM"]}</small>`;
+const fuelDate =
+vehicle["Last Fuel Date"] || "-";
 
+const fuelAmount =
+vehicle["Fuel Amount"] || "-";
+
+const fuelStatus =
+vehicle["Fuel Status"] || "-";
+
+const fuelFilledBy =
+vehicle["Fuel Filled By"] || "-";
+
+let fuelColor = "green";
+
+if(fuelStatus === "Half"){
+fuelColor = "orange";
 }
 
+if(
+fuelStatus === "Low" ||
+fuelStatus === "Reserve"
+){
+fuelColor = "red";
+}
+
+currentKM = `
+
+<br><small>KM : ${vehicle["Current KM"]}</small>
+
+<br><small>Fuel Amount : ₹${fuelAmount}</small>
+
+<br><small>Last Filled : ${fuelDate}</small>
+
+<br><small>Filled By : ${fuelFilledBy}</small>
+
+<br>
+<small style="color:${fuelColor};font-weight:bold;">
+Fuel Status : ${fuelStatus}
+</small>
+
+`;
+
+}
 keyList.innerHTML += `
 
 <div class="keyItem">
@@ -1291,6 +1345,30 @@ selectedKey
 .replace("🟢 ","")
 .trim();
 
+const vehicle =
+vehicleMaster.find(
+v => v.Vehicle === cleanKey
+);
+
+if(vehicle){
+
+const currentKM =
+Number(vehicle["Current KM"] || 0);
+
+if(Number(startKM) < currentKM){
+
+alert(
+"Start KM cannot be less than Current KM (" +
+currentKM +
+")"
+);
+
+return;
+
+}
+
+}
+
 const data = {
 
 type:"takeKey",
@@ -1303,7 +1381,10 @@ key:cleanKey,
 
 purpose:purpose,
 
-startKM:startKM
+startKM:startKM,
+
+fuelFilledBy:
+document.getElementById("fuelFilledBy").value
 
 };
 
@@ -1359,7 +1440,6 @@ return;
 
 }
 
-
 const selectedKey =
 document.getElementById("selectedKey").value;
 
@@ -1379,6 +1459,30 @@ selectedKey
 .replace("🟢 ","")
 .replace("(Return)","")
 .trim();
+
+const vehicle =
+vehicleMaster.find(
+v => v.Vehicle === cleanKey
+);
+
+if(vehicle){
+
+const currentKM =
+Number(vehicle["Current KM"] || 0);
+
+if(Number(endKM) <= currentKM){
+
+alert(
+"End KM must be greater than Current KM (" +
+currentKM +
+")"
+);
+
+return;
+
+}
+
+}
 
 const data = {
 
