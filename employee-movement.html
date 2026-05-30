@@ -887,6 +887,35 @@ onclick="sendMovement('Returned Office')">
 
 </div>
 
+<div id="loadingPopup" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+z-index:999999;
+justify-content:center;
+align-items:center;
+">
+
+<div style="
+background:white;
+padding:25px 30px;
+border-radius:20px;
+font-size:18px;
+font-weight:bold;
+color:#071b46;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+">
+
+⏳ Submitting Movement...
+
+</div>
+
+</div>
+
 <!-- MOBILE BOTTOM NAV -->
 
 <div class="mobileBottomNav">
@@ -1116,6 +1145,10 @@ SEND MOVEMENT
 
 function sendMovement(status){
 
+document.getElementById(
+"loadingPopup"
+).style.display = "flex";
+
 if(!navigator.onLine){
 
 /* ======================================
@@ -1162,6 +1195,10 @@ localStorage.setItem(
 JSON.stringify(pendingData)
 );
 
+document.getElementById(
+"loadingPopup"
+).style.display = "none";
+
 alert(
 "No Internet.\nMovement saved offline.\nWill sync automatically."
 );
@@ -1184,6 +1221,10 @@ document.getElementById("movementType").value;
 
 if(movementType == ""){
 
+document.getElementById(
+"loadingPopup"
+).style.display = "none";
+
 alert("Select Movement Type");
 
 return;
@@ -1194,6 +1235,10 @@ if(
 movementType === "Site Visit" &&
 project == ""
 ){
+
+document.getElementById(
+"loadingPopup"
+).style.display = "none";
 
 alert("Select Project");
 
@@ -1247,12 +1292,23 @@ await response.json();
 
 if(result.success){
 
-alert(status + " Submitted Successfully");
+document.getElementById(
+"loadingPopup"
+).style.display = "none";
+
+alert(
+"✅ " + status +
+" Submitted Successfully"
+);
 
 document.getElementById("purpose").value = "";
 
 }
 else{
+
+document.getElementById(
+"loadingPopup"
+).style.display = "none";
 
 alert("Submission Failed");
 
@@ -1260,6 +1316,10 @@ alert("Submission Failed");
 
 }
 catch(error){
+
+document.getElementById(
+"loadingPopup"
+).style.display = "none";
 
 console.log(error);
 
@@ -1270,6 +1330,10 @@ alert("Error Sending Data");
 },
 
 function(){
+
+document.getElementById(
+"loadingPopup"
+).style.display = "none";
 
 alert("Enable GPS Location");
 

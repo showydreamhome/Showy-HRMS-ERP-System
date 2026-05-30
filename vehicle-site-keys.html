@@ -227,23 +227,48 @@ width:100%;
 
 .card{
 background:white;
-padding:35px;
-border-radius:25px;
-max-width:1300px;
+padding:20px;
+border-radius:20px;
+max-width:1400px;
 color:black;
 }
 
 .card h1{
-font-size:50px;
-margin-bottom:30px;
+font-size:34px;
+margin-bottom:20px;
 }
 
 /* GRID */
 
 .grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:30px;
+display:flex;
+gap:15px;
+align-items:flex-start;
+}
+
+.grid .box{
+flex:1;
+}
+
+@media(max-width:900px){
+
+.grid{
+display:block;
+}
+
+.grid .box{
+width:100%;
+margin-bottom:15px;
+}
+
+}
+
+.grid .box:first-child{
+flex:1.2;
+}
+
+.grid .box:last-child{
+flex:1;
 }
 
 /* BOX */
@@ -251,12 +276,12 @@ gap:30px;
 .box{
 border:1px solid #ddd;
 border-radius:20px;
-padding:25px;
+padding:18px;
 }
 
 .box h2{
-margin-bottom:20px;
-font-size:28px;
+margin-bottom:15px;
+font-size:20px;
 }
 
 /* KEY LIST */
@@ -282,24 +307,59 @@ font-weight:bold;
 /* INPUTS */
 
 .inputBox{
-margin-bottom:20px;
+margin-bottom:12px;
 }
 
 .inputBox label{
 display:block;
 margin-bottom:10px;
-font-size:17px;
+font-size:14px;
 font-weight:bold;
 }
 
 .inputBox select,
 .inputBox input{
 width:100%;
-padding:15px;
+padding:10px 12px;
 border:1px solid #ccc;
 border-radius:12px;
-font-size:16px;
+font-size:14px;
 outline:none;
+}
+
+.actionTabs{
+
+display:flex;
+gap:10px;
+margin-bottom:25px;
+
+}
+
+.tabBtn{
+
+flex:1;
+
+padding:10px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:14px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+background:#e5e5e5;
+
+}
+
+.activeTab{
+
+background:#071b46;
+color:white;
+
 }
 
 /* BUTTONS */
@@ -343,10 +403,13 @@ opacity:0.9;
 
 /* TABLE */
 
+.tableWrap{
+overflow-x:auto;
+margin-top:20px;
+}
+
 table{
-width:100%;
-border-collapse:collapse;
-margin-top:25px;
+min-width:700px;
 }
 
 table th{
@@ -444,13 +507,14 @@ padding-bottom:120px;
 /* GRID */
 
 .grid{
-grid-template-columns:1fr;
+display:block;
 }
 
 /* CARD */
 
 .card h1{
-font-size:35px;
+font-size:28px;
+line-height:1.2;
 }
 
 /* TABLE SCROLL */
@@ -732,6 +796,28 @@ Loading...
 Take / Return Key
 </h2>
 
+<div class="actionTabs">
+
+<button
+id="takeTab"
+class="tabBtn activeTab"
+onclick="showTake()">
+
+Take Key
+
+</button>
+
+<button
+id="returnTab"
+class="tabBtn"
+onclick="showReturn()">
+
+Return Key
+
+</button>
+
+</div>
+
 <div class="inputBox">
 
 <label>
@@ -742,7 +828,8 @@ Employee
 
 </div>
 
-<div class="inputBox">
+
+<div class="inputBox" id="projectBox">
 
 <label>
 Select Project
@@ -757,6 +844,7 @@ Select Project
 </select>
 
 </div>
+
 
 <div class="inputBox">
 
@@ -774,7 +862,10 @@ Select Key
 
 </div>
 
-<div class="inputBox">
+<div class="inputBox" id="purposeBox">
+
+</div>
+<div class="inputBox" id="purposeBox">
 
 <label>
 Purpose
@@ -787,7 +878,7 @@ placeholder="Site Visit / Material Delivery">
 
 </div>
 
-<div class="inputBox">
+<div class="inputBox" id="startKMBox">
 
 <label>
 Start KM
@@ -800,20 +891,7 @@ placeholder="Vehicle Start KM">
 
 </div>
 
-<div class="inputBox">
-
-<label>
-Fuel Filled By
-</label>
-
-<input
-type="text"
-id="fuelFilledBy"
-readonly>
-
-</div>
-
-<div class="inputBox">
+<div class="inputBox" id="endKMBox">
 
 <label>
 End KM
@@ -826,7 +904,12 @@ placeholder="Vehicle Return KM">
 
 </div>
 
+
+
+</div>
+
 <button
+id="takeBtn"
 class="btn takeBtn"
 onclick="takeKey()">
 
@@ -835,6 +918,7 @@ Take Key
 </button>
 
 <button
+id="returnBtn"
 class="btn returnBtn"
 onclick="returnKey()">
 
@@ -842,9 +926,11 @@ Return Key
 
 </button>
 
-</div>
+</div> <!-- RIGHT BOX -->
 
-</div>
+</div> <!-- GRID -->
+
+</div> <!-- CARD -->
 
 <!-- MOVEMENT -->
 
@@ -887,6 +973,11 @@ Loading...
 </table>
 
 </div>
+
+</div>
+
+
+
 
 </div>
 <!-- MOBILE BOTTOM NAV -->
@@ -989,9 +1080,6 @@ window.location.href = "index.html";
 }
 
 document.getElementById("employee").value =
-employee.name || "";
-
-document.getElementById("fuelFilledBy").value =
 employee.name || "";
 
 /* ======================================
@@ -1144,23 +1232,55 @@ vehicle["Last Fuel Date"] || "-";
 const fuelAmount =
 vehicle["Fuel Amount"] || "-";
 
-const fuelStatus =
-vehicle["Fuel Status"] || "-";
+const fuelBalance =
+Number(vehicle["Fuel Balance"] || 0);
+
+const tankCapacity =
+Number(vehicle["Tank Capacity"] || 1);
+
+const fuelPercent =
+(fuelBalance / tankCapacity) * 100;
 
 const fuelFilledBy =
 vehicle["Fuel Filled By"] || "-";
 
-let fuelColor = "green";
+let fuelDots = "";
 
-if(fuelStatus === "Half"){
-fuelColor = "orange";
+if(fuelPercent >= 80){
+
+fuelDots =
+"🟢🟢🟢🟢🟢🟢";
+
 }
+else if(fuelPercent >= 60){
 
-if(
-fuelStatus === "Low" ||
-fuelStatus === "Reserve"
-){
-fuelColor = "red";
+fuelDots =
+"🟢🟢🟢🟢🟢⚪";
+
+}
+else if(fuelPercent >= 40){
+
+fuelDots =
+"🟠🟠🟠🟠⚪⚪";
+
+}
+else if(fuelPercent >= 25){
+
+fuelDots =
+"🟠🟠🟠⚪⚪⚪";
+
+}
+else if(fuelPercent >= 10){
+
+fuelDots =
+"🔴🔴⚪⚪⚪⚪";
+
+}
+else{
+
+fuelDots =
+"🔴⚪⚪⚪⚪⚪";
+
 }
 
 currentKM = `
@@ -1173,10 +1293,20 @@ currentKM = `
 
 <br><small>Filled By : ${fuelFilledBy}</small>
 
-<br>
-<small style="color:${fuelColor};font-weight:bold;">
-Fuel Status : ${fuelStatus}
+<br><small>
+Fuel Left : ${fuelBalance.toFixed(1)} L
 </small>
+
+<br>
+
+<div style="
+font-size:22px;
+margin-top:5px;
+">
+
+${fuelDots}
+
+</div>
 
 `;
 
@@ -1187,7 +1317,9 @@ keyList.innerHTML += `
 
 <div>
 
-<b>${key.Name}</b><br>
+<div style="font-size:16px;font-weight:bold;">
+${key.Name}
+</div><br>
 
 ${key.Type}
 
@@ -1384,7 +1516,7 @@ purpose:purpose,
 startKM:startKM,
 
 fuelFilledBy:
-document.getElementById("fuelFilledBy").value
+employee.name
 
 };
 
@@ -1579,6 +1711,47 @@ checkInternet
 checkInternet();
 
 
+function showTake(){
+
+document.getElementById("projectBox").style.display = "block";
+
+document.getElementById("purposeBox").style.display = "block";
+
+document.getElementById("startKMBox").style.display = "block";
+
+document.getElementById("endKMBox").style.display = "none";
+
+document.getElementById("takeBtn").style.display = "block";
+
+document.getElementById("returnBtn").style.display = "none";
+
+document.getElementById("takeTab").classList.add("activeTab");
+
+document.getElementById("returnTab").classList.remove("activeTab");
+
+}
+
+function showReturn(){
+
+document.getElementById("projectBox").style.display = "none";
+
+document.getElementById("purposeBox").style.display = "none";
+
+document.getElementById("startKMBox").style.display = "none";
+
+document.getElementById("endKMBox").style.display = "block";
+
+document.getElementById("takeBtn").style.display = "none";
+
+document.getElementById("returnBtn").style.display = "block";
+
+document.getElementById("takeTab").classList.remove("activeTab");
+
+document.getElementById("returnTab").classList.add("activeTab");
+
+}
+
+showTake();
 </script>
 
 </body>
