@@ -762,9 +762,63 @@ readonly>
 
 </div>
 
-<!-- PROJECT -->
+<!-- MOVEMENT TYPE -->
 
 <div class="inputBox">
+
+<label>
+Movement Type
+</label>
+
+<select id="movementType">
+
+<option value="">
+Select Movement Type
+</option>
+
+<option value="Site Visit">
+Site Visit
+</option>
+
+<option value="Sales Visit">
+Sales Visit
+</option>
+
+<option value="Marketing Visit">
+Marketing Visit
+</option>
+
+<option value="Client Meeting">
+Client Meeting
+</option>
+
+<option value="Lunch Break">
+Lunch Break
+</option>
+
+<option value="Bank Work">
+Bank Work
+</option>
+
+<option value="Material Purchase">
+Material Purchase
+</option>
+
+<option value="Personal Work">
+Personal Work
+</option>
+
+<option value="Other">
+Other
+</option>
+
+</select>
+
+</div>
+
+<!-- PROJECT -->
+
+<div class="inputBox" id="projectBox">
 
 <label>
 Select Project
@@ -955,6 +1009,32 @@ LOAD PROJECTS
 
 loadProjects();
 
+document
+.getElementById("movementType")
+.addEventListener("change", function(){
+
+const movementType =
+this.value;
+
+const projectBox =
+document.getElementById("projectBox");
+
+if(movementType === "Site Visit"){
+
+projectBox.style.display = "block";
+
+}else{
+
+projectBox.style.display = "none";
+
+}
+
+});
+
+document
+.getElementById("projectBox")
+.style.display = "none";
+
 function loadProjects(){
 
 if(!navigator.onLine){
@@ -1048,11 +1128,16 @@ type:"employeeMovement",
 
 employee:employeeData.name || employeeData.Name,
 
+movementType:
+document.getElementById("movementType").value,
+
 status:status,
 
-project:project,
+project:
+document.getElementById("project").value,
 
-purpose:purpose,
+purpose:
+document.getElementById("purpose").value,
 
 time:new Date().toISOString()
 
@@ -1094,7 +1179,21 @@ document.getElementById("project").value;
 const purpose =
 document.getElementById("purpose").value;
 
-if(project == ""){
+const movementType =
+document.getElementById("movementType").value;
+
+if(movementType == ""){
+
+alert("Select Movement Type");
+
+return;
+
+}
+
+if(
+movementType === "Site Visit" &&
+project == ""
+){
 
 alert("Select Project");
 
@@ -1117,6 +1216,8 @@ const payload = {
 type:"employeeMovement",
 
 employee:employee,
+
+movementType:movementType,
 
 status:status,
 
@@ -1176,6 +1277,7 @@ alert("Enable GPS Location");
 
 );
 
+}
 
 /* ======================================
 INTERNET CHECK
